@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os.path
 from pathlib import Path
 
+from django.utils.translation import gettext_lazy as _
+
+from config import DATABASE_PASSWORD
 from config import EMAIL_HOST_PASSWORD
 from config import EMAIL_HOST_USER
 from config import SECRET_KEY
-from config import DATABASE_PASSWORD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -127,7 +129,7 @@ AUTH_USER_MODEL = "users.User"
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'uk'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'EET'
 
@@ -143,10 +145,11 @@ EXTRA_LANG_INFO = {
     },
 }
 
-gettext = lambda s: s
 LANGUAGES = (
-    ('uk', gettext('Ukraine')),
-    ('en', gettext('English'))
+    ('uk', _('Ukraine')),
+    ('en', _('English')),
+
+
 )
 
 # Static files (CSS, JavaScript, Images)

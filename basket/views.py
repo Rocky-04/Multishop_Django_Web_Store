@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
 
 from .models import ProductInBasket
@@ -27,8 +29,9 @@ class BasketAddView(BasketMixin, View):
                 new_product.save(force_update=True)
 
         except ValueError as err:
-            return JsonResponse({'success': False, 'error': str(err)},
-                                status=400)
+            print(err)
+            messages.error(request, _(
+                'An error occurred during the execution of the action. Try again later'))
         return HttpResponseRedirect(self.current)
 
 
@@ -46,8 +49,9 @@ class BasketRemoveView(BasketMixin, View):
                                            size_id=self.size,
                                            color_id=self.color).delete()
         except ValueError as err:
-            return JsonResponse({'success': False, 'error': str(err)},
-                                status=400)
+            print(err)
+            messages.error(request, _(
+                'An error occurred during the execution of the action. Try again later'))
         return HttpResponseRedirect(self.current)
 
 
@@ -91,7 +95,8 @@ class EditCartView(BasketMixin, View):
             new_product.nmb = self.nmb
             new_product.save(force_update=True)
         except ValueError as err:
-            return JsonResponse({'success': False, 'error': str(err)},
-                                status=400)
+            print(err)
+            messages.error(request, _(
+                'An error occurred during the execution of the action. Try again later'))
 
         return HttpResponseRedirect(self.current)

@@ -18,8 +18,7 @@ class NewsAdminForm(forms.ModelForm):
 @admin.register(News)
 class NewsAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('title',)}
-    list_display = (
-    'id', 'title', 'created_at', 'updated_at', 'is_published', 'category')
+    list_display = ('id', 'title', 'created_at', 'updated_at', 'is_published', 'category')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'id')
     list_filter = ('is_published', 'category')

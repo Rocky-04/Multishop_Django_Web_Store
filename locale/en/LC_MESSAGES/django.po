@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-27 11:20+0300\n"
+"POT-Creation-Date: 2022-11-10 21:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,52 +17,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\news\models.py:22 .\news\models.py:23 .\news\views.py:17
-#: .\templates\inc\_footer.html:21 .\templates\inc\_header.html:171
+#: .\basket\views.py:34 .\basket\views.py:54 .\basket\views.py:100
+msgid "An error occurred during the execution of the action. Try again later"
+msgstr ""
+
+#: .\news\models.py:25 .\news\models.py:26 .\news\views.py:18
+#: .\templates\inc\_footer.html:31 .\templates\inc\_header.html:202
 msgid "Новини"
 msgstr "News"
 
-#: .\online_store\settings.py:141
+#: .\online_store\settings.py:149
 msgid "Ukraine"
-msgstr ""
+msgstr "Українська"
 
-#: .\online_store\settings.py:142
+#: .\online_store\settings.py:150
 msgid "English"
-msgstr ""
+msgstr "Англійська"
 
-#: .\orders\forms.py:17 .\users\forms.py:46
+#: .\orders\forms.py:18 .\users\forms.py:75
 msgid "Ім'я"
 msgstr "First name"
 
-#: .\orders\forms.py:21 .\users\forms.py:50
+#: .\orders\forms.py:23 .\users\forms.py:80
 msgid "Прізвище"
 msgstr "Last name"
 
-#: .\orders\forms.py:25 .\users\forms.py:54
+#: .\orders\forms.py:28 .\users\forms.py:85
 msgid "Місто"
 msgstr "City"
 
-#: .\orders\forms.py:29 .\users\forms.py:58
+#: .\orders\forms.py:33 .\users\forms.py:90
 msgid "Телефон"
 msgstr "Phone"
 
-#: .\orders\forms.py:33 .\users\forms.py:61
+#: .\orders\forms.py:38 .\users\forms.py:94
 msgid "Адреса"
 msgstr "Address"
 
-#: .\orders\forms.py:37 .\users\forms.py:65
+#: .\orders\forms.py:43 .\users\forms.py:99
 msgid "Індекс"
 msgstr "Postcode"
 
-#: .\orders\forms.py:41 .\users\forms.py:69
+#: .\orders\forms.py:48 .\users\forms.py:104
 msgid "Додаткова інформація"
 msgstr "Add more to cart"
 
-#: .\orders\forms.py:48 .\templates\users\orders.html:79
+#: .\orders\forms.py:57 .\templates\users\orders.html:101
 msgid "Промо код"
 msgstr "Promo code"
 
-#: .\orders\forms.py:66 .\orders\forms.py:69
+#: .\orders\forms.py:77 .\orders\forms.py:80
 msgid "Промокод не активний"
 msgstr "Promo code is not active"
 
@@ -70,31 +74,31 @@ msgstr "Promo code is not active"
 msgid "First name"
 msgstr "Ім'я"
 
-#: .\shop\models.py:319
+#: .\shop\models.py:341
 msgid "Дуже погано"
 msgstr "Very bad"
 
-#: .\shop\models.py:320
+#: .\shop\models.py:342
 msgid "Погано"
 msgstr "bad"
 
-#: .\shop\models.py:321
+#: .\shop\models.py:343
 msgid "Нормально"
 msgstr "Normally"
 
-#: .\shop\models.py:322
+#: .\shop\models.py:344
 msgid "Добре"
 msgstr "Fine"
 
-#: .\shop\models.py:323
+#: .\shop\models.py:345
 msgid "Дуже добре"
 msgstr "Very good"
 
-#: .\shop\views.py:155
+#: .\shop\views.py:170
 msgid "Лист відправлено"
 msgstr "Delivery"
 
-#: .\shop\views.py:157 .\shop\views.py:159
+#: .\shop\views.py:173 .\shop\views.py:176
 msgid "Помилка при відправці листа. Спробуйте пізніше"
 msgstr "An error occurred when sending the letter. Try again later"
 
@@ -102,232 +106,244 @@ msgstr "An error occurred when sending the letter. Try again later"
 msgid "MultiShop - онлайн магазин стильного одягу"
 msgstr "MultiShop - online shop of stylish clothes"
 
-#: .\templates\basket\basket.html:15 .\templates\favorite\favorite.html:15
-#: .\templates\users\my_product_review.html:10 .\templates\users\orders.html:45
+#: .\templates\basket\basket.html:15
+#: .\templates\users\my_product_review.html:10 .\templates\users\orders.html:55
 msgid "Фото"
 msgstr "Photo"
 
-#: .\templates\basket\basket.html:16 .\templates\favorite\favorite.html:16
-#: .\templates\inc\_header.html:160 .\templates\users\orders.html:46
+#: .\templates\basket\basket.html:16 .\templates\inc\_header.html:184
+#: .\templates\users\orders.html:56
 msgid "Товари"
 msgstr "Goods"
 
-#: .\templates\basket\basket.html:17 .\templates\basket\order_cost.html:18
-#: .\templates\favorite\favorite.html:17 .\templates\shop\shop.html:24
-#: .\templates\users\orders.html:47
+#: .\templates\basket\basket.html:17 .\templates\basket\order_cost.html:17
+#: .\templates\shop\shop.html:22 .\templates\users\orders.html:57
 msgid "Ціна"
 msgstr "Price"
 
-#: .\templates\basket\basket.html:18 .\templates\basket\order_cost.html:17
-#: .\templates\users\orders.html:48
+#: .\templates\basket\basket.html:18 .\templates\basket\order_cost.html:16
+#: .\templates\users\orders.html:58
 msgid "Кількість"
 msgstr "Quantity"
 
-#: .\templates\basket\basket.html:19 .\templates\users\orders.html:49
+#: .\templates\basket\basket.html:19 .\templates\users\orders.html:59
 msgid "Сумма"
 msgstr "Amount"
 
-#: .\templates\basket\basket.html:20 .\templates\favorite\favorite.html:18
+#: .\templates\basket\basket.html:20
 msgid "Видалити"
 msgstr "Remove"
 
-#: .\templates\basket\basket.html:28 .\templates\users\orders.html:58
+#: .\templates\basket\basket.html:32 .\templates\users\orders.html:71
 msgid "КОЛІР"
 msgstr "COLOR"
 
-#: .\templates\basket\basket.html:28 .\templates\users\orders.html:58
+#: .\templates\basket\basket.html:33 .\templates\users\orders.html:72
 msgid "РОЗМІР"
 msgstr "SIZE"
 
-#: .\templates\basket\basket.html:47 .\templates\favorite\favorite.html:63
-#: .\templates\shop\inc\card_product.html:43
-#: .\templates\shop\inc\card_product.html:71
+#: .\templates\basket\basket.html:60 .\templates\favorite\favorite.html:87
+#: .\templates\shop\inc\card_product.html:53
+#: .\templates\shop\inc\card_product.html:89
 msgid "Немає в наявності"
 msgstr "Not available"
 
-#: .\templates\basket\basket.html:74
+#: .\templates\basket\basket.html:91
 msgid "Корзина порожня."
 msgstr "Basket"
 
-#: .\templates\basket\basket.html:75
-msgid "Перейти до каталогу"
-msgstr "Go to cart"
-
-#: .\templates\basket\order_cost.html:7 .\templates\users\orders.html:15
+#: .\templates\basket\order_cost.html:6 .\templates\users\orders.html:19
 msgid "Вартість замовлення"
 msgstr "The cost of the order"
 
-#: .\templates\basket\order_cost.html:15
+#: .\templates\basket\order_cost.html:14
 msgid "Прибрати"
 msgstr "Clean up"
 
-#: .\templates\basket\order_cost.html:16 .\templates\basket\order_cost.html:47
-#: .\templates\users\my_product_review.html:11
+#: .\templates\basket\order_cost.html:15 .\templates\basket\order_cost.html:53
+#: .\templates\users\my_product_review.html:13
 msgid "Товар"
 msgstr "Goods"
 
-#: .\templates\basket\order_cost.html:51 .\templates\inc\_footer.html:23
-#: .\templates\inc\_header.html:16 .\templates\users\orders.html:70
+#: .\templates\basket\order_cost.html:57 .\templates\inc\_footer.html:38
+#: .\templates\inc\_header.html:19 .\templates\users\orders.html:88
 msgid "Доставка"
 msgstr "Delivery"
 
-#: .\templates\basket\order_cost.html:58
+#: .\templates\basket\order_cost.html:64
 msgid "Всього"
 msgstr "In total"
 
-#: .\templates\basket\order_cost.html:63
+#: .\templates\basket\order_cost.html:70
 msgid "Замовити"
 msgstr "Orders"
 
-#: .\templates\basket\order_cost.html:65
+#: .\templates\basket\order_cost.html:73
 msgid "Не додані товари"
 msgstr "Popular products"
 
-#: .\templates\favorite\favorite.html:19 .\templates\favorite\favorite.html:53
-#: .\templates\shop\inc\card_product.html:38
-#: .\templates\shop\inc\view_product.html:113
+#: .\templates\favorite\favorite.html:15
+msgid "Photo"
+msgstr ""
+
+#: .\templates\favorite\favorite.html:16
+msgid "Goods"
+msgstr "Товари"
+
+#: .\templates\favorite\favorite.html:17
+msgid "Price"
+msgstr "Ціна"
+
+#: .\templates\favorite\favorite.html:18
+msgid "Remove"
+msgstr "Видалити"
+
+#: .\templates\favorite\favorite.html:19 .\templates\favorite\favorite.html:71
+#: .\templates\shop\inc\card_product.html:47
+#: .\templates\shop\inc\view_product.html:141
 msgid "Додати в кошик"
 msgstr "Add to cart"
 
-#: .\templates\favorite\favorite.html:27
+#: .\templates\favorite\favorite.html:31
 msgid "КОЛІР:"
 msgstr "COLOR"
 
-#: .\templates\favorite\favorite.html:27
+#: .\templates\favorite\favorite.html:32
 msgid "РОЗМІР:"
 msgstr "SIZE"
 
-#: .\templates\favorite\favorite.html:47
+#: .\templates\favorite\favorite.html:62
 msgid "Вже в кошику"
 msgstr "Already in the cart"
 
-#: .\templates\inc\_footer.html:9
+#: .\templates\inc\_footer.html:10
 msgid "Вперед за покупками"
 msgstr "Go shopping"
 
-#: .\templates\inc\_footer.html:10
+#: .\templates\inc\_footer.html:12
 msgid ""
 "Стильний жіночий, чоловічий та дитячий одяг в інтернет-магазині MultiShop"
 msgstr ""
 "Stylish women's, men's and children's clothing in the MultiShop online store"
 
-#: .\templates\inc\_footer.html:11
+#: .\templates\inc\_footer.html:15
 msgid "Хрещатик буд. 13, Київ, Україна"
 msgstr "Khreschatyk bldg. 13, Kyiv, Ukraine"
 
-#: .\templates\inc\_footer.html:18
+#: .\templates\inc\_footer.html:24
 msgid "Меню"
 msgstr "Menu"
 
-#: .\templates\inc\_footer.html:20 .\templates\inc\_header.html:159
+#: .\templates\inc\_footer.html:28 .\templates\inc\_header.html:182
 msgid "Головна"
 msgstr "Main"
 
-#: .\templates\inc\_footer.html:22 .\templates\inc\_header.html:14
+#: .\templates\inc\_footer.html:35 .\templates\inc\_header.html:15
 msgid "Про нас"
 msgstr "About us"
 
-#: .\templates\inc\_footer.html:24 .\templates\inc\_header.html:15
-#: .\templates\inc\_header.html:170
+#: .\templates\inc\_footer.html:41 .\templates\inc\_header.html:17
+#: .\templates\inc\_header.html:200
 msgid "Контакти"
 msgstr "Contacts"
 
-#: .\templates\inc\_footer.html:28
+#: .\templates\inc\_footer.html:46
 msgid "Мій акаунт"
 msgstr "My account"
 
-#: .\templates\inc\_footer.html:30
+#: .\templates\inc\_footer.html:51
 msgid "Кабінет"
 msgstr "Account"
 
-#: .\templates\inc\_footer.html:31 .\templates\inc\_header.html:165
+#: .\templates\inc\_footer.html:55 .\templates\inc\_header.html:192
 msgid "Корзина"
 msgstr "Basket"
 
-#: .\templates\inc\_footer.html:32 .\templates\inc\_header.html:167
+#: .\templates\inc\_footer.html:59 .\templates\inc\_header.html:196
 msgid "Вподобання"
 msgstr "Likes"
 
-#: .\templates\inc\_footer.html:33 .\templates\inc\_header.html:17
+#: .\templates\inc\_footer.html:63 .\templates\inc\_header.html:21
 msgid "Умови і положення"
 msgstr "Terms and conditions"
 
-#: .\templates\inc\_footer.html:37 .\templates\users\subscriber_email.html:9
+#: .\templates\inc\_footer.html:68 .\templates\users\subscriber_email.html:10
 msgid "Підписатись на новини"
 msgstr "Subscribe to the news"
 
-#: .\templates\inc\_footer.html:38 .\templates\users\subscriber_email.html:10
+#: .\templates\inc\_footer.html:69 .\templates\users\subscriber_email.html:12
 msgid "Вкажіть Ваш email щоб отримувати знижки та новини"
 msgstr "Enter your email to receive discounts and news"
 
-#: .\templates\inc\_footer.html:46
-#: .\templates\registration\password_reset_confirm.html:25
-#: .\templates\registration\password_reset_form.html:14
-#: .\templates\users\subscriber_email.html:17
+#: .\templates\inc\_footer.html:85
+#: .\templates\registration\password_reset_confirm.html:29
+#: .\templates\registration\password_reset_form.html:16
+#: .\templates\users\subscriber_email.html:30
 msgid "Відправити"
 msgstr "Send"
 
-#: .\templates\inc\_footer.html:52
+#: .\templates\inc\_footer.html:93
 msgid "Підписатись на нас"
 msgstr "Subscribe to us"
 
-#: .\templates\inc\_footer.html:67
+#: .\templates\inc\_footer.html:118
 msgid ""
 "Вміст цього сайту захищено законом про авторське право та належить MultiShop."
 msgstr ""
 "The content of this site is protected by copyright law and belongs to "
 "MultiShop."
 
-#: .\templates\inc\_header.html:23
+#: .\templates\inc\_header.html:29
 msgid "Обліковий запис"
 msgstr "Account"
 
-#: .\templates\inc\_header.html:27
+#: .\templates\inc\_header.html:34
 msgid "Особистий кабінет"
 msgstr "My account"
 
-#: .\templates\inc\_header.html:28
+#: .\templates\inc\_header.html:36
 msgid "Вихід"
 msgstr "Exit"
 
-#: .\templates\inc\_header.html:30
+#: .\templates\inc\_header.html:39
 msgid "Вхід"
 msgstr "login"
 
-#: .\templates\inc\_header.html:31 .\templates\users\register.html:10
+#: .\templates\inc\_header.html:41 .\templates\users\register.html:10
+#: .\users\views.py:60
 msgid "Реєстрація"
 msgstr "Registration"
 
-#: .\templates\inc\_header.html:88
+#: .\templates\inc\_header.html:102
 msgid "Знайти товар"
 msgstr "Find a product"
 
-#: .\templates\inc\_header.html:98
+#: .\templates\inc\_header.html:113
 msgid "Підтримка"
 msgstr "Support"
 
-#: .\templates\inc\_header.html:112 .\templates\news\list_categories.html:4
+#: .\templates\inc\_header.html:129 .\templates\news\list_categories.html:4
 #: .\templates\shop\inc\list_categories.html:7
 msgid "Категорії"
 msgstr "Categories"
 
-#: .\templates\inc\_header.html:162 .\templates\shop\info\terms.html:26
+#: .\templates\inc\_header.html:187 .\templates\shop\info\terms.html:35
 msgid "Замовлення"
 msgstr "Orders"
 
-#: .\templates\inc\_header.html:166 .\templates\orders\checkout.html:47
+#: .\templates\inc\_header.html:194 .\templates\orders\checkout.html:50
 msgid "Оформити замовлення"
 msgstr "To order"
 
-#: .\templates\inc\paginator.html:10
+#: .\templates\inc\paginator.html:11
 msgid "Попередня"
 msgstr "Previous"
 
-#: .\templates\inc\paginator.html:36
+#: .\templates\inc\paginator.html:38
 msgid "Наступна"
 msgstr "next"
 
-#: .\templates\news\list_categories.html:6
+#: .\templates\news\list_categories.html:7
 msgid "Всі категорії"
 msgstr "Categories"
 
@@ -335,23 +351,25 @@ msgstr "Categories"
 msgid "КАТЕГОРІЯ:"
 msgstr "CATEGORY"
 
-#: .\templates\news\news.html:22
-msgid "Читати далі..."
+#: .\templates\news\news.html:26
+#, fuzzy
+#| msgid "Читати далі..."
+msgid "Читати далі"
 msgstr "Read more..."
 
 #: .\templates\orders\checkout.html:13 .\templates\orders\order_done.html:10
 msgid "Оформлення замовлення"
 msgstr "To order"
 
-#: .\templates\orders\checkout.html:41
+#: .\templates\orders\checkout.html:43
 msgid "Спосіб оплати"
 msgstr "Payment method"
 
-#: .\templates\orders\checkout.html:49
+#: .\templates\orders\checkout.html:54
 msgid "Додайте товар в корзину"
 msgstr "Add more to cart"
 
-#: .\templates\orders\order_done.html:12
+#: .\templates\orders\order_done.html:14
 msgid ""
 "Замовлення успішно оформлено. Найближчим часом з вами зв'яжеться наш "
 "працівник."
@@ -359,19 +377,19 @@ msgstr ""
 "Your order has been successfully placed. You will be contacted by our "
 "employee."
 
-#: .\templates\orders\order_done.html:13
+#: .\templates\orders\order_done.html:15
 msgid "Перевірити статус замовлення можна в особистому кабінеті"
 msgstr "You can check the status of the order in your personal account"
 
-#: .\templates\orders\order_done.html:14
+#: .\templates\orders\order_done.html:17
 msgid "На головну"
 msgstr "Main"
 
-#: .\templates\orders\order_done.html:15
+#: .\templates\orders\order_done.html:19
 msgid "В кабінет"
 msgstr "Account"
 
-#: .\templates\registration\password_reset_complete.html:12
+#: .\templates\registration\password_reset_complete.html:11
 #: .\templates\registration\password_reset_confirm.html:10
 #: .\templates\registration\password_reset_done.html:10
 #: .\templates\registration\password_reset_form.html:9
@@ -386,11 +404,11 @@ msgstr "Ваш пароль встановлено. Ви можете продо
 msgid "Log in"
 msgstr "Авторизуватися"
 
-#: .\templates\registration\password_reset_confirm.html:16
+#: .\templates\registration\password_reset_confirm.html:17
 msgid "Введіть ваш новий пароль двічі для перевірки."
 msgstr "Enter your new password twice to verify."
 
-#: .\templates\registration\password_reset_confirm.html:31
+#: .\templates\registration\password_reset_confirm.html:35
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
@@ -398,7 +416,7 @@ msgstr ""
 "Посилання для скидання пароля вимкнено, можливо, оскільки воно вже булодол. "
 "США. Будь ласка, надішліть запит на скидання нового пароля."
 
-#: .\templates\registration\password_reset_done.html:12
+#: .\templates\registration\password_reset_done.html:13
 msgid ""
 "We’ve emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
@@ -406,7 +424,7 @@ msgstr ""
 "Ми надіслали вам інструкції щодо встановлення пароля, якщо обліковий запис "
 "існує з електронною поштою, яку ви ввели. Ви маєте отримати їх незабаром."
 
-#: .\templates\registration\password_reset_done.html:14
+#: .\templates\registration\password_reset_done.html:15
 msgid ""
 "If you don’t receive an email, please make sure you’ve entered the address "
 "you registered with, and check your spam folder."
@@ -414,180 +432,194 @@ msgstr ""
 "Якщо ви не отримали електронний лист, переконайтеся, що ви ввели адресуви "
 "зареєструвалися та перевірте папку зі спамом."
 
-#: .\templates\shop\detail.html:10
+#: .\templates\shop\detail.html:11
 msgid "ВАМ ТАКОЖ МОЖЕ СПОДОБАТИСЬ"
 msgstr "YOU MIGHT ALSO LIKE"
 
-#: .\templates\shop\inc\banner.html:8
-#: .\templates\shop\inc\carousel_banner.html:9
+#: .\templates\shop\inc\banner.html:9
+#: .\templates\shop\inc\carousel_banner.html:12
 msgid "Купити зараз"
 msgstr "Buy now"
 
-#: .\templates\shop\inc\card_product.html:33
+#: .\templates\shop\inc\card_product.html:40
 msgid "Перейти до кошика"
 msgstr "Go to cart"
 
-#: .\templates\shop\inc\card_product.html:51
-#: .\templates\shop\inc\view_product.html:129
+#: .\templates\shop\inc\card_product.html:61
+#: .\templates\shop\inc\view_product.html:160
 msgid "Прибрати з вподобань"
 msgstr "Remove from favorites"
 
-#: .\templates\shop\inc\card_product.html:56
-#: .\templates\shop\inc\view_product.html:135
+#: .\templates\shop\inc\card_product.html:67
+#: .\templates\shop\inc\view_product.html:169
 msgid "Додати до вподобань"
 msgstr "Add to favorites"
 
-#: .\templates\shop\inc\card_product.html:63
+#: .\templates\shop\inc\card_product.html:75
 msgid "Детально про товар"
 msgstr "Details about the product"
 
-#: .\templates\shop\inc\card_product.html:65
+#: .\templates\shop\inc\card_product.html:79
 msgid "Зателефонувати"
 msgstr "to call"
 
-#: .\templates\shop\inc\card_product.html:68
+#: .\templates\shop\inc\card_product.html:84
 msgid "В наявності"
 msgstr "Not available"
 
-#: .\templates\shop\inc\list_categories.html:18
+#: .\templates\shop\inc\list_categories.html:22
 msgid "Товарів"
 msgstr "Goods"
 
-#: .\templates\shop\inc\view_product.html:53
+#: .\templates\shop\inc\view_product.html:60
 msgid "Колір:"
 msgstr "Color"
 
-#: .\templates\shop\inc\view_product.html:72
+#: .\templates\shop\inc\view_product.html:86
 msgid "Розміри"
 msgstr "Dimensions"
 
-#: .\templates\shop\inc\view_product.html:89
-msgid "Товар закінчивсь. Очікуємо поставку нового товару..."
+#: .\templates\shop\inc\view_product.html:110
+#, fuzzy
+#| msgid "Товар закінчивсь. Очікуємо поставку нового товару..."
+msgid "Товар закінчивсь. Очікуємо поставку нового товару"
 msgstr ""
 "The product is out of stock. We are waiting for the delivery of a new "
 "product..."
 
-#: .\templates\shop\inc\view_product.html:108
+#: .\templates\shop\inc\view_product.html:134
 msgid "Додати ще в кошик"
 msgstr "Add more to cart"
 
-#: .\templates\shop\inc\view_product.html:121
+#: .\templates\shop\inc\view_product.html:151
 msgid "Нема в наявності"
 msgstr "Not available"
 
-#: .\templates\shop\inc\view_product.html:151
+#: .\templates\shop\inc\view_product.html:186
 msgid "Опис"
 msgstr "Description"
 
-#: .\templates\shop\inc\view_product.html:153
-#: .\templates\shop\inc\view_product.html:165
+#: .\templates\shop\inc\view_product.html:189
+#: .\templates\shop\inc\view_product.html:202
 msgid "Параметри"
 msgstr "Parameters"
 
-#: .\templates\shop\inc\view_product.html:155
+#: .\templates\shop\inc\view_product.html:192
 msgid "Відгуки"
 msgstr "Reviews"
 
-#: .\templates\shop\inc\view_product.html:160
+#: .\templates\shop\inc\view_product.html:197
 msgid "Опис товару"
 msgstr "Product description"
 
-#: .\templates\shop\inc\view_product.html:169
+#: .\templates\shop\inc\view_product.html:206
 msgid "Виробник"
 msgstr "Brand"
 
-#: .\templates\shop\inc\view_product.html:173
+#: .\templates\shop\inc\view_product.html:211
 msgid "Категорія"
 msgstr "Categories"
 
-#: .\templates\shop\inc\view_product.html:178
+#: .\templates\shop\inc\view_product.html:217
 msgid "Країна"
 msgstr "Country"
 
-#: .\templates\shop\inc\view_product.html:186
+#: .\templates\shop\inc\view_product.html:227
 msgid "відгук про"
 msgstr "Reviews"
 
-#: .\templates\shop\inc\view_product.html:205
+#: .\templates\shop\inc\view_product.html:251
 msgid "Залиште відгук"
 msgstr "Leave a review"
 
-#: .\templates\shop\inc\view_product.html:209
+#: .\templates\shop\inc\view_product.html:255
 msgid "Ваша електронна адреса не буде опублікована."
 msgstr "Your email address will not be published."
 
-#: .\templates\shop\inc\view_product.html:219
+#: .\templates\shop\inc\view_product.html:269
 msgid "Оцінка товару"
 msgstr "Product description"
 
-#: .\templates\shop\inc\view_product.html:225
+#: .\templates\shop\inc\view_product.html:275
 msgid "Відгук"
 msgstr "Reviews"
 
-#: .\templates\shop\inc\view_product.html:231
+#: .\templates\shop\inc\view_product.html:281
 msgid "Бажаєте змінити відгук? "
 msgstr "Would you like to change your review?"
 
-#: .\templates\shop\inc\view_product.html:233
+#: .\templates\shop\inc\view_product.html:283
 msgid "Про один товар можна залишити тільки один відгук"
 msgstr "You can leave only one review for one product"
 
-#: .\templates\shop\inc\view_product.html:236
-#: .\templates\users\my_product_review.html:18
+#: .\templates\shop\inc\view_product.html:287
+#: .\templates\users\my_product_review.html:28
 msgid "Змінити відгук"
 msgstr "Change review"
 
-#: .\templates\shop\inc\view_product.html:239
+#: .\templates\shop\inc\view_product.html:292
 msgid "Відправити відгук"
 msgstr "Send feedback"
 
-#: .\templates\shop\inc\view_product.html:247
+#: .\templates\shop\inc\view_product.html:301
 msgid "Залишити відгук можуть тільки авторизовані користувачі"
 msgstr "Only authorized users can leave feedback"
 
-#: .\templates\shop\inc\view_product.html:249 .\templates\users\account.html:25
-#: .\templates\users\inc\authorization.html:12
+#: .\templates\shop\inc\view_product.html:305 .\templates\users\account.html:37
+#: .\templates\users\inc\authorization.html:14
 msgid "Авторизуватись"
 msgstr "Log in"
 
-#: .\templates\shop\inc\view_product.html:250
-#: .\templates\users\register.html:15
+#: .\templates\shop\inc\view_product.html:308
+#: .\templates\users\register.html:17
 msgid "Зареєструватись"
 msgstr "Registration"
 
-#: .\templates\shop\index.html:51
+#: .\templates\shop\index.html:58
 msgid "Якісний товар"
 msgstr "Quality product"
 
-#: .\templates\shop\index.html:57
+#: .\templates\shop\index.html:65
 msgid "Безкоштовна доставка"
 msgstr "Free shipping"
 
-#: .\templates\shop\index.html:63
+#: .\templates\shop\index.html:72
 msgid "14-Днів повернення"
 msgstr "14-Day return"
 
-#: .\templates\shop\index.html:69
+#: .\templates\shop\index.html:79
 msgid "24/7 Підтримка"
 msgstr "24/7 Support"
 
-#: .\templates\shop\index.html:80
+#: .\templates\shop\index.html:90
 msgid "Популярні товари"
 msgstr "Popular products"
 
-#: .\templates\shop\index.html:115
+#: .\templates\shop\index.html:125
 msgid "Максимальні знижки"
 msgstr "Maximum discounts"
 
 #: .\templates\shop\info\about-us.html:9
+#, fuzzy
+#| msgid ""
+#| "MultiShop є польським брендом, який належить компанії LPP S.A., "
+#| "найбільшому польському виробнику одягу в Центральній та Східній Європі.\n"
+#| "                У наших колекціях ми намагаємось якнайшвидше задовольняти "
+#| "потреби наших клієнтів,\n"
+#| "саме тому ми поєднуємо класичний стиль з оригінальними деталями,\n"
+#| "натхненними подіумною модою, а також альтернативними пропозиціями від "
+#| "інфлюенсерів."
 msgid ""
-"MultiShop є польським брендом, який належить компанії LPP S.A., найбільшому "
-"польському виробнику одягу в Центральній та Східній Європі.\n"
-"                У наших колекціях ми намагаємось якнайшвидше задовольняти "
-"потреби наших клієнтів,\n"
-"саме тому ми поєднуємо класичний стиль з оригінальними деталями,\n"
-"натхненними подіумною модою, а також альтернативними пропозиціями від "
-"інфлюенсерів."
+"\n"
+"                MultiShop є польським брендом, який належить\n"
+"                компанії LPP S.A., найбільшому польському виробнику одягу в\n"
+"                Центральній та Східній Європі.\n"
+"                У наших колекціях ми намагаємось якнайшвидше задовольняти\n"
+"                потреби наших клієнтів,\n"
+"                саме тому ми поєднуємо класичний стиль з оригінальними\n"
+"                деталями,\n"
+"                натхненними подіумною модою, а також альтернативними\n"
+"                пропозиціями від інфлюенсерів."
 msgstr ""
 "MultiShop is a Polish brand owned by LPP S.A., the largest to a Polish "
 "clothing manufacturer in Central and Eastern Europe.\n"
@@ -596,31 +628,31 @@ msgstr ""
 "that's why we combine classic style with original details,\n"
 "inspired by catwalk fashion, as well as alternative offers from influencers."
 
-#: .\templates\shop\info\contact.html:7
+#: .\templates\shop\info\contact.html:8
 msgid "Зв'язатися з нами"
 msgstr "Contact Us"
 
-#: .\templates\shop\info\contact.html:15
+#: .\templates\shop\info\contact.html:20
 msgid "Від кого лист"
 msgstr "Who is the letter from?"
 
-#: .\templates\shop\info\contact.html:20
+#: .\templates\shop\info\contact.html:28
 msgid "Твій email"
 msgstr "Your email"
 
-#: .\templates\shop\info\contact.html:25
+#: .\templates\shop\info\contact.html:35
 msgid "Тема"
 msgstr "Topic"
 
-#: .\templates\shop\info\contact.html:30
+#: .\templates\shop\info\contact.html:43
 msgid "Повідомлення"
 msgstr "Orders"
 
-#: .\templates\shop\info\contact.html:36
+#: .\templates\shop\info\contact.html:51
 msgid "Відправити лист"
 msgstr "Send"
 
-#: .\templates\shop\info\contact.html:49
+#: .\templates\shop\info\contact.html:68
 msgid "Khreschatyk St 13, Kyiv, UA"
 msgstr ""
 
@@ -628,7 +660,7 @@ msgstr ""
 msgid "Вартість та час доставки"
 msgstr "Cost and delivery time"
 
-#: .\templates\shop\info\help.html:16
+#: .\templates\shop\info\help.html:17
 msgid ""
 "Звертаємо Вашу увагу! Орієнтовні терміни доставки замовлення складають 6-9 "
 "робочих днів. Приносимо вибачення за незручності."
@@ -636,199 +668,254 @@ msgstr ""
 "We draw your attention! Estimated order delivery times are 6-9working days. "
 "We apologize for the inconvenience."
 
-#: .\templates\shop\info\help.html:17
+#: .\templates\shop\info\help.html:18
 msgid "ТЕРМІН І ВАРТІСТЬ ДОСТАВКИ"
 msgstr "TERM AND COST OF DELIVERY"
 
-#: .\templates\shop\info\help.html:19
+#: .\templates\shop\info\help.html:20
 msgid "Отримання в пункті відбору (Meest, Нова Пошта) - 110 UAH"
 msgstr "Collection at the collection point (Meest, Nova Poshta) - 110 UAH"
 
-#: .\templates\shop\info\help.html:20
+#: .\templates\shop\info\help.html:22
 msgid "Кур'єр (Meest) - 110 UAH"
 msgstr "Courier (Meest) - 110 UAH"
 
-#: .\templates\shop\info\help.html:21
+#: .\templates\shop\info\help.html:23
 msgid "Безкоштовна доставка для замовлення від 950 UAH"
 msgstr "Free delivery for orders over UAH 950"
 
-#: .\templates\shop\info\help.html:23
+#: .\templates\shop\info\help.html:25
 msgid "Регіони до яких можлива доставка КУР'ЄРОМ:"
 msgstr "Regions to which delivery of KUR is possible"
 
-#: .\templates\shop\info\help.html:28
+#: .\templates\shop\info\help.html:32
 msgid "Вінницька"
 msgstr "Vinnytsia"
 
-#: .\templates\shop\info\help.html:31
+#: .\templates\shop\info\help.html:36
 msgid "Івано-Франківська"
 msgstr "Ivano-Frankivsk"
 
-#: .\templates\shop\info\help.html:36
+#: .\templates\shop\info\help.html:42
 msgid "Львівська"
 msgstr "Lviv"
 
-#: .\templates\shop\info\help.html:39
+#: .\templates\shop\info\help.html:46
 msgid "Тернопільська"
 msgstr "Ternopilsk"
 
-#: .\templates\shop\info\help.html:44
+#: .\templates\shop\info\help.html:52
 msgid "Волинська"
 msgstr "Volynsk"
 
-#: .\templates\shop\info\help.html:47
+#: .\templates\shop\info\help.html:56
 msgid "Полтавська"
 msgstr "Poltava"
 
-#: .\templates\shop\info\help.html:52
+#: .\templates\shop\info\help.html:62
 msgid "Черкаська"
 msgstr "Cherkassy"
 
-#: .\templates\shop\info\help.html:55
+#: .\templates\shop\info\help.html:66
 msgid "Житомирська"
 msgstr "Zhytomyr"
 
-#: .\templates\shop\info\help.html:60
+#: .\templates\shop\info\help.html:72
 msgid "Київська"
 msgstr "Kyivska"
 
-#: .\templates\shop\info\help.html:63
+#: .\templates\shop\info\help.html:76
 msgid "Київ"
 msgstr "Kyiv"
 
-#: .\templates\shop\info\help.html:68
+#: .\templates\shop\info\help.html:82
 msgid "Одеська"
 msgstr "Odesa"
 
-#: .\templates\shop\info\help.html:71
+#: .\templates\shop\info\help.html:86
 msgid "Хмельницька"
 msgstr "Khmelnytska"
 
-#: .\templates\shop\info\help.html:76
+#: .\templates\shop\info\help.html:92
 msgid "Закарпатська"
 msgstr "Zakarpattia"
 
-#: .\templates\shop\info\help.html:79
+#: .\templates\shop\info\help.html:96
 msgid "Кіровоградська"
 msgstr "Kirovohradsk"
 
-#: .\templates\shop\info\help.html:84
+#: .\templates\shop\info\help.html:102
 msgid "Рівненська"
 msgstr "Rivne"
 
-#: .\templates\shop\info\help.html:87
+#: .\templates\shop\info\help.html:106
 msgid "Чернівецька"
 msgstr "Chernivtsi"
 
-#: .\templates\shop\info\help.html:92
+#: .\templates\shop\info\help.html:112
 msgid "Терміни доставки залежать від Вашого регіону:"
 msgstr "Delivery times depend on your region:"
 
-#: .\templates\shop\info\help.html:93
+#: .\templates\shop\info\help.html:113
 msgid "Термін"
 msgstr "Term"
 
-#: .\templates\shop\info\help.html:93
+#: .\templates\shop\info\help.html:114
 msgid "(роб. днів) Населений пункт"
 msgstr "(working days) Settlement"
 
-#: .\templates\shop\info\help.html:97
+#: .\templates\shop\info\help.html:118
+#, fuzzy
+#| msgid ""
+#| "4 - 8 днiв: Вінниця, Волинь, Дніпро, Житомир, Закарпаття, Запоріжжя, "
+#| "Івано-Франківськ, Київ, Ковель, Коломия, Кременчук, Львів, Миколаїв, "
+#| "Нововолинськ, Одеса, Полтава, Рівне, Суми, Тернопіль, Харків, Херсон, "
+#| "Хмельницький, Черкаси, Чернівці, Чернігів"
 msgid ""
-"4 - 8 днiв: Вінниця, Волинь, Дніпро, Житомир, Закарпаття, Запоріжжя, Івано-"
-"Франківськ, Київ, Ковель, Коломия, Кременчук, Львів, Миколаїв, Нововолинськ, "
-"Одеса, Полтава, Рівне, Суми, Тернопіль, Харків, Херсон, Хмельницький, "
-"Черкаси, Чернівці, Чернігів"
+"4 - 8 днiв: Вінниця, Волинь,\n"
+"                            Дніпро, Житомир, Закарпаття, Запоріжжя,\n"
+"                            Івано-Франківськ, Київ, Ковель, Коломия, "
+"Кременчук,\n"
+"                            Львів, Миколаїв, Нововолинськ, Одеса, Полтава,\n"
+"                            Рівне, Суми, Тернопіль, Харків, Херсон,\n"
+"                            Хмельницький, Черкаси, Чернівці, Чернігів\n"
+"                            "
 msgstr ""
 "4 - 8 days: Vinnytsia, Volyn, Dnipro, Zhytomyr, Transcarpathia, "
 "Zaporizhzhia, Ivano-Frankivsk, Kyiv, Kovel, Kolomyia, Kremenchuk, Lviv, "
 "Mykolaiv, Novovolynsk, Odesa, Poltava, Rivne, Sumy, Ternopil, Kharkiv, "
 "Kherson, Khmelnytskyi, Cherkasy, Chernivtsi, Chernihiv"
 
-#: .\templates\shop\info\help.html:98
+#: .\templates\shop\info\help.html:126
+#, fuzzy
+#| msgid ""
+#| "6 - 10 днiв: Броди, Володимир-Волинський, Дрогобич, Камянське, Кривий "
+#| "Ріг, Кропивницький, Лубни, Мелітополь, Нікополь, Павлоград, Стрий, "
+#| "Червоноград"
 msgid ""
-"6 - 10 днiв: Броди, Володимир-Волинський, Дрогобич, Камянське, Кривий Ріг, "
-"Кропивницький, Лубни, Мелітополь, Нікополь, Павлоград, Стрий, Червоноград"
+"6 - 10 днiв: Броди,\n"
+"                            Володимир-Волинський, Дрогобич, Камянське, "
+"Кривий\n"
+"                            Ріг, Кропивницький, Лубни, Мелітополь, "
+"Нікополь,\n"
+"                            Павлоград, Стрий, Червоноград"
 msgstr ""
 "6 - 10 days: Brody, Volodymyr-Volynskyi, Drohobych, Kamianske, Kryvyi Rih, "
 "Kropyvnytskyi, Lubny, Melitopol, Nikopol, Pavlograd, Stryi, Chervonograd"
 
-#: .\templates\shop\info\help.html:99
-msgid "8 - 11 днiв: Донецьк**, Луганськ**"
+#: .\templates\shop\info\help.html:131
+#, fuzzy
+#| msgid "8 - 11 днiв: Донецьк**, Луганськ**"
+msgid ""
+"8 - 11 днiв: Донецьк**,\n"
+"                            Луганськ**"
 msgstr "8 - 11 days: Donetsk**, Luhansk**"
 
-#: .\templates\shop\info\help.html:101
+#: .\templates\shop\info\help.html:135
 msgid "Інші населені пункти: Вiд 7 до 11 днiв"
 msgstr "Other settlements: From 7 to 11 days"
 
-#: .\templates\shop\info\help.html:102
+#: .\templates\shop\info\help.html:136
+#, fuzzy
+#| msgid ""
+#| " **Доставка тільки в населені пункти, контролювані Українським урядом / "
+#| "адміністрацією України."
 msgid ""
-" **Доставка тільки в населені пункти, контролювані Українським урядом / "
-"адміністрацією України."
+" **Доставка\n"
+"                        тільки в населені пункти, контролювані Українським\n"
+"                        урядом / адміністрацією України."
 msgstr ""
 "**Delivery only to settlements controlled by the Ukrainian government / the "
 "administration of Ukraine."
 
-#: .\templates\shop\info\help.html:103
+#: .\templates\shop\info\help.html:139
+#, fuzzy
+#| msgid ""
+#| " На жаль, доставка в роздрібні магазини недоступна. Приносимо вибачення "
+#| "за незручності."
 msgid ""
-" На жаль, доставка в роздрібні магазини недоступна. Приносимо вибачення за "
-"незручності."
+" На жаль,\n"
+"                        доставка в роздрібні магазини недоступна. Приносимо\n"
+"                        вибачення за незручності."
 msgstr ""
 "Unfortunately, delivery to retail stores is not available. We apologize for "
 "the inconvenience."
 
-#: .\templates\shop\info\help.html:104
+#: .\templates\shop\info\help.html:142
+#, fuzzy
+#| msgid ""
+#| " Можливість примірки не передбачена. Частковий викуп речей із замовлення "
+#| "неможливий."
 msgid ""
-" Можливість примірки не передбачена. Частковий викуп речей із замовлення "
-"неможливий."
+" Можливість\n"
+"                        примірки не передбачена. Частковий викуп речей із\n"
+"                        замовлення неможливий."
 msgstr ""
 "The possibility of trying on is not provided. Partial purchase of items from "
 "the orderimpossible."
 
-#: .\templates\shop\info\help.html:105
+#: .\templates\shop\info\help.html:145
+#, fuzzy
+#| msgid ""
+#| " Якщо замовлення не вдається вручити за вказаною адресою з першого разу, "
+#| "кур’єр спробує зробити це ще раз. Якщо посилку не буде вручено з другої "
+#| "спроби, вона повертається до інтернет-магазину."
 msgid ""
-" Якщо замовлення не вдається вручити за вказаною адресою з першого разу, "
-"кур’єр спробує зробити це ще раз. Якщо посилку не буде вручено з другої "
-"спроби, вона повертається до інтернет-магазину."
+" Якщо\n"
+"                        замовлення не вдається вручити за вказаною адресою "
+"з\n"
+"                        першого разу, кур’єр спробує зробити це ще раз. "
+"Якщо\n"
+"                        посилку не буде вручено з другої спроби, вона\n"
+"                        повертається до інтернет-магазину."
 msgstr ""
 "If the order cannot be delivered to the specified address the first time, "
 "the courier will try to do it again. If the parcel is not delivered on the "
 "second try it, it goes back to the online store."
 
-#: .\templates\shop\info\help.html:106
+#: .\templates\shop\info\help.html:151
 msgid "Важливо!"
 msgstr "Importantly!"
 
-#: .\templates\shop\info\help.html:106
+#: .\templates\shop\info\help.html:152
+#, fuzzy
+#| msgid ""
+#| "У період збільшеної кількості замовлень (періоди розпродажу, рекламні "
+#| "кампанії) час доставки може бути збільшений. Актуальний час, вартість та "
+#| "доступні форми доставки видніються при замовленні."
 msgid ""
-"У період збільшеної кількості замовлень (періоди розпродажу, рекламні "
-"кампанії) час доставки може бути збільшений. Актуальний час, вартість та "
-"доступні форми доставки видніються при замовленні."
+"У період збільшеної кількості замовлень\n"
+"                        (періоди розпродажу, рекламні кампанії) час "
+"доставки\n"
+"                        може бути збільшений. Актуальний час, вартість та\n"
+"                        доступні форми доставки видніються при замовленні.\n"
+"                        "
 msgstr ""
 "During the period of increased number of orders (sale periods, advertising "
 "campaigns) delivery time may be increased. Actual time, cost and available "
 "forms of delivery are visible when ordering."
 
-#: .\templates\shop\info\help.html:109
+#: .\templates\shop\info\help.html:160
 msgid "Чи допомогла тобі ця відповідь?"
 msgstr "Did this answer help you?"
 
-#: .\templates\shop\info\help.html:114
+#: .\templates\shop\info\help.html:167
 msgid "Не знайшов відповіді на запитання?"
 msgstr "Didn't find the answer to the question?"
 
-#: .\templates\shop\info\help.html:115
+#: .\templates\shop\info\help.html:168
 msgid "Оплата за підключення згідно з тарифами оператора"
 msgstr "Payment for connection according to the operator's tariffs"
 
-#: .\templates\shop\info\help.html:119
+#: .\templates\shop\info\help.html:175
 msgid "Напиши до нас"
 msgstr "Subscribe to us"
 
-#: .\templates\shop\info\help.html:123
+#: .\templates\shop\info\help.html:180
 msgid "Зателефонуй"
 msgstr "Call"
 
-#: .\templates\shop\info\help.html:126
+#: .\templates\shop\info\help.html:183
 msgid "Гарача лінія"
 msgstr "Hotline"
 
@@ -837,11 +924,18 @@ msgid "УМОВИ ВИКОРИСТАННЯ ІНТЕРНЕТ-МАГАЗИНУ"
 msgstr "TERMS OF USE OF THE INTERNET STORE"
 
 #: .\templates\shop\info\terms.html:10
+#, fuzzy
+#| msgid ""
+#| "  Правила та умови використання сайту визначають правила користування веб-"
+#| "сайтом інтернет-магазину.\n"
+#| "                Користуючись веб-сайтом Інтернет-магазину, Ви приймаєте і "
+#| "погоджуєтесь з обставинами, які передбачені\n"
+#| "                цими Правилами та умовами використання."
 msgid ""
-"  Правила та умови використання сайту визначають правила користування веб-"
-"сайтом інтернет-магазину.\n"
-"                Користуючись веб-сайтом Інтернет-магазину, Ви приймаєте і "
-"погоджуєтесь з обставинами, які передбачені\n"
+" Правила та умови використання сайту визначають\n"
+"                правила користування веб-сайтом інтернет-магазину.\n"
+"                Користуючись веб-сайтом Інтернет-магазину, Ви приймаєте і\n"
+"                погоджуєтесь з обставинами, які передбачені\n"
 "                цими Правилами та умовами використання."
 msgstr ""
 "The terms and conditions of use of the site determine the rules of use of "
@@ -850,71 +944,113 @@ msgstr ""
 "circumstances provided for\n"
 "these Terms and Conditions of Use."
 
-#: .\templates\shop\info\terms.html:15
+#: .\templates\shop\info\terms.html:17
 msgid "Терміни та визначення:"
 msgstr "Terms and definitions"
 
-#: .\templates\shop\info\terms.html:17
+#: .\templates\shop\info\terms.html:20
 msgid "Договір, укладений на відстані"
 msgstr "Contract concluded at a distance"
 
-#: .\templates\shop\info\terms.html:17
+#: .\templates\shop\info\terms.html:21
+#, fuzzy
+#| msgid ""
+#| " договір, укладений Продавцем із\n"
+#| "                            Покупцем (клієнтом) за допомогою засобів "
+#| "дистанційного зв'язку."
 msgid ""
-" договір, укладений Продавцем із\n"
-"                            Покупцем (клієнтом) за допомогою засобів "
-"дистанційного зв'язку."
+" договір,\n"
+"                            укладений Продавцем із\n"
+"                            Покупцем (клієнтом) за допомогою засобів\n"
+"                            дистанційного зв'язку."
 msgstr ""
 " contract concluded by the Seller with\n"
 "By the buyer (client) using the meansremote communication."
 
-#: .\templates\shop\info\terms.html:20
+#: .\templates\shop\info\terms.html:26
 msgid "Інтернет–магазин"
 msgstr "Internet-shop"
 
-#: .\templates\shop\info\terms.html:20
+#: .\templates\shop\info\terms.html:26
+#, fuzzy
+#| msgid ""
+#| " онлайн-магазин, який розміщується на сайті, який\n"
+#| "                            належить Продавцю та має адресу в мережі "
+#| "Інтернет"
 msgid ""
-" онлайн-магазин, який розміщується на сайті, який\n"
-"                            належить Продавцю та має адресу в мережі Інтернет"
+" онлайн-магазин, який\n"
+"                            розміщується на сайті, який\n"
+"                            належить Продавцю та має адресу в мережі "
+"Інтернет\n"
+"                            "
 msgstr ""
 " an online store hosted on a site that\n"
 "belongs to the Seller and has an address on the Internet"
 
-#: .\templates\shop\info\terms.html:23
+#: .\templates\shop\info\terms.html:31
+#, fuzzy
+#| msgid ""
+#| " на якому представлені Товари, що пропонуються для продажу, умови оплати, "
+#| "доставки,\n"
+#| "                            повернення цих Товарів."
 msgid ""
-" на якому представлені Товари, що пропонуються для продажу, умови оплати, "
+" на якому представлені Товари, що\n"
+"                            пропонуються для продажу, умови оплати, "
 "доставки,\n"
 "                            повернення цих Товарів."
 msgstr ""
 " which presents the Goods offered for sale, payment terms, shippings,\n"
 "return of these Goods."
 
-#: .\templates\shop\info\terms.html:26
+#: .\templates\shop\info\terms.html:36
+#, fuzzy
+#| msgid ""
+#| " належним чином оформлене та розміщене волевиявлення\n"
+#| "                            Покупця (клієнта), яке спрямоване на "
+#| "укладення договору роздрібної купівлі-продажу Товарів,\n"
+#| "                            які пропонуються Продавцем для роздрібного "
+#| "продажу через інтернет-магазин."
 msgid ""
-" належним чином оформлене та розміщене волевиявлення\n"
-"                            Покупця (клієнта), яке спрямоване на укладення "
-"договору роздрібної купівлі-продажу Товарів,\n"
+"\n"
+"                            належним чином оформлене та розміщене "
+"волевиявлення\n"
+"                            Покупця (клієнта), яке спрямоване на укладення\n"
+"                            договору роздрібної купівлі-продажу Товарів,\n"
 "                            які пропонуються Продавцем для роздрібного "
-"продажу через інтернет-магазин."
+"продажу\n"
+"                            через інтернет-магазин."
 msgstr ""
 " a properly designed and placed expression of will\n"
 "Buyer (client), which is aimed at concludingcontract of retail sale of "
 "Goods,\n"
 " offered by the Seller for retail sale through an online store."
 
-#: .\templates\shop\info\terms.html:30
+#: .\templates\shop\info\terms.html:43
 msgid "Покупець (клієнт)"
 msgstr "Buyer (client)"
 
-#: .\templates\shop\info\terms.html:30
+#: .\templates\shop\info\terms.html:44
+#, fuzzy
+#| msgid ""
+#| " фізична особа, яка придбаває, замовляє,\n"
+#| "                            використовує або має намір придбати чи "
+#| "замовити продукцію для особистих потреб,\n"
+#| "                            безпосередньо не пов'язаних з підприємницькою "
+#| "діяльністю. Така фізична особа повинна\n"
+#| "                            володіти необхідним обсягом дієздатності та "
+#| "необхідними повноваженнями для укладення\n"
+#| "                            договорів на придбання, замовлення Товарів."
 msgid ""
-" фізична особа, яка придбаває, замовляє,\n"
-"                            використовує або має намір придбати чи замовити "
-"продукцію для особистих потреб,\n"
-"                            безпосередньо не пов'язаних з підприємницькою "
-"діяльністю. Така фізична особа повинна\n"
-"                            володіти необхідним обсягом дієздатності та "
-"необхідними повноваженнями для укладення\n"
-"                            договорів на придбання, замовлення Товарів."
+" фізична особа, яка\n"
+"                            придбаває, замовляє,\n"
+"                            використовує або має намір придбати чи замовити\n"
+"                            продукцію для особистих потреб,\n"
+"                            безпосередньо не пов'язаних з підприємницькою\n"
+"                            діяльністю. Така фізична особа повинна\n"
+"                            володіти необхідним обсягом дієздатності та\n"
+"                            необхідними повноваженнями для укладення\n"
+"                            договорів на придбання, замовлення Товарів.\n"
+"                            "
 msgstr ""
 "a natural person who purchases, orders,\n"
 "uses or intends to purchase or orderproducts for personal needs,\n"
@@ -923,45 +1059,72 @@ msgstr ""
 "conclude\n"
 "contracts for the purchase, order of Goods."
 
-#: .\templates\shop\info\terms.html:36
+#: .\templates\shop\info\terms.html:55
 msgid "Продавець"
 msgstr "Chernivtsi"
 
-#: .\templates\shop\info\terms.html:36
+#: .\templates\shop\info\terms.html:56
+#, fuzzy
+#| msgid ""
+#| " суб'єкт господарювання, який згідно з договором реалізує\n"
+#| "                            споживачеві Товари або пропонує їх до "
+#| "реалізації."
 msgid ""
-" суб'єкт господарювання, який згідно з договором реалізує\n"
-"                            споживачеві Товари або пропонує їх до реалізації."
+" суб'єкт господарювання, який згідно з\n"
+"                            договором реалізує\n"
+"                            споживачеві Товари або пропонує їх до "
+"реалізації.\n"
+"                            "
 msgstr ""
 "a business entity that, according to the contract, implements\n"
 "Goods to the consumer or offers them for sale."
 
-#: .\templates\shop\info\terms.html:39
+#: .\templates\shop\info\terms.html:61
 msgid "Сайт"
 msgstr "Site"
 
-#: .\templates\shop\info\terms.html:39
+#: .\templates\shop\info\terms.html:62
+#, fuzzy
+#| msgid ""
+#| " веб-сайт, що розміщений в мережі інтернет за адресою:\n"
+#| "                            www.multishop.com."
 msgid ""
-" веб-сайт, що розміщений в мережі інтернет за адресою:\n"
-"                            www.multishop.com."
+" веб-сайт, що розміщений в мережі\n"
+"                            інтернет за адресою:\n"
+"                            www.multishop.pp.ua."
 msgstr ""
 " website located on the Internet at:\n"
 "www.multishop.com."
 
-#: .\templates\shop\info\terms.html:42
+#: .\templates\shop\info\terms.html:66
 msgid "Товари (продукція)"
 msgstr "Goods (products)"
 
-#: .\templates\shop\info\terms.html:42
+#: .\templates\shop\info\terms.html:67
+#, fuzzy
+#| msgid ""
+#| " одяг, взуття, аксесуари та інші групи Товарів в\n"
+#| "                            асортименті, який представлений в Інтернет-"
+#| "магазині, дистанційний продаж яких не заборонений\n"
+#| "                            в Інтернет-магазині. Продавець дає можливість "
+#| "Покупцю переглядати зображення (фотознімки)\n"
+#| "                            Товару, який супроводжується інформацією про "
+#| "основні характеристики продукції (найменування,\n"
+#| "                            країна походження, умови використання тощо) "
+#| "та ціну продукції (Товарів)"
 msgid ""
-" одяг, взуття, аксесуари та інші групи Товарів в\n"
-"                            асортименті, який представлений в Інтернет-"
-"магазині, дистанційний продаж яких не заборонений\n"
-"                            в Інтернет-магазині. Продавець дає можливість "
-"Покупцю переглядати зображення (фотознімки)\n"
-"                            Товару, який супроводжується інформацією про "
-"основні характеристики продукції (найменування,\n"
+" одяг, взуття,\n"
+"                            аксесуари та інші групи Товарів в\n"
+"                            асортименті, який представлений в\n"
+"                            Інтернет-магазині, дистанційний продаж яких не\n"
+"                            заборонений\n"
+"                            в Інтернет-магазині. Продавець дає можливість\n"
+"                            Покупцю переглядати зображення (фотознімки)\n"
+"                            Товару, який супроводжується інформацією про\n"
+"                            основні характеристики продукції (найменування,\n"
 "                            країна походження, умови використання тощо) та "
-"ціну продукції (Товарів)"
+"ціну\n"
+"                            продукції (Товарів)"
 msgstr ""
 "clothes, shoes, accessories and other groups of Goods in\n"
 "the assortment presented on the Internetshops, the distance selling of which "
@@ -971,17 +1134,25 @@ msgstr ""
 "Goods accompanied by information aboutmain product characteristics (name,\n"
 "country of origin, conditions of use, etc.) and price of products (Goods)"
 
-#: .\templates\shop\info\terms.html:48
+#: .\templates\shop\info\terms.html:79
 msgid "Служба доставки"
 msgstr "Delivery"
 
-#: .\templates\shop\info\terms.html:48
-msgid " треті особи, які надають послуги по доставці"
+#: .\templates\shop\info\terms.html:80
+#, fuzzy
+#| msgid " треті особи, які надають послуги по доставці"
+msgid ""
+" треті особи, які надають послуги\n"
+"                            по доставці"
 msgstr "third parties providing delivery services"
 
-#: .\templates\shop\info\terms.html:49
+#: .\templates\shop\info\terms.html:82
 msgid "Замовлень Покупцеві."
 msgstr "Orders to the Buyer."
+
+#: .\templates\shop\page_not_found.html:15
+msgid "Такої сторінки немає"
+msgstr ""
 
 #: .\templates\shop\search.html:21
 msgid "По вашому запиту: "
@@ -991,92 +1162,90 @@ msgstr "At your request: "
 msgid "нічого не знайдено"
 msgstr "nothing found"
 
-#: .\templates\shop\shop.html:30
+#: .\templates\shop\shop.html:28
 msgid "Мінімальна вартість"
 msgstr "Minimum cost"
 
-#: .\templates\shop\shop.html:41
+#: .\templates\shop\shop.html:45
 msgid "Максимальна вартість"
 msgstr "Maximum Value"
 
-#: .\templates\shop\shop.html:52
+#: .\templates\shop\shop.html:62
 msgid "Колір"
 msgstr "Color"
 
-#: .\templates\shop\shop.html:68
+#: .\templates\shop\shop.html:79
 msgid "Розмір"
 msgstr "Size"
 
-#: .\templates\shop\shop.html:82
+#: .\templates\shop\shop.html:94
 msgid "Бренд"
 msgstr "Brand"
 
-#: .\templates\shop\shop.html:98
+#: .\templates\shop\shop.html:115
 msgid "Застосувати фільтри"
 msgstr "Apply filters"
 
-#: .\templates\shop\shop.html:101
+#: .\templates\shop\shop.html:121
 msgid "Відмінити фільтри"
 msgstr "Undo Filters"
 
-#: .\templates\shop\shop.html:128
-msgid "Вже додаємо товар в цю категорію..."
+#: .\templates\shop\shop.html:147
+#, fuzzy
+#| msgid "Вже додаємо товар в цю категорію..."
+msgid "Вже додаємо товар в цю категорію"
 msgstr "We are already adding the product to this category..."
 
-#: .\templates\shop\shop.html:130
+#: .\templates\shop\shop.html:149
 msgid "Спробуйте зайти пізніше"
 msgstr "Try to check in later"
 
-#: .\templates\users\account.html:8 .\users\views.py:76
+#: .\templates\users\account.html:10 .\users\views.py:84
 msgid "Мої замовлення"
 msgstr "Orders"
 
-#: .\templates\users\account.html:9 .\users\views.py:94
+#: .\templates\users\account.html:13 .\users\views.py:102
 msgid "Мої дані"
 msgstr "My data"
 
-#: .\templates\users\account.html:10 .\users\views.py:138
+#: .\templates\users\account.html:16 .\users\views.py:153
 msgid "Комунікації"
 msgstr "Communications"
 
-#: .\templates\users\account.html:11 .\users\views.py:149
+#: .\templates\users\account.html:19 .\users\views.py:164
 msgid "Мої відгуки"
 msgstr "Reviews"
 
-#: .\templates\users\account.html:12
+#: .\templates\users\account.html:22
 msgid "Вийти"
 msgstr "Exit"
 
-#: .\templates\users\account.html:23
+#: .\templates\users\account.html:33
 msgid "Для доступу потрібна авторизація"
 msgstr "Additional information"
 
-#: .\templates\users\account_data.html:25
-#: .\templates\users\communication.html:18
+#: .\templates\users\account_data.html:26
+#: .\templates\users\communication.html:21
 msgid "Змінити дані"
 msgstr "Change password"
 
-#: .\templates\users\inc\authorization.html:7
+#: .\templates\users\inc\authorization.html:7 .\users\views.py:41
 msgid "Авторизація"
 msgstr "Log in"
 
-#: .\templates\users\inc\authorization.html:14
-msgid "Забув пароль"
-msgstr "I forgot my password"
-
-#: .\templates\users\my_product_review.html:12
+#: .\templates\users\my_product_review.html:17
 msgid "Дата відгука"
 msgstr "Reviews"
 
-#: .\templates\users\my_product_review.html:13
+#: .\templates\users\my_product_review.html:19
 msgid "Оцінка"
 msgstr "Rating"
 
-#: .\templates\users\my_product_review.html:27
+#: .\templates\users\my_product_review.html:38
 msgid "Ви ще не залишили відгуків про товари"
 msgstr "You have not left any product reviews yet"
 
-#: .\templates\users\orders.html:12
+#: .\templates\users\orders.html:11
 msgid "Дата замовлення"
 msgstr "The cost of the order"
 
@@ -1084,27 +1253,27 @@ msgstr "The cost of the order"
 msgid "ID замовлення"
 msgstr "Orders"
 
-#: .\templates\users\orders.html:14
+#: .\templates\users\orders.html:16
 msgid "Статус"
 msgstr "Status"
 
-#: .\templates\users\orders.html:27
+#: .\templates\users\orders.html:35
 msgid "Новий"
 msgstr "New"
 
-#: .\templates\users\orders.html:28
+#: .\templates\users\orders.html:36
 msgid "Готуємо до відправки"
 msgstr "Delivery"
 
-#: .\templates\users\orders.html:29
+#: .\templates\users\orders.html:37
 msgid "В дорозі"
 msgstr "In the way"
 
-#: .\templates\users\orders.html:30
+#: .\templates\users\orders.html:38
 msgid "Доставлено"
 msgstr "Delivery"
 
-#: .\templates\users\orders.html:38
+#: .\templates\users\orders.html:48
 msgid "Деталі замовлення"
 msgstr "The cost of the order"
 
@@ -1120,21 +1289,31 @@ msgstr ""
 msgid "Important dates"
 msgstr ""
 
-#: .\users\forms.py:73
+#: .\users\forms.py:109
 msgid "Дата народження: 10/10/2000"
 msgstr "Date of birth: 10/10/2000"
 
-#: .\users\forms.py:94
+#: .\users\forms.py:134
 msgid "Такий email вже доданий до розсилки"
 msgstr "Such an email has already been added to the mailing list"
 
-#: .\users\forms.py:99
+#: .\users\forms.py:139
 msgid "Отримувати листи на пошту?"
 msgstr "Receive letters in the mail?"
 
 #: .\users\models.py:9
 msgid "email address"
 msgstr "Платіжна адреса"
+
+#: .\users\views.py:126
+msgid "Email додано"
+msgstr ""
+
+#~ msgid "Перейти до каталогу"
+#~ msgstr "Go to cart"
+
+#~ msgid "Забув пароль"
+#~ msgstr "I forgot my password"
 
 #~ msgid "Українська"
 #~ msgstr "Ukraine"

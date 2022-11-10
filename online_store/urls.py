@@ -23,8 +23,6 @@ from shop.views import PageNotFoundView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('favorite/', include('favorite.urls')),
-    path('basket/', include('basket.urls')),
     path('i18h/', include('django.conf.urls.i18n')),
     path('captcha/', include('captcha.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
@@ -35,12 +33,12 @@ urlpatterns += i18n_patterns(
     path('news/', include('news.urls')),
     path('order/', include('orders.urls')),
     path('user/', include('users.urls')),
+    path('favorite/', include('favorite.urls')),
+    path('basket/', include('basket.urls')),
 )
 
 if settings.DEBUG:
-    urlpatterns = [
-                      path('__debug__/', include('debug_toolbar.urls')),
-                  ] + urlpatterns
+    urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
 else:

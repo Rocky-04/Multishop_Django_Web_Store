@@ -2,5 +2,6 @@
 *.egg-info
 
 setup.cfg
+django_cache
 .env
 

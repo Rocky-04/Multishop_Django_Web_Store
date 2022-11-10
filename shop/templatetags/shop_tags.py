@@ -69,8 +69,8 @@ def get_all_category():
 
 
 @register.simple_tag
-def get_proper_elided_page_range(p, number, on_each_side=1, on_ends=1):
-    paginator = Paginator(p.object_list, p.per_page)
+def get_proper_elided_page_range(paginator, number, on_each_side=1, on_ends=1):
+    paginator = Paginator(paginator.object_list, paginator.per_page)
     return paginator.get_elided_page_range(number=number,
                                            on_each_side=on_each_side,
                                            on_ends=on_ends)
@@ -99,12 +99,12 @@ def get_fa_star(rating=5):
     else:
         rating = float(rating)
     star = ''
-    for i in range(5):
+    for step in range(5):
         if rating >= 1:
             star += '<i class="fas fa-star text-primary mr-1"></i>'
         elif rating > 0.3:
             star += '<i class="fas fa-star-half-alt text-primary mr-1"></i>'
         else:
             star += '<i class="far fa-star text-primary mr-1"></i>'
-        rating -= 1
+        rating -= step
     return star

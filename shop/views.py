@@ -250,7 +250,6 @@ class SearchView(ListView):
             title__icontains=self.request.GET.get('text'))
 
 
-
 class AddReviewView(View):
     def post(self, request):
         form = ReviewsForm(request.POST)
