@@ -1,0 +1,36 @@
+{% extends "news/base_news.html" %}
+{% load static %}
+{% load news_tags %}
+{% load i18n %}
+
+{% block news %}
+
+<h1>{{ title|upper }}</h1>
+{% for item in news %}
+<div class="card mb-3">
+    <div class="card-header">
+        {% trans 'КАТЕГОРІЯ:'|upper %} <a
+            href="{{item.category.get_absolute_url}}"> {{ item.category|upper }}</a>
+    </div>
+    <div class="card-body">
+        <div class="media">
+            {% if item.photo %}
+            <img alt="" class="mr-3" src="{{ item.photo.url }}" width="350">
+            {% endif %}
+            <div class="media-body">
+                <a href="{{item.get_absolute_url}}"><h5 class="card-title">
+                    {{ item.title|truncatewords:10 | safe}}</h5></a>
+                <p class="card-text">
+                    {{ item.content|truncatewords:40| safe }}</p>
+                <a class="btn btn-primary" href="{{ item.get_absolute_url }}">
+                    {% trans 'Читати далі' %}...</a>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            {{ item.created_at|date:"Y-m-d H:i:s" }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="container-fluid">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">{% trans "Зв'язатися з нами" %}</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+            <div class="contact-form bg-light p-30">
+                <div id="success"></div>
+
+                <form action="{% url 'send_user_mail'  %}" method="post"
+                      name="sentMessage"> {% csrf_token %}
+                    <div class="control-group">
+                        <input class="form-control" data-validation-required-message="Please enter your name" id="name"
+                               name="name"
+                               placeholder='{% trans "Від кого лист" %}'
+                               required="required"
+                               type="text"/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <input class="form-control" data-validation-required-message="Please enter your email" id="email"
+                               name="email"
+                               placeholder="{% trans 'Твій email' %}"
+                               required="required"
+                               type="email"/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <input class="form-control" data-validation-required-message="Please enter a subject" id="subject"
+                               name="subject" placeholder="{% trans 'Тема' %}"
+                               required="required"
+                               type="text"/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                            <textarea class="form-control" data-validation-required-message="Please enter your message"
+                                      id="message" name="message"
+                                      placeholder="{% trans 'Повідомлення' %}"
+                                      required="required"
+                                      rows="8"></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary py-2 px-4" id="sendMessageButton"
+                                type="submit">
+                            {% trans 'Відправити лист' %}
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-lg-5 mb-5">
+            <div class="bg-light p-30 mb-30">
+                <iframe allowfullscreen=""
+                        aria-hidden="false"
+                        frameborder="0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1270.3010590456095!2d30.523477149460874!3d50.448510445406335!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce51396e9c87%3A0xd552a4fe88b58b05!2sKhreschatyk%20St%2C%2013%D0%B1%2C%20Kyiv%2C%20Ukraine%2C%2002000!5e0!3m2!1sen!2sus!4v1663832227851!5m2!1sen!2sus" style="width: 100%; height: 250px;"
+                        tabindex="0"></iframe>
+            </div>
+            <div class="bg-light p-30 mb-3">
+                <p class="mb-2"><i
+                        class="fa fa-map-marker-alt text-primary mr-3"></i>
+                    {% trans 'Khreschatyk St 13, Kyiv, UA' %}</p>
+                <p class="mb-2"><i
+                        class="fa fa-envelope text-primary mr-3"></i>rocky01396@gmail.com
+                </p>
+                <p class="mb-2"><i
+                        class="fa fa-phone-alt text-primary mr-3"></i>+380 63 1959083</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

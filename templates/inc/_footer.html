@@ -1,0 +1,129 @@
+{% load static %}
+{% load i18n %}
+
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <h5 class="text-secondary text-uppercase mb-4">
+                {% trans 'Вперед за покупками'%}</h5>
+            <p class="mb-4">
+                {% trans 'Стильний жіночий, чоловічий та дитячий одяг в інтернет-магазині MultiShop'%}</p>
+            <p class="mb-2"><i
+                    class="fa fa-map-marker-alt text-primary mr-3"></i>
+                {% trans 'Хрещатик буд. 13, Київ, Україна'%}</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>rocky01396@gmail.com
+            </p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+380 63 195 90 83</p>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">
+                        {% trans 'Меню'%}</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2" href="{% url 'home' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Головна'%}</a>
+                        <a class="text-secondary mb-2" href="{% url 'news' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Новини'%}</a>
+                        <a class="text-secondary mb-2"
+                           href="{% url 'about' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Про нас'%}</a>
+                        <a class="text-secondary mb-2" href="{% url 'help' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Доставка'%}</a>
+                        <a class="text-secondary" href="{% url 'contact' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Контакти'%}</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">
+                        {% trans 'Мій акаунт'%}</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2"
+                           href="{% url 'account' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Кабінет'%}</a>
+                        <a class="text-secondary mb-2"
+                           href="{% url 'basket' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Корзина'%}</a>
+                        <a class="text-secondary mb-2"
+                           href="{% url 'favorite' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Вподобання'%}</a>
+                        <a class="text-secondary mb-2"
+                           href="{% url 'terms' %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            {% trans 'Умови і положення'%}</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">
+                        {% trans 'Підписатись на новини'%}</h5>
+                    <p>{% trans 'Вкажіть Ваш email щоб отримувати знижки та новини'%}</p>
+
+
+                    <form action="{% url 'subscriber_email' %}" method="post">
+                        {% csrf_token %}
+                        <input name="current" type="hidden"
+                               value="{{ request.get_full_path }}">
+                        <div class="input-group">
+                            {% for field in subscriber_email_form %}
+                            {% if field.errors%}
+                            {{field.errors}}
+                            {% endif %}
+                            {{ field }}
+                            {% endfor %}
+                            <div class="input-group-append">
+                                <button class="btn btn-block btn-primary ">
+                                    {% trans 'Відправити'%}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <h6 class="text-secondary text-uppercase mt-4 mb-3">
+                        {% trans 'Підписатись на нас'%}</h6>
+                    <div class="d-flex">
+
+                        <a class="btn btn-primary btn-square mr-2"
+                           href="https://www.twitter.com/hm"><i
+                                class="fab fa-twitter"></i></a>
+                        <a class="btn btn-primary btn-square mr-2"
+                           href="https://www.facebook.com/hm"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary btn-square mr-2"
+                           href="http://www.youtube.com/user/hennesandmauritz"><i
+                                class="fab fa-youtube"></i></a>
+                        <a class="btn btn-primary btn-square"
+                           href="https://www.instagram.com/hm"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top mx-xl-5 py-4"
+         style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="col-md-7 px-xl-0">
+            <p class="mb-md-0 text-center text-md-left text-secondary">
+                &copy; <a class="text-primary" href="#">Domain</a>.
+                {% trans 'Вміст цього сайту захищено законом про авторське право та належить MultiShop.'%}
+
+            </p>
+        </div>
+        <div class="col-md-5 px-xl-0 text-center text-md-right">
+            <img alt="" class="img-fluid"
+                 src="{% static 'img/payments.png' %}">
+        </div>
+    </div>
+</div>
+
+<!-- Footer End -->

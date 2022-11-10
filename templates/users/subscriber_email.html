@@ -1,0 +1,41 @@
+{% extends 'base.html' %}}
+{% block content %}
+{% load i18n %}
+
+
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <h2 class="text-secondary text-uppercase">
+                {% trans 'Підписатись на новини'%}</h2>
+            <p>
+                {% trans 'Вкажіть Ваш email щоб отримувати знижки та новини'%}</p>
+            <div class="bg-light p-30 mb-5">
+
+                <form action="{% url 'subscriber_email' %}" method="post">
+                    {% csrf_token %}
+                    <input name="current" type="hidden"
+                           value="{{ request.get_full_path }}">
+                    {% for field in form %}
+
+                    {% if field.errors %}
+                    <a style="width: 100px; color: red; ">{{ field.errors|striptags }}</a>
+                    <br>
+                    {%endif%}
+                    <div class="input-group">
+                        {{ field }}
+                        <div class="input-group-append">
+                            {% endfor %}
+                            <button class="btn btn-block btn-primary ">
+                                {% trans 'Відправити'%}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

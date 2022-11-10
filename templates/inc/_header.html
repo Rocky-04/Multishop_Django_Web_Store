@@ -1,0 +1,222 @@
+{% load shop_tags %}
+{% load mptt_tags %}
+{% load cache %}
+{% load i18n %}
+{% load static i18n %}
+{% get_all_category as category %}
+
+<!-- Topbar Start -->
+
+<div class="container-fluid">
+    <div class="row bg-secondary py-1 px-xl-5">
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="d-inline-flex align-items-center h-100">
+                <a class="text-body mr-3" href="{% url 'about' %}">
+                    {% trans 'Про нас' %}</a>
+                <a class="text-body mr-3" href="{% url 'contact' %}">
+                    {% trans 'Контакти'%}</a>
+                <a class="text-body mr-3" href="{% url 'help' %}">
+                    {% trans 'Доставка'%}</a>
+                <a class="text-body mr-3" href="{% url 'terms' %}">
+                    {% trans 'Умови і положення'%}</a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-light dropdown-toggle"
+                            data-toggle="dropdown"
+                            type="button">{% trans 'Обліковий запис'%}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {% if request.user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'account' %}">
+                            {{user}} : {% trans 'Особистий кабінет'%}</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">
+                            {% trans 'Вихід'%}</a>
+                        {% else %}
+                        <a class="dropdown-item" href="{% url 'login' %}">
+                            {% trans 'Вхід'%}</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">
+                            {% trans 'Реєстрація'%}</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-light dropdown-toggle"
+                            data-toggle="dropdown"
+                            type="button">{{LANGUAGE_CODE|upper }}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {% for language in languages %}
+                        {% if language.code != LANGUAGE_CODE %}
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <button class="dropdown-item" type="submit">
+                                {{ language.code|upper }}
+                                <input name="next" type="hidden"
+                                       value="{{ redirect_to }}"/>
+                                <input name="language" type="hidden"
+                                       value="{{ language.code }}"/>
+
+                            </button>
+                        </form>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="d-inline-flex align-items-center d-block d-lg-none">
+            <a class="btn px-0 ml-2" href="">
+                <i class="fas fa-heart text-dark"></i>
+                <span class="badge text-dark border border-dark rounded-circle"
+                      style="padding-bottom: 2px;">0</span>
+            </a>
+            <a class="btn px-0 ml-2" href="">
+                <i class="fas fa-shopping-cart text-dark"></i>
+                <span class="badge text-dark border border-dark rounded-circle"
+                      style="padding-bottom: 2px;">0</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+    <div class="col-lg-4">
+        <a class="text-decoration-none" href="{% url 'home' %}">
+            <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+            <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+        </a>
+    </div>
+    <div class="col-lg-4 col-6 text-left">
+        <form action="{% url 'search' %}" method="get">
+            <div class="input-group">
+                <input class="form-control" name='text' placeholder="{% trans 'Знайти товар'%}"
+                       type="text">
+                <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <i class="fa fa-search"></i>
+                            </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-4 col-6 text-right">
+        <p class="m-0">{% trans 'Підтримка'%}</p>
+        <h5 class="m-0">+380 63 195 90 83</h5>
+    </div>
+</div>
+
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div class="container-fluid bg-dark mb-30">
+    <div class="row px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a class="btn d-flex align-items-center justify-content-between bg-primary w-100"
+               data-toggle="collapse"
+               href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>
+                    {% trans 'Категорії'%}</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            {% cache 500 header %}
+            <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
+                 id="navbar-vertical"
+                 style="width: calc(100% - 30px); z-index: 999;">
+                <div class="navbar-nav w-100">
+
+
+                    {% recursetree category %}
+                    <div class="dropdown dropright">
+
+
+                        {% if not node.is_leaf_node %}
+                        <a class="nav-link dropdown-toggle"
+                           data-target="{{ node.get_absolute_url }}" data-toggle="dropdown"
+                           href="{{ node.get_absolute_url }}"
+                           target="_blank">{{ node.title }}
+
+                            <i class="fa fa-angle-right float-right mt-1"></i>
+                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                                {% for item in node.get_children %}
+                                <a class="dropdown-item"
+                                   href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <a class="nav-item nav-link"
+                               href="{{ node.get_absolute_url }}">{{ node.title }}</a>
+                            {% endif %}
+                        </a>
+                    </div>
+
+                    {% endrecursetree %}
+                </div>
+            </nav>
+            {% endcache %}
+        </div>
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+                <a class="text-decoration-none d-block d-lg-none" href="">
+                    <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
+                    <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
+                </a>
+                <button class="navbar-toggler" data-target="#navbarCollapse"
+                        data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between"
+                     id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a class="nav-item nav-link" href="{% url 'home' %}">
+                            {% trans 'Головна'%}</a>
+                        <a class="nav-item nav-link" href="{% url 'shop' %}">
+                            {% trans 'Товари'%}</a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                               href="#">{% trans 'Замовлення'%}
+                                <i
+                                        class="fa fa-angle-down mt-1"></i></a>
+                            <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                <a class="dropdown-item"
+                                   href="{% url 'basket' %}">{% trans 'Корзина'%}</a>
+                                <a class="dropdown-item"
+                                   href="{% url 'checkout' %}">{% trans 'Оформити замовлення'%}</a>
+                                <a class="dropdown-item"
+                                   href="{% url 'favorite' %}">{% trans 'Вподобання'%}</a>
+                            </div>
+                        </div>
+                        <a class="nav-item nav-link"
+                           href="{% url 'contact' %}">{% trans 'Контакти'%}</a>
+                        <a class="nav-item nav-link" href="{% url 'news' %}">
+                            {% trans 'Новини'%}</a>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                        <a class="btn px-0" href="{% url 'favorite' %}">
+                            <i class="fas fa-heart text-primary"></i>
+                            <span class="badge text-secondary border border-secondary rounded-circle"
+                                  style="padding-bottom: 2px;">{{ favorite_total }}</span>
+                        </a>
+                        <a class="btn px-0 ml-3" href="{% url 'basket' %}">
+                            <i class="fas fa-shopping-cart text-primary"></i>
+                            <span class="badge text-secondary border border-secondary rounded-circle"
+                                  style="padding-bottom: 2px;">{{ products_total_nmb }}</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Navbar End -->

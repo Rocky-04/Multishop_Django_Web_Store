@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<img class="position-absolute w-100 h-100" src="{{ tag.picture.url }}"
+     style="object-fit: cover;">
+<div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+    <div class="p-3" style="max-width: 700px;">
+        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
+            {{ tag.title|upper|center:"50" }}</h1>
+        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
+            {{ tag.title_two|upper|center:"20" }}</p>
+        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+           href="{{ tag.get_absolute_url }}">{% trans 'Купити зараз' %}</a>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{% extends 'users/account.html' %}}
+{% load i18n %}
+{% block content_account %}
+
+
+<form method="post">{% csrf_token %}
+
+    <div class="bg-light p-30 mb-5">
+        <div class="row">
+
+            {% for field in form %}
+
+            <div class="col-md-6 form-group">
+                {% if field.errors %}
+                <a style="width: 100px; color: red; ">{{ field.label }}:
+                    {{ field.errors|striptags }}</a>
+                {{ field}}
+                {% else %}
+                <a style="width: 100px; color: black; ">{{ field.label }}</a>
+                {{ field}}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <button class="btn btn-block btn-primary font-weight-bold py-3">
+            {% trans 'Змінити дані' %}
+        </button>
+    </div>
+</form>
+
+
+{% endblock %}

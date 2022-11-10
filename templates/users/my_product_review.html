@@ -1,0 +1,42 @@
+{% extends 'users/account.html' %}}
+{% load i18n %}
+{% block content_account %}
+
+
+{% for review in rewiews %}
+
+<article class="card">
+    <div class="card-body row">
+        <div class="col"><strong>{% trans 'Фото' %}:</strong> <br><br><img
+                alt="" src="{{review.product.get_title_photo}}"
+                style="width: 75px; "></div>
+        <div class="col"><strong>{% trans 'Товар' %}:</strong> <br><br> <a
+                href="{{  review.product.get_absolute_url }}"
+                style="width: 100px; color: black;">{{review.product|upper}}</a>
+        </div>
+        <div class="col"><strong>{% trans 'Дата відгука' %}:</strong> <br><br>{{review.updated}}
+        </div>
+        <div class="col"><strong>{% trans 'Оцінка' %}:</strong> <br><br>
+            {{ review.rating }}
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">{{review.text}}</div>
+    <br>
+
+    <a class="btn btn-primary" href="{{  review.product.get_absolute_url }}"
+       type="button">{% trans 'Змінити відгук' %}
+    </a>
+
+
+</article>
+
+<br>
+<br>
+{% empty %}
+<div class="d-flex justify-content-center">
+    {% trans 'Ви ще не залишили відгуків про товари' %}
+</div><br>
+
+{% endfor %}
+{% endblock %}

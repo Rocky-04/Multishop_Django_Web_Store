@@ -1,0 +1,101 @@
+{% load i18n %}
+{% load shop_tags %}
+<div class="product-item bg-light mb-4">
+
+    <div class="product-img position-relative overflow-hidden">
+        <a href="{{ item.get_absolute_url }}">
+            <img class="img-fluid w-100" src="{{ item.get_title_photo }}">
+        </a>
+
+    </div>
+
+    <div class="text-center py-4">
+        <a class="h6 text-decoration-none text-truncate"
+           href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+        <div class="d-flex align-items-center justify-content-center mt-2">
+            <h5>${{ item.price_now }}</h5>
+            <h6 class="text-muted ml-2">
+                {% if item.discount > 0 %}
+                <del>${{ item.price }}</del>
+                {% endif%}
+            </h6>
+        </div>
+
+        <form method="post">{% csrf_token %}
+            <div aria-label="Basic example" class="btn-group shadow-0 mt-1"
+                 role="group">
+
+
+                <input name="current" type="hidden"
+                       value="{{ request.get_full_path }}">
+                <input name="count" type="hidden" value="1">
+                <input name="color" type="hidden"
+                       value="{{ item.get_title_color_id }}">
+                <input name="size" type="hidden"
+                       value="{{ item.get_title_size_id }}">
+                {% if item.available %}
+                {% if item.get_title_size_id in products_basket_list %}
+                <a class="btn btn-dark btn-square"
+                   href="{% url 'basket' %}"
+                   title="{% trans 'Перейти до кошика' %}"><i
+                        class="fa fa-shopping-cart"></i></a>
+
+                {% else %}
+
+                <button class="btn btn-outline-dark btn-square"
+                        formaction="{% url 'add_basket' item.pk %}"
+                        title="{% trans 'Додати в кошик' %}">
+                    <i class="fa fa-shopping-cart"></i></button>
+                {% endif %}
+                {% else %}
+                <a class="btn btn-danger btn-square"
+                   href="{{ item.get_absolute_url }}"
+                   title="{% trans 'Немає в наявності' %}">
+                    <i class="fa fa-shopping-cart"></i></a>
+                {% endif %}
+
+
+                {% if item.get_title_size_id in favorite_list %}
+                <button class="btn btn-dark btn-square"
+                        formaction="{% url 'remove_favorite' item.pk %}"
+                        title="{% trans 'Прибрати з вподобань' %}"><i
+                        class="far fa-heart"></i></button>
+
+                {% else %}
+                <button class="btn btn-outline-dark btn-square"
+                        formaction="{% url 'add_favorite' item.pk %}"
+                        title="{% trans 'Додати до вподобань' %}"><i
+                        class="far fa-heart"></i></button>
+
+                {% endif %}
+
+
+                <a class="btn btn-outline-dark btn-square"
+                   href="{{ item.get_absolute_url }}"
+                   title="{% trans 'Детально про товар' %}"><i
+                        class="fa fa-search"></i></a>
+                <a class="btn btn-outline-dark btn-square"
+                   href="tel:+38 063 195 90 83"
+                   title="{% trans 'Зателефонувати' %}"><i
+                        class="fa fa-phone"></i></a>
+                {% if item.available %}
+                <a class="btn btn-success btn-square"
+                   href="{{ item.get_absolute_url }}"
+                   title="{% trans 'В наявності' %}"><i
+                        class="fa fa-check"></i></a>
+                {% else %}
+                <a class="btn btn-danger btn-square"
+                   href="{{ item.get_absolute_url }}"
+                   title="{% trans 'Немає в наявності' %}"><i
+                        class="fa fa-times"></i></a>
+                {% endif %}
+            </div>
+        </form>
+
+        <div class="d-flex align-items-center justify-content-center mb-1">
+            {% get_fa_star item.rating as star %}
+            {{star|safe}}
+            <small>({{item.counnt_reviews}})</small>
+        </div>
+    </div>
+</div>

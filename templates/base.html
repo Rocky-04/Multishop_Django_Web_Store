@@ -1,0 +1,85 @@
+{% load static %}
+{% load i18n %}
+
+<title>
+    {% block title %}
+    {% if title %}
+    {{title}} : MultiShop
+    {% else %}
+    MultiShop
+    {% endif %}
+    {% endblock %}
+</title>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% trans 'MultiShop - онлайн магазин стильного одягу' %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/icon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css" rel="stylesheet' %}">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
+          rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+{% include 'inc/_header.html' %}
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+    {% else %}
+    <div class="alert alert-{{message.tags}}" role="alert">
+        {{message}}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+{% include 'inc/_footer.html' %}
+
+<!-- Back to Top -->
+<a class="btn btn-primary back-to-top" href="#"><i
+        class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Contact Javascript File -->
+<script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
