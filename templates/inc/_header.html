@@ -12,13 +12,13 @@
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center h-100">
                 <a class="text-body mr-3" href="{% url 'about' %}">
-                    {% trans 'Про нас' %}</a>
+                    {% trans 'About us' %}</a>
                 <a class="text-body mr-3" href="{% url 'contact' %}">
-                    {% trans 'Контакти'%}</a>
+                    {% trans 'Contacts'%}</a>
                 <a class="text-body mr-3" href="{% url 'help' %}">
-                    {% trans 'Доставка'%}</a>
+                    {% trans 'Delivery'%}</a>
                 <a class="text-body mr-3" href="{% url 'terms' %}">
-                    {% trans 'Умови і положення'%}</a>
+                    {% trans 'Terms and conditions'%}</a>
             </div>
         </div>
         <div class="col-lg-6 text-center text-lg-right">
@@ -26,19 +26,19 @@
                 <div class="btn-group">
                     <button class="btn btn-sm btn-light dropdown-toggle"
                             data-toggle="dropdown"
-                            type="button">{% trans 'Обліковий запис'%}
+                            type="button">{% trans 'Account'%}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         {% if request.user.is_authenticated %}
                         <a class="dropdown-item" href="{% url 'account' %}">
-                            {{user}} : {% trans 'Особистий кабінет'%}</a>
+                            {{user}} : {% trans 'Personal account'%}</a>
                         <a class="dropdown-item" href="{% url 'logout' %}">
-                            {% trans 'Вихід'%}</a>
+                            {% trans 'Entrance'%}</a>
                         {% else %}
                         <a class="dropdown-item" href="{% url 'login' %}">
-                            {% trans 'Вхід'%}</a>
+                            {% trans 'Exit'%}</a>
                         <a class="dropdown-item" href="{% url 'register' %}">
-                            {% trans 'Реєстрація'%}</a>
+                            {% trans 'Registration'%}</a>
                         {% endif %}
                     </div>
                 </div>
@@ -99,7 +99,7 @@
     <div class="col-lg-4 col-6 text-left">
         <form action="{% url 'search' %}" method="get">
             <div class="input-group">
-                <input class="form-control" name='text' placeholder="{% trans 'Знайти товар'%}"
+                <input class="form-control" name='text' placeholder="{% trans 'Find a product'%}"
                        type="text">
                 <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
@@ -110,7 +110,7 @@
         </form>
     </div>
     <div class="col-lg-4 col-6 text-right">
-        <p class="m-0">{% trans 'Підтримка'%}</p>
+        <p class="m-0">{% trans 'Support'%}</p>
         <h5 class="m-0">+380 63 195 90 83</h5>
     </div>
 </div>
@@ -126,7 +126,7 @@
                data-toggle="collapse"
                href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
                 <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>
-                    {% trans 'Категорії'%}</h6>
+                    {% trans 'Categories'%}</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
             {% cache 500 header %}
@@ -179,27 +179,27 @@
                      id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <a class="nav-item nav-link" href="{% url 'home' %}">
-                            {% trans 'Головна'%}</a>
+                            {% trans 'Main'%}</a>
                         <a class="nav-item nav-link" href="{% url 'shop' %}">
-                            {% trans 'Товари'%}</a>
+                            {% trans 'Goods'%}</a>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
-                               href="#">{% trans 'Замовлення'%}
+                               href="#">{% trans 'Order'%}
                                 <i
                                         class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a class="dropdown-item"
-                                   href="{% url 'basket' %}">{% trans 'Корзина'%}</a>
+                                   href="{% url 'basket' %}">{% trans 'Basket'%}</a>
                                 <a class="dropdown-item"
-                                   href="{% url 'checkout' %}">{% trans 'Оформити замовлення'%}</a>
+                                   href="{% url 'checkout' %}">{% trans 'To order'%}</a>
                                 <a class="dropdown-item"
-                                   href="{% url 'favorite' %}">{% trans 'Вподобання'%}</a>
+                                   href="{% url 'favorite' %}">{% trans 'Likes'%}</a>
                             </div>
                         </div>
                         <a class="nav-item nav-link"
-                           href="{% url 'contact' %}">{% trans 'Контакти'%}</a>
+                           href="{% url 'contact' %}">{% trans 'Contacts'%}</a>
                         <a class="nav-item nav-link" href="{% url 'news' %}">
-                            {% trans 'Новини'%}</a>
+                            {% trans 'News'%}</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a class="btn px-0" href="{% url 'favorite' %}">

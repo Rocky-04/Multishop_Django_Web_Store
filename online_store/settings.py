@@ -149,7 +149,6 @@ LANGUAGES = (
     ('uk', _('Ukraine')),
     ('en', _('English')),
 
-
 )
 
 # Static files (CSS, JavaScript, Images)

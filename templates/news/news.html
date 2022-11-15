@@ -9,7 +9,7 @@
 {% for item in news %}
 <div class="card mb-3">
     <div class="card-header">
-        {% trans 'КАТЕГОРІЯ:'|upper %} <a
+        {% trans 'Category:'|upper %} <a
             href="{{item.category.get_absolute_url}}"> {{ item.category|upper }}</a>
     </div>
     <div class="card-body">
@@ -23,7 +23,7 @@
                 <p class="card-text">
                     {{ item.content|truncatewords:40| safe }}</p>
                 <a class="btn btn-primary" href="{{ item.get_absolute_url }}">
-                    {% trans 'Читати далі' %}...</a>
+                    {% trans 'Read more' %}...</a>
             </div>
         </div>
         <div class="card-footer text-muted">

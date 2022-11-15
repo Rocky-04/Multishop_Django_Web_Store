@@ -16,7 +16,7 @@
                     <th align="center">{% trans 'Goods' %}</th>
                     <th>{% trans 'Price' %}</th>
                     <th>{% trans 'Remove' %}</th>
-                    <th>{% trans 'Додати в кошик' %}</th>
+                    <th>{% trans 'Add to basket' %}</th>
                 </tr>
                 </thead>
                 <tbody class="align-middle valign-middle">
@@ -28,8 +28,8 @@
                     <td class="align-middle text-center"><a
                             href="{{  item.product.get_absolute_url }}"
                             style="width: 100px; color: black; valign: center;">
-                        {{ item.product.title|upper }}<br>{% trans 'КОЛІР:' %}
-                        {{item.color.color|upper}}<br> {% trans 'РОЗМІР:' %}
+                        {{ item.product.title|upper }}<br>{% trans 'COLOR:' %}
+                        {{item.color.color|upper}}<br> {% trans 'SIZE:' %}
                         {{item.size.size|upper}}</a></td>
 
                     <td class="align-middle">${{ item.product.price_now }}</td>
@@ -59,7 +59,7 @@
                            href="{% url 'basket' %}"
                            style="width: 200px; height: 40px;  background-color:7ACB1D;  text-center">
                             <i class="fa fa-shopping-cart mr-1 text-center">
-                                {% trans 'Вже в кошику' %}</i></a>
+                                {% trans 'Already in the basket' %}</i></a>
                         {% else %}
                         {% if item.size.available %}
                         <form method="post">{% csrf_token %}
@@ -68,7 +68,7 @@
                                         formaction="{% url 'add_basket' item.product.pk %}"
                                         style="width: 200px; height: 40px; text-center;">
                                     <i class="fa fa-shopping-cart mr-1">
-                                        {% trans 'Додати в кошик' %}</i></button>
+                                        {% trans 'Add to basket' %}</i></button>
                                 <input name="current" type="hidden"
                                        value="{{ request.path }}">
                                 <input name="count" type="hidden" value="1">
@@ -84,7 +84,7 @@
                                 formaction="{% url 'add_basket' item.product.pk %}"
                                 style="width: 200px; height: 40px;">
                             <i class="fa fa-shopping-cart mr-1">
-                                {% trans 'Немає в наявності' %}</i></button>
+                                {% trans 'Not available' %}</i></button>
 
                         {% endif %}
                         {% endif %}

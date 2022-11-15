@@ -22,8 +22,8 @@ class News(models.Model):
         return reverse_lazy('news_detail', kwargs={'slug': self.slug})
 
     class Meta:
-        verbose_name = _('Новини')
-        verbose_name_plural = _('Новини')
+        verbose_name = _('News')
+        verbose_name_plural = _('News')
         ordering = ['-created_at', 'title']
 
 

@@ -1,10 +1,10 @@
 {% load news_tags %}
 {% load i18n %}
 
-<h1>{% trans 'Категорії'|upper %}</h1>
+<h1>{% trans 'Categories'|upper %}</h1>
 <div class="list-group">
     <a class="list-group-item list-group-item-action" href="{% url 'news' %}">
-        {% trans 'Всі категорії'|upper %}
+        {% trans 'All categories'|upper %}
         <span class="badge badge-primary badge-pill">  {{cnt_news.pk__count}}</span></a>
     {% for c in categories %}
     <a class="list-group-item list-group-item-action"

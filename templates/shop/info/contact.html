@@ -5,7 +5,7 @@
 
 <div class="container-fluid">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">{% trans "Зв'язатися з нами" %}</span>
+        <span class="bg-secondary pr-3">{% trans "Contact us" %}</span>
     </h2>
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
@@ -17,7 +17,7 @@
                     <div class="control-group">
                         <input class="form-control" data-validation-required-message="Please enter your name" id="name"
                                name="name"
-                               placeholder='{% trans "Від кого лист" %}'
+                               placeholder='{% trans "Who is the letter from?" %}'
                                required="required"
                                type="text"/>
                         <p class="help-block text-danger"></p>
@@ -25,14 +25,14 @@
                     <div class="control-group">
                         <input class="form-control" data-validation-required-message="Please enter your email" id="email"
                                name="email"
-                               placeholder="{% trans 'Твій email' %}"
+                               placeholder="{% trans 'Your email' %}"
                                required="required"
                                type="email"/>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <input class="form-control" data-validation-required-message="Please enter a subject" id="subject"
-                               name="subject" placeholder="{% trans 'Тема' %}"
+                               name="subject" placeholder="{% trans 'Topic' %}"
                                required="required"
                                type="text"/>
                         <p class="help-block text-danger"></p>
@@ -40,7 +40,7 @@
                     <div class="control-group">
                             <textarea class="form-control" data-validation-required-message="Please enter your message"
                                       id="message" name="message"
-                                      placeholder="{% trans 'Повідомлення' %}"
+                                      placeholder="{% trans 'Message' %}"
                                       required="required"
                                       rows="8"></textarea>
                         <p class="help-block text-danger"></p>
@@ -48,7 +48,7 @@
                     <div>
                         <button class="btn btn-primary py-2 px-4" id="sendMessageButton"
                                 type="submit">
-                            {% trans 'Відправити лист' %}
+                            {% trans 'Send a letter' %}
                         </button>
                     </div>
                 </form>

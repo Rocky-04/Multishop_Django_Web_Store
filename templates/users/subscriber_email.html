@@ -7,9 +7,9 @@
     <div class="row px-xl-5">
         <div class="col-lg-8">
             <h2 class="text-secondary text-uppercase">
-                {% trans 'Підписатись на новини'%}</h2>
+                {% trans 'Subscribe to the news'%}</h2>
             <p>
-                {% trans 'Вкажіть Ваш email щоб отримувати знижки та новини'%}</p>
+                {% trans 'Enter your email to receive discounts and news'%}</p>
             <div class="bg-light p-30 mb-5">
 
                 <form action="{% url 'subscriber_email' %}" method="post">
@@ -27,7 +27,7 @@
                         <div class="input-group-append">
                             {% endfor %}
                             <button class="btn btn-block btn-primary ">
-                                {% trans 'Відправити'%}
+                                {% trans 'Send'%}
                             </button>
                         </div>
                     </div>

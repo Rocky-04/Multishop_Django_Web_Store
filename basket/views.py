@@ -10,7 +10,7 @@ from .ultis import BasketMixin
 
 class BasketAddView(BasketMixin, View):
     """
-    Adds products in the basket
+    Adds products in the basket 
     """
 
     def post(self, request, *args, **kwargs):
@@ -71,7 +71,7 @@ class ViewCart(BasketMixin, View):
         products_in_basket = ProductInBasket.objects.filter(
             session_key=session_key, is_active=True)
 
-        context = {'title': 'Корзина',
+        context = {'title': 'Product basket',
                    'products_in_basket': products_in_basket,
                    }
 

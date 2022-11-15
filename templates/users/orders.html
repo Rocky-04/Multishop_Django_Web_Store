@@ -8,15 +8,15 @@
 
 <article class="card">
     <div class="card-body row">
-        <div class="col"><strong>{% trans 'Дата замовлення' %}:</strong> <br>{{order.created}}
+        <div class="col"><strong>{% trans 'Order date' %}:</strong> <br>{{order.created}}
         </div>
-        <div class="col"><strong>{% trans 'ID замовлення' %}:</strong> <br>
+        <div class="col"><strong>{% trans 'Order ID' %}:</strong> <br>
             {{order.id}}
         </div>
-        <div class="col"><strong>{% trans 'Статус' %}:</strong> <br>
+        <div class="col"><strong>{% trans 'Status' %}:</strong> <br>
             {{order.status}}
         </div>
-        <div class="col"><strong>{% trans 'Вартість замовлення' %}:</strong>
+        <div class="col"><strong>{% trans 'The cost of the order' %}:</strong>
             <br> {{order.total_price}}
         </div>
     </div>
@@ -32,10 +32,10 @@
                  role="progressbar" style="width: {% widthratio order.status.id 1 25 %}%; border-radius: 25px; "></div>
         </div>
         <div class="d-flex justify-content-around mb-1">
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Новий' %}</p>
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Готуємо до відправки' %}</p>
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'В дорозі' %}</p>
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Доставлено' %}</p>
+            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'New' %}</p>
+            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Preparing for shipment' %}</p>
+            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'In the way' %}</p>
+            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Delivered' %}</p>
         </div>
     </div>
     <br>
@@ -45,18 +45,18 @@
     <button aria-controls="demo" aria-expanded="false" class="btn btn-primary"
             data-target="#demo"
             data-toggle="collapse" type="button">
-        {% trans 'Деталі замовлення' %}
+        {% trans 'Order details' %}
     </button>
     <div class="collapse multi-collapse" id="demo">
 
         <table class="table table-light table-borderless table-hover text-center mb-0">
             <thead class="thead-dark">
             <tr>
-                <th>{% trans 'Фото' %}</th>
-                <th>{% trans 'Товари' %}</th>
-                <th>{% trans 'Ціна' %}</th>
-                <th>{% trans 'Кількість' %}</th>
-                <th>{% trans 'Сумма' %}</th>
+                <th>{% trans 'Photo' %}</th>
+                <th>{% trans 'Goods' %}</th>
+                <th>{% trans 'Price' %}</th>
+                <th>{% trans 'Number' %}</th>
+                <th>{% trans 'Sum' %}</th>
             </tr>
             </thead>
             {% for item in order.goods_in_the_order.all %}
@@ -68,8 +68,8 @@
                 <td class="align-middle"><a
                         href="{{  item.product.get_absolute_url }}"
                         style="width: 100px; color: black; ">{{ item.product.title|upper }}<br>
-                    {% trans 'КОЛІР' %}: {{item.color.color|upper}} <br>
-                    {% trans 'РОЗМІР' %}: {{item.size.size|upper}}</a>
+                    {% trans 'COLOR' %}: {{item.color.color|upper}} <br>
+                    {% trans 'SIZE' %}: {{item.size.size|upper}}</a>
                 </td>
                 <td class="align-middle">${{item.price_per_item}}</td>
                 <td class="align-middle">{{item.nmb}}</td>
@@ -85,7 +85,7 @@
                         style="width: 75px; "></td>
                 <td class="align-middle"><a href="{%  url 'help' %}"
                                             style="width: 100px; color: black; ">
-                    {% trans 'Доставка' %}</a></td>
+                    {% trans 'Delivery' %}</a></td>
                 <td class="align-middle"></td>
                 <td class="align-middle"></td>
                 <td class="align-middle">${{ order.delivery }}</td>
@@ -98,7 +98,7 @@
                         style="width: 75px; "></td>
                 <td class="align-middle"><a href="{%  url 'help' %}"
                                             style="width: 100px; color: black; ">
-                    {% trans 'Промо код' %}</a></td>
+                    {% trans 'Promo code' %}</a></td>
                 <td class="align-middle"></td>
                 <td class="align-middle"></td>
                 <td class="align-middle">- ${{ order.promo_code }}</td>

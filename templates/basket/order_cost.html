@@ -3,7 +3,7 @@
 
 
 <h5 class="section-title position-relative text-uppercase mb-3"><span
-        class="bg-secondary pr-3">{% trans 'Вартість замовлення' %}</span></h5>
+        class="bg-secondary pr-3">{% trans 'The cost of the order' %}</span></h5>
 
 <div class="bg-light p-30 mb-5">
     <div class="border-bottom">
@@ -11,10 +11,10 @@
         <table class="table table-light table-borderless table-hover text-center mb-0">
             <thead class="thead-dark">
             <tr>
-                <th>{% trans 'Прибрати' %}</th>
-                <th>{% trans 'Товар' %}</th>
-                <th>{% trans 'Кількість' %}</th>
-                <th>{% trans 'Ціна' %}</th>
+                 <th>{% trans 'Clean up' %}</th>
+                <th>{% trans 'Goods' %}</th>
+                <th>{% trans 'Amount' %}</th>
+                <th>{% trans 'Price' %}</th>
             </tr>
             </thead>
             <tbody class="align-middle">
@@ -50,27 +50,27 @@
     <div class="border-bottom mt-2">
         <div class="d-flex justify-content-between mb-3">
 
-            <h6>{% trans 'Товар' %}</h6>
+            <h6>{% trans 'Goods' %}</h6>
             <h6>${{ amount }}</h6>
         </div>
         <div class="d-flex justify-content-between ">
-            <h6 class="font-weight-medium">{% trans 'Доставка' %}</h6>
+            <h6 class="font-weight-medium">{% trans 'Delivery' %}</h6>
             <h6 class="font-weight-medium">${{ delivery }}</h6>
         </div>
 
     </div>
     <div class="pt-2">
         <div class="d-flex justify-content-between mt-2">
-            <h5>{% trans 'Всього' %}</h5>
+            <h5>{% trans 'In total' %}</h5>
             <h5>${{ amount|add:delivery }}</h5>
         </div>
         {% if button %}
         {% if amount %}
         <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
-           href="{% url 'checkout' %}">{% trans 'Замовити' %}</a>
+           href="{% url 'checkout' %}">{% trans 'Order' %}</a>
         {% else %}
         <button class="btn btn-block btn-secondary font-weight-bold my-3 py-3"
-                disabled>{% trans 'Не додані товари' %}
+                disabled>{% trans 'No products added' %}
         </button>
         {% endif %}
         {% endif %}

@@ -19,13 +19,13 @@
 
 
                 <h5 class="section-title position-relative text-uppercase mb-3"><span
-                        class="bg-secondary pr-3">{% trans 'Ціна' %}</span>
+                        class="bg-secondary pr-3">{% trans 'Price' %}</span>
                 </h5>
                 <div class="bg-light p-4 mb-30">
 
                     <div class="input-group ">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">{% trans 'Мінімальна вартість' %}</span>
+                            <span class="input-group-text">{% trans 'Minimum cost' %}</span>
                         </div>
                         <input class="form-control" id="input_text1"
                                max="5000" name="min_price"
@@ -34,7 +34,8 @@
                         <input class="form-control-range slider"
                                id="rangeinput1"
                                max="5000" min="0"
-                               onchange="input_text1.value = rangeinput1.value" oninput="input_text1.value = rangeinput1.value"
+                               onchange="input_text1.value = rangeinput1.value"
+                               oninput="input_text1.value = rangeinput1.value"
                                step="1" type="range"
                                value="0">
                     </div>
@@ -42,7 +43,7 @@
 
                     <div class="input-group ">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">{% trans 'Максимальна вартість' %}</span>
+                            <span class="input-group-text">{% trans 'Maximum cost' %}</span>
                         </div>
                         <input class="form-control" id="input_text2"
                                max="5000" name="max_price"
@@ -51,7 +52,8 @@
                         <input class="form-control-range slider"
                                id="rangeinput2"
                                max="5000" min="0"
-                               onchange="input_text2.value = rangeinput2.value" oninput="input_text2.value = rangeinput2.value"
+                               onchange="input_text2.value = rangeinput2.value"
+                               oninput="input_text2.value = rangeinput2.value"
                                step="2" type="range"
                                value="5000">
                     </div>
@@ -59,7 +61,7 @@
 
 
                 <h5 class="section-title position-relative text-uppercase mb-3"><span
-                        class="bg-secondary pr-3">{% trans 'Колір' %}</span>
+                        class="bg-secondary pr-3">{% trans 'Color' %}</span>
                 </h5>
                 <div class="bg-light p-4 mb-30">
 
@@ -76,7 +78,7 @@
                 </div>
 
                 <h5 class="section-title position-relative text-uppercase mb-3"><span
-                        class="bg-secondary pr-3">{% trans 'Розмір' %}</span>
+                        class="bg-secondary pr-3">{% trans 'Size' %}</span>
                 </h5>
                 <div class="bg-light p-4 mb-30">
                     {% for size in size_filter %}
@@ -91,7 +93,7 @@
                 </div>
 
                 <h5 class="section-title position-relative text-uppercase mb-3"><span
-                        class="bg-secondary pr-3">{% trans 'Бренд' %}</span>
+                        class="bg-secondary pr-3">{% trans 'Brand' %}</span>
                 </h5>
                 <div class="bg-light p-4 mb-30">
                     {% for manufacturer in manufacturer_filter %}
@@ -110,15 +112,15 @@
                 <button class="btn btn-primary px-8"
                         formaction="{% url 'filter'%}"
                         style="width: 150px; height: 50px;"
-                        title="Застосувати фільтри">
+                        title="{% trans 'Apply filters' %}">
                     <i class="fa fa-filter">
-                        {% trans 'Застосувати фільтри' %}</i></button>
+                        {% trans 'Apply filters' %}</i></button>
                 <button class="btn btn-danger px-8"
                         formaction="{% url 'skip_filter'%}"
                         style="width: 150px; height: 50px;"
-                        title="Відмінити фільтри">
+                        title="{% trans 'Cancel filters' %}">
                     <i class="fa fa-filter">
-                        {% trans 'Відмінити фільтри' %}</i></button>
+                        {% trans 'Cancel filters' %}</i></button>
             </form>
         </div>
 
@@ -144,9 +146,10 @@
 
                 <div class="container-fluid pt-5">
                     <h2 class="section-title  text-uppercase mx-xl-5 mb-4"><span
-                            class="text-warning"> {% trans 'Вже додаємо товар в цю категорію' %}...
+                            class="text-warning">
+                        {% trans 'We are already adding the product to this category' %}...
                 <br>
-                {% trans 'Спробуйте зайти пізніше' %} </span>
+                {% trans 'Try to check in later' %} </span>
                     </h2>
                 </div>
                 {% endfor %}

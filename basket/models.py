@@ -23,12 +23,12 @@ class ProductInBasket(models.Model):
     size = models.ForeignKey(AttributeSize, on_delete=models.CASCADE,
                              blank=True, null=True, default=None)
 
-    def __str__(self):
-        return self.product.title
-
     class Meta:
         verbose_name = 'Goods in the basket'
         verbose_name_plural = 'Goods in the basket'
+
+    def __str__(self):
+        return self.product.title
 
     def save(self, *args, **kwargs):
         price_per_item = self.product.price_now
@@ -38,6 +38,8 @@ class ProductInBasket(models.Model):
 
     def amount_in_cart(self):
         session_key = self.session_key
-        amount = ProductInBasket.objects.filter(session_key).aggregate(
-            total_price)
+        amount = ProductInBasket.objects.filter(session_key).aggregate(total_price)
         return amount
+
+
+print(5465)

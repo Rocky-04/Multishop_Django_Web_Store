@@ -4,7 +4,7 @@
 
 <div class="container-fluid pt-5">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
-            class="bg-secondary pr-3">{{ title }} : {% trans 'Категорії' %} </span>
+            class="bg-secondary pr-3">{{ title }} : {% trans 'Categories' %} </span>
     </h2>
     <div class="row px-xl-5 pb-3">
         {% for item in category %}
@@ -19,7 +19,7 @@
                     <div class="flex-fill pl-3">
                         <h6>{{ item.title }}</h6>
                         <small class="text-body">{{item.get_count_product_in_category}}
-                            {% trans 'Товарів' %}</small>
+                            {% trans 'Goods' %}</small>
                     </div>
                 </div>
             </a>

@@ -44,18 +44,20 @@ class FilterView(ShopMixin):
             filter_manufacturer = Manufacturer.objects.all().values_list(
                 'manufacturer', flat=True)
 
-        queryset = Product.objects.filter(Q(pk__in=self.product_list_pk) & Q
-        (pk__in=filter_color) & Q
-                                          (pk__in=filter_size) & Q
-                                          (pk__in=filter_manufacturer) & Q
-                                          (price_now__gte=min_price,
-                                           price_now__lte=max_price))
+        queryset = Product.objects.filter(
+            Q(pk__in=self.product_list_pk) & Q
+            (pk__in=filter_color) & Q
+            (pk__in=filter_size) & Q
+            (pk__in=filter_manufacturer) & Q
+            (price_now__gte=min_price,
+             price_now__lte=max_price)
+        )
 
         return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Фільтр'
+        context['title'] = 'Filter'
         return context
 
 
@@ -69,7 +71,7 @@ class SkipFilterView(ShopMixin):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Товари'
+        context['title'] = 'Products'
         return context
 
 
@@ -138,7 +140,7 @@ class HomeView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Головна'
+        context['title'] = 'Main'
         return context
 
     def get_queryset(self):
@@ -161,19 +163,19 @@ class SendUserMailView(TemplateView):
 
         if name and email and subject and message:
             text_subject = f"contact form: {subject} {name}"
-            text_message = f"You have received a new message from your website contact form.\n\n" \
-                           f"Here are the details:\n\nName: {name}\n\n\nEmail: {email}\n\n" \
-                           f"Subject: {subject}\n\nMessage: {message}"
+            text_message = (f"You have received a new message from your website contact form.\n\n"
+                            f"Here are the details:\n\nName: {name}\n\n\nEmail: {email}\n\n"
+                            f"Subject: {subject}\n\nMessage: {message}")
             mail = send_mail(text_subject, text_message, EMAIL_HOST_USER,
                              [email], fail_silently=False)
             if mail:
-                messages.success(request, _('Лист відправлено'))
+                messages.success(request, _('Thank you for your request'))
             else:
                 messages.error(request,
-                               _('Помилка при відправці листа. Спробуйте пізніше'))
+                               _('Error sending the letter. Try again later'))
         else:
             messages.error(request,
-                           _('Помилка при відправці листа. Спробуйте пізніше'))
+                           _('Error sending the letter. Try again later'))
 
         return render(request, self.template_name)
 
@@ -196,17 +198,14 @@ class ProductDetailView(DetailView):
             elif product.available:
                 context['active_color'] = product.get_active_color()[0]
             else:
-                context['active_color'] = \
-                    AttributeColor.objects.filter(product=product)[0]
+                context['active_color'] = AttributeColor.objects.filter(product=product)[0]
             if active_size is not None:
                 context['active_size'] = context[
                     'active_color'].attribute_size.get(size_id=active_size)
             elif context['active_color'].available:
-                context['active_size'] = \
-                    context['active_color'].get_active_size()[0]
+                context['active_size'] = context['active_color'].get_active_size()[0]
             else:
-                context['active_size'] = \
-                    context['active_color'].get_all_size()[0]
+                context['active_size'] = context['active_color'].get_all_size()[0]
         except Exception as e:
             print(e)
 
@@ -240,7 +239,7 @@ class SearchView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Пошук'
+        context['title'] = 'Search'
         context['text'] = f"text={self.request.GET.get('text')}&"
         context['empty'] = self.request.GET.get('text')
         return context
@@ -261,10 +260,10 @@ class AddReviewView(View):
             product_id = request.POST.get('product_id')
             current = request.POST.get('current')
 
-            rewiew = Reviews.objects.filter(user=user, product=product_id)
+            review = Reviews.objects.filter(user=user, product=product_id)
 
-            if len(rewiew) >= 1:
-                rewiew.update(text=text,
+            if len(review) >= 1:
+                review.update(text=text,
                               rating=rating)
             else:
                 Reviews.objects.create(user=user,

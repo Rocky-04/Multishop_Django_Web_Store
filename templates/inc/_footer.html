@@ -7,12 +7,12 @@
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
             <h5 class="text-secondary text-uppercase mb-4">
-                {% trans 'Вперед за покупками'%}</h5>
+                {% trans 'Go shopping'%}</h5>
             <p class="mb-4">
-                {% trans 'Стильний жіночий, чоловічий та дитячий одяг в інтернет-магазині MultiShop'%}</p>
+                {% trans "Stylish women's, men's and children's clothing in the MultiShop online store"%}</p>
             <p class="mb-2"><i
                     class="fa fa-map-marker-alt text-primary mr-3"></i>
-                {% trans 'Хрещатик буд. 13, Київ, Україна'%}</p>
+                {% trans 'Khreschatyk 13, Kyiv, Ukraine'%}</p>
             <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>rocky01396@gmail.com
             </p>
             <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+380 63 195 90 83</p>
@@ -21,52 +21,52 @@
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">
-                        {% trans 'Меню'%}</h5>
+                        {% trans 'Menu'%}</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2" href="{% url 'home' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Головна'%}</a>
+                            {% trans 'Main'%}</a>
                         <a class="text-secondary mb-2" href="{% url 'news' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Новини'%}</a>
+                            {% trans 'News'%}</a>
                         <a class="text-secondary mb-2"
                            href="{% url 'about' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Про нас'%}</a>
+                            {% trans 'About us'%}</a>
                         <a class="text-secondary mb-2" href="{% url 'help' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Доставка'%}</a>
+                            {% trans 'Delivery'%}</a>
                         <a class="text-secondary" href="{% url 'contact' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Контакти'%}</a>
+                            {% trans 'Contacts'%}</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">
-                        {% trans 'Мій акаунт'%}</h5>
+                        {% trans 'My account'%}</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2"
                            href="{% url 'account' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Кабінет'%}</a>
+                            {% trans 'Office'%}</a>
                         <a class="text-secondary mb-2"
                            href="{% url 'basket' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Корзина'%}</a>
+                            {% trans 'Basket'%}</a>
                         <a class="text-secondary mb-2"
                            href="{% url 'favorite' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Вподобання'%}</a>
+                            {% trans 'Likes'%}</a>
                         <a class="text-secondary mb-2"
                            href="{% url 'terms' %}"><i
                                 class="fa fa-angle-right mr-2"></i>
-                            {% trans 'Умови і положення'%}</a>
+                            {% trans 'Terms and conditions'%}</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">
-                        {% trans 'Підписатись на новини'%}</h5>
-                    <p>{% trans 'Вкажіть Ваш email щоб отримувати знижки та новини'%}</p>
+                        {% trans 'Subscribe to the news'%}</h5>
+                    <p>{% trans 'Enter your email to receive discounts and news'%}</p>
 
 
                     <form action="{% url 'subscriber_email' %}" method="post">
@@ -82,7 +82,7 @@
                             {% endfor %}
                             <div class="input-group-append">
                                 <button class="btn btn-block btn-primary ">
-                                    {% trans 'Відправити'%}
+                                    {% trans 'Send'%}
                                 </button>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
 
 
                     <h6 class="text-secondary text-uppercase mt-4 mb-3">
-                        {% trans 'Підписатись на нас'%}</h6>
+                        {% trans 'Subscribe to us'%}</h6>
                     <div class="d-flex">
 
                         <a class="btn btn-primary btn-square mr-2"
@@ -115,7 +115,7 @@
         <div class="col-md-7 px-xl-0">
             <p class="mb-md-0 text-center text-md-left text-secondary">
                 &copy; <a class="text-primary" href="#">Domain</a>.
-                {% trans 'Вміст цього сайту захищено законом про авторське право та належить MultiShop.'%}
+                {% trans 'The content of this site is protected by copyright law and belongs to MultiShop.'%}
 
             </p>
         </div>

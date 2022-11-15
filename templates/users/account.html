@@ -7,19 +7,19 @@
         <div class="col-lg-4">
             <a class="list-group-item list-group-item-action"
                href="{% url 'account' %}">
-                {% trans 'Мої замовлення'%}</a>
+                {% trans 'My orders'%}</a>
             <a class="list-group-item list-group-item-action"
                href="{% url 'account_data' %}">
-                {% trans 'Мої дані'%}</a>
+                {% trans 'My data'%}</a>
             <a class="list-group-item list-group-item-action"
                href="{% url 'communication' %}">
-                {% trans 'Комунікації'%}</a>
+                {% trans 'Communications'%}</a>
             <a class="list-group-item list-group-item-action"
                href="{% url 'my_product_review' %}">
-                {% trans 'Мої відгуки'%}</a>
+                {% trans 'My reviews'%}</a>
             <a class="list-group-item list-group-item-action"
                href="{% url 'logout' %}">
-                {% trans 'Вийти'%}</a>
+                {% trans 'Go out'%}</a>
         </div>
 
 
@@ -30,11 +30,11 @@
             {% block content_account %} {% endblock %}
             {% else %}
             <h5 class="section-title position-relative text-uppercase mb-3"><span
-                    class="bg-secondary pr-3">{% trans 'Для доступу потрібна авторизація' %}</span>
+                    class="bg-secondary pr-3">{% trans 'Authorization is required for access' %}</span>
             </h5>
 
             <a class="btn btn-block btn-primary font-weight-bold py-3"
-               href="{% url 'login' %}">{% trans 'Авторизуватись' %}</a>
+               href="{% url 'login' %}">{% trans 'Log in' %}</a>
             {% endif %}
 
 

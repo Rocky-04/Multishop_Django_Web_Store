@@ -42,7 +42,7 @@
                         {% get_fa_star product.rating as star %}
                         {{star|safe}}
                     </div>
-                    <small>({{product.counnt_reviews}})</small>
+                    <small>({{product.count_reviews}})</small>
                 </div>
                 <div class="d-flex align-items-start justify-content-start mt-2">
                     <h3>${{ product.price_now }}</h3>
@@ -57,7 +57,7 @@
 
                 <div class="d-flex mb-4">
                     <strong class="text-dark mr-3">
-                        {% trans 'Колір:' %}</strong>
+                        {% trans 'Color' %}:</strong>
 
                     {% for color in colors %}
 
@@ -83,7 +83,7 @@
 
                 {% if active_color.available %}
                 <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">{% trans 'Розміри' %}:</strong>
+                    <strong class="text-dark mr-3">{% trans 'Dimensions' %}:</strong>
 
 
                     {% for size in active_color.get_active_size %}
@@ -107,7 +107,9 @@
                 </div>
                 {% else %}
                 <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">{% trans 'Товар закінчивсь. Очікуємо поставку нового товару' %}...</strong>
+                    <strong class="text-dark mr-3">
+                        {% trans 'The product is out of stock. We are waiting for the delivery of the new product' %}...
+                    </strong>
                     <br>
                 </div>
                 {% endif %}
@@ -131,14 +133,16 @@
                         <div class="input-group-prepend">
                             <button class="btn btn-success active px-3"
                                     formaction="{% url 'add_basket' product.pk %}">
-                                <i class="fa fa-shopping-cart mr-1"> {% trans 'Додати ще в кошик' %}</i></button>
+                                <i class="fa fa-shopping-cart mr-1"> {% trans 'Add more to cart' %}
+                                </i></button>
                         </div>
                         {% else %}
                         <div class="input-group-prepend">
                             <button class="btn btn-primary px-3"
                                     formaction="{% url 'add_basket' product.pk %}">
                                 <i
-                                        class="fa fa-shopping-cart mr-1"> {% trans 'Додати в кошик' %}</i></button>
+                                        class="fa fa-shopping-cart mr-1"> {% trans 'Add to cart' %}
+                                </i></button>
                         </div>
                         {% endif %}
 
@@ -148,7 +152,8 @@
                             <div class="input-group-prepend"
                                  style="width: 180px; height: 40px;">
                                 <button class="btn btn-danger px-3 disabled"
-                                        disabled><i class="fa fa-ban"> {% trans 'Нема в наявності' %}</i></button>
+                                        disabled><i class="fa fa-ban"> {% trans 'Not available' %}
+                                </i></button>
                             </div>
                             {% endif %}
 
@@ -157,7 +162,7 @@
                                 <button class="btn btn-success active px-3"
                                         formaction="{% url 'remove_favorite' product.pk %}">
                                     <i class="fa fa-heart mr-1">
-                                        {% trans 'Прибрати з вподобань' %}</i>
+                                        {% trans 'Remove from favorites' %}</i>
                                 </button>
                             </div>
                             {% else %}
@@ -165,8 +170,8 @@
                             <div class="input-group-prepend">
                                 <button class="btn btn-primary px-3"
                                         formaction="{% url 'add_favorite' product.pk %}">
-                                    <i
-                                            class="fa fa-heart mr-1"> {% trans 'Додати до вподобань' %}</i></button>
+                                    <i class="fa fa-heart mr-1"> {% trans 'Add to favorites' %}
+                                    </i></button>
                             </div>
                             {% endif %}
                         </div>
@@ -183,38 +188,38 @@
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active"
                        data-toggle="tab" href="#tab-pane-1">
-                        {% trans 'Опис' %}</a>
+                        {% trans 'Description' %}</a>
                     <a class="nav-item nav-link text-dark" data-toggle="tab"
                        href="#tab-pane-2">
-                        {% trans 'Параметри' %}</a>
+                        {% trans 'Parameters' %}</a>
                     <a class="nav-item nav-link text-dark" data-toggle="tab"
                        href="#tab-pane-3">
-                        {% trans 'Відгуки' %}
-                        ({{ product.counnt_reviews }})</a>
+                        {% trans 'Reviews' %}
+                        ({{ product.count_reviews }})</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
-                        <h4 class="mb-3">{% trans 'Опис товару' %}</h4>
+                        <h4 class="mb-3">{% trans 'Product description' %}</h4>
                         <p>{{ product.description |safe }}</p>
 
                     </div>
                     <div class="tab-pane fade" id="tab-pane-2">
-                        <h4 class="mb-3">{% trans 'Параметри' %}</h4>
+                        <h4 class="mb-3">{% trans 'Parameters' %}</h4>
                         <p>{{ product.param |safe }}</p>
                         {% if product.manufacturer %}
                         <br>
-                        <h5 class="mb-3">{% trans 'Виробник' %}:
+                        <h5 class="mb-3">{% trans 'Manufacturer' %}:
                             {{product.manufacturer}}</h5>
                         {% endif %}
                         {% if product.category %}
                         <br>
-                        <h5 class="mb-3">{% trans 'Категорія' %}:
+                        <h5 class="mb-3">{% trans 'Category' %}:
                             {{product.category}}</h5>
                         {% endif %}
 
                         {% if product.country %}
                         <br>
-                        <h5 class="mb-3">{% trans 'Країна' %}:
+                        <h5 class="mb-3">{% trans 'Country' %}:
                             {{product.country}}</h5>
                         {% endif %}
 
@@ -223,8 +228,8 @@
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <h4 class="mb-4">{{ product.counnt_reviews }}
-                                    {% trans 'відгук про' %} "{{ product }}"</h4>
+                                <h4 class="mb-4">{{ product.count_reviews }}
+                                    {% trans 'feedback about' %} "{{ product }}"</h4>
                                 {% for review in product.get_reviews %}
                                 <div class="media mb-4">
                                     <img alt="Image"
@@ -248,11 +253,11 @@
                             </div>
 
                             <div class="col-md-6">
-                                <h4 class="mb-4">{% trans 'Залиште відгук' %}</h4>
+                                <h4 class="mb-4">{% trans 'Leave a review' %}</h4>
                                 {% if request.user.is_authenticated %}
 
                                 <small>
-                                    {% trans "Ваша електронна адреса не буде опублікована." %}
+                                    {% trans "Your email address will not be published." %}
                                 </small>
 
                                 <form action="{% url 'add_review' %}"
@@ -266,30 +271,33 @@
 
                                         <div class="form-group">
                                             <div class="d-flex my-3">
-                                                <p class="mb-0 mr-2">{% trans 'Оцінка товару' %}:</p>
+                                                <p class="mb-0 mr-2">
+                                                    {% trans 'Evaluation of the product' %}:</p>
                                                 {{ form.rating }}
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="d-flex my-3">
-                                                    <p class="mb-0 mr-2">{% trans 'Відгук' %}:</p>
+                                                    <p class="mb-0 mr-2">{% trans 'Response' %}:
+                                                    </p>
                                                     {{ form.text }}
                                                 </div>
 
                                                 {% get_user_review request.user.pk product.pk as user_review %}
                                                 {% if user_review %}
-                                                <h5>{% trans "Бажаєте змінити відгук? " %}</h5>
+                                                <h5>{% trans "Would you like to change your review?" %}
+                                                </h5>
                                                 <small>
-                                                    {% trans "Про один товар можна залишити тільки один відгук" %}
+                                                    {% trans "You can leave only one review for one product" %}
                                                 </small>
 
                                                 <button class="btn btn-block btn-primary ">
-                                                    {% trans 'Змінити відгук'%}
+                                                    {% trans 'Change review'%}
                                                 </button>
 
                                                 {% else %}
                                                 <button class="btn btn-block btn-primary ">
-                                                    {% trans 'Відправити відгук'%}
+                                                    {% trans 'Send feedback'%}
                                                 </button>
                                                 {% endif %}
                                             </div>
@@ -298,14 +306,14 @@
                                 </form>
 
                                 {% else %}
-                                <h5>{% trans "Залишити відгук можуть тільки авторизовані користувачі" %}</h5>
+                                <h5>{% trans "Only authorized users can leave feedback" %}</h5>
                                 <br>
                                 <a class="btn btn-block btn-primary font-weight-bold py-3"
                                    href="{% url 'login' %}">
-                                    {% trans 'Авторизуватись' %}</a>
+                                    {% trans 'Log in' %}</a>
                                 <a class="btn btn-block btn-primary font-weight-bold py-3"
                                    href="{% url 'register' %}">
-                                    {% trans 'Зареєструватись' %}</a>
+                                    {% trans 'Register' %}</a>
 
                                 {% endif %}
                             </div>
