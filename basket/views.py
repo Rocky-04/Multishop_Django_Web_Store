@@ -10,7 +10,7 @@ from .ultis import BasketMixin
 
 class BasketAddView(BasketMixin, View):
     """
-    Adds products in the basket 
+    Adds products in the basket
     """
 
     def post(self, request, *args, **kwargs):

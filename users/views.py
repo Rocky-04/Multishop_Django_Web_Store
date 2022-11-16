@@ -2,8 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import \
-    PasswordResetConfirmView as PasswordResetConfirmView_
+from django.contrib.auth.views import PasswordResetConfirmView as PasswordResetConfirmView_
 from django.contrib.auth.views import PasswordResetView as PasswordResetView_
 from django.db.models import Q
 from django.http import Http404
@@ -38,7 +37,7 @@ class LoginUserView(LoginView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Авторизація')
+        context['title'] = _('Authorization')
         return context
 
     def form_valid(self, form):
@@ -57,7 +56,7 @@ class RegisterUserView(CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Реєстрація')
+        context['title'] = _('Register')
         return context
 
     def form_valid(self, form):
@@ -81,7 +80,7 @@ class AccountUserView(TemplateView):
             email=self.request.user.email)).order_by('-id')
 
         context['orders'] = orders
-        context['title'] = _('Мої замовлення')
+        context['title'] = _('My orders')
         return context
 
 
@@ -99,7 +98,7 @@ class AccountDataUserView(UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Мої дані')
+        context['title'] = _('My data')
         return context
 
 
@@ -123,7 +122,7 @@ def subscriber_email(request):
         form = SubscriberEmailForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, _('Email додано'))
+            messages.success(request, _('Email added'))
             return HttpResponseRedirect(current)
     else:
         form = SubscriberEmailForm()
@@ -150,18 +149,18 @@ class CommunicationView(UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Комунікації')
+        context['title'] = _('Communications')
         context['email'] = self.request.user.email
         return context
 
 
 class MyProductReviewView(ListView):
     template_name = 'users/my_product_review.html'
-    context_object_name = 'rewiews'
+    context_object_name = 'reviews'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Мої відгуки')
+        context['title'] = _('My reviews')
         return context
 
     def get_queryset(self):

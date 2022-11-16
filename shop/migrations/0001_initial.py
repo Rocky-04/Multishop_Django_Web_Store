@@ -110,7 +110,7 @@ class Migration(migrations.Migration):
                                            serialize=False,
                                            verbose_name='ID')),
                 (
-                'name', models.CharField(max_length=50, verbose_name='Назва')),
+                    'name', models.CharField(max_length=50, verbose_name='Назва')),
                 ('price',
                  models.IntegerField(default=0, verbose_name='Вартість')),
                 ('order_price', models.IntegerField(blank=True, default=0,

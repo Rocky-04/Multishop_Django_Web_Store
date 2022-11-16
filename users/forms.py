@@ -16,18 +16,18 @@ class UserRegisterForm(UserCreationForm):
                              required=True,
                              widget=forms.EmailInput(
                                  attrs={'class': 'form-control'}))
-    first_name = forms.CharField(label="Ім'я",
+    first_name = forms.CharField(label=_("First name"),
                                  required=False,
                                  widget=forms.TextInput(
                                      attrs={'class': 'form-control'}))
-    last_name = forms.CharField(label='Прізвище',
+    last_name = forms.CharField(label=_('Last name'),
                                 required=False,
                                 widget=forms.TextInput(
                                     attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Пароль',
+    password1 = forms.CharField(label=_('Password'),
                                 widget=forms.PasswordInput(
                                     attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label='Повторіть пароль',
+    password2 = forms.CharField(label=_('Repeat the password'),
                                 widget=forms.PasswordInput(
                                     attrs={'class': 'form-control'}))
     captcha = CaptchaField()
@@ -47,7 +47,7 @@ class UserRegisterForm(UserCreationForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label='Email', widget=forms.EmailInput(
         attrs={'class': 'form-control'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(
+    password = forms.CharField(label=_('Password'), widget=forms.PasswordInput(
         attrs={'class': 'form-control'}))
     captcha = CaptchaField()
 
@@ -63,50 +63,50 @@ class PasswordResetForm(ResetForm):
 
 
 class SetPasswordForm(SetPasswordForm_):
-    new_password1 = forms.CharField(label='Пароль',
+    new_password1 = forms.CharField(label=_('Password'),
                                     widget=forms.PasswordInput(
                                         attrs={'class': 'form-control'}))
-    new_password2 = forms.CharField(label='Повторіть пароль',
+    new_password2 = forms.CharField(label=_('Repeat the password'),
                                     widget=forms.PasswordInput(
                                         attrs={'class': 'form-control'}))
 
 
 class UpdateUserDataForm(ModelForm):
-    first_name = forms.CharField(label=_("Ім'я"),
+    first_name = forms.CharField(label=_("First name"),
                                  help_text='John',
                                  required=False,
                                  widget=forms.TextInput(
                                      attrs={'class': 'form-control'}))
-    last_name = forms.CharField(label=_('Прізвище'),
+    last_name = forms.CharField(label=_('Last name'),
                                 help_text='Doe',
                                 required=False,
                                 widget=forms.TextInput(
                                     attrs={'class': 'form-control'}))
-    city = forms.CharField(label=_("Місто"),
+    city = forms.CharField(label=_("City"),
                            help_text='Kyiv',
                            required=False,
                            widget=forms.TextInput(
                                attrs={'class': 'form-control'}))
-    phone_number = forms.CharField(label=_("Телефон"),
+    phone_number = forms.CharField(label=_("Phone"),
                                    required=False,
                                    widget=forms.TextInput(
                                        attrs={'class': 'form-control'}))
-    address = forms.CharField(label=_("Адреса"),
+    address = forms.CharField(label=_("Address"),
                               help_text='123 Street',
                               required=False,
                               widget=forms.TextInput(
                                   attrs={'class': 'form-control'}))
-    postcode = forms.CharField(label=_("Індекс"),
+    postcode = forms.CharField(label=_("Postcode"),
                                help_text='16730',
                                required=False,
                                widget=forms.TextInput(
                                    attrs={'class': 'form-control'}))
-    additional_information = forms.CharField(label=_("Додаткова інформація"),
+    additional_information = forms.CharField(label=_("Additional Information"),
                                              help_text='wish',
                                              required=False,
                                              widget=forms.TextInput(attrs={
                                                  'class': 'form-control'}))
-    birthday = forms.DateField(label=_('Дата народження: 10/10/2000'),
+    birthday = forms.DateField(label=_("Date of birth: 10/10/2000"),
                                required=False,
                                widget=forms.DateInput(
                                    format='%d.%m.%Y',
@@ -131,12 +131,12 @@ class SubscriberEmailForm(forms.ModelForm):
 
         if EmailForNews.objects.filter(email=email).count() > 0:
             raise forms.ValidationError(
-                _('Такий email вже доданий до розсилки'))
+                _('Such an email has already been added to the mailing list'))
         return email
 
 
 class CommunicationForm(forms.ModelForm):
-    is_active = forms.BooleanField(label=_("Отримувати листи на пошту?"),
+    is_active = forms.BooleanField(label=_("Receive letters in the mail?"),
                                    required=False,
                                    )
 

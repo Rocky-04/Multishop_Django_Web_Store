@@ -62,7 +62,7 @@ class FavoriteRemoveView(View):
         return HttpResponseRedirect(current)
 
 
-class FavotiteView(View):
+class FavoriteView(View):
     """
     Views products in the favorite
     """

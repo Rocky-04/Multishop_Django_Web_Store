@@ -39,7 +39,5 @@ class ProductInBasket(models.Model):
     def amount_in_cart(self):
         session_key = self.session_key
         amount = ProductInBasket.objects.filter(session_key).aggregate(total_price)
+        print(amount)
         return amount
-
-
-print(5465)

@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os.path
 from pathlib import Path
-
 from django.utils.translation import gettext_lazy as _
 
 from config import DATABASE_PASSWORD
@@ -129,7 +128,12 @@ AUTH_USER_MODEL = "users.User"
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('en-us', _('English')),
+    ('uk', _('Ukraine')),
+)
 
 TIME_ZONE = 'EET'
 
@@ -144,12 +148,6 @@ EXTRA_LANG_INFO = {
 
     },
 }
-
-LANGUAGES = (
-    ('uk', _('Ukraine')),
-    ('en', _('English')),
-
-)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

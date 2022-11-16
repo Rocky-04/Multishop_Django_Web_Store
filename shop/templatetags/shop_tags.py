@@ -13,14 +13,13 @@ register = template.Library()
 
 
 @register.inclusion_tag('shop/inc/list_categories.html')
-def show_category(title='Товар', parent=None):
+def show_category(parent=None):
     if parent is not False:
         category = Category.objects.filter(parent__exact=parent)
     else:
         category = []
 
-    return {'category': category,
-            'title': title}
+    return {'category': category}
 
 
 @register.inclusion_tag('shop/inc/banner.html')
@@ -52,10 +51,10 @@ def show_card_product(context, item):
 
 
 @register.simple_tag()
-def get_products(limit=0, categoty_id=None, tag_id=None):
+def get_products(limit=0, category_id=None, tag_id=None):
     products = Product.objects.all().order_by('-available', '-count_sale')
-    if categoty_id:
-        products = products.filter(category=categoty_id)
+    if category_id:
+        products = products.filter(category=category_id)
     if tag_id:
         products = products.filter(tags=tag_id)
     if limit and limit < len(products):
@@ -85,9 +84,9 @@ def get_color_in_product(products):
 
 @register.simple_tag()
 def get_user_review(user_id, product_id):
-    rewiew = Reviews.objects.filter(user_id=user_id, product=product_id)
-    if len(rewiew) >= 1:
-        return rewiew[0]
+    review = Reviews.objects.filter(user_id=user_id, product=product_id)
+    if len(review) >= 1:
+        return review[0]
     else:
         return None
 
