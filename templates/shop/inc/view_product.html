@@ -237,16 +237,14 @@
                                          src="{% static 'img/logo_user.jpg' %}"
                                          style="width: 45px;">
                                     <div class="media-body">
-                                        <h6>{{
-                                            review.user.get_review_name}}<small>
-                                                - <i>{{ review.updated}}</i></small>
+                                        <h6>{{review.user.get_review_name}}<small> - <i>{{ review.updated}}</i></small>
                                         </h6>
 
                                         <div class="text-primary mb-2">
                                             {% get_fa_star review.rating as star %}
                                             {{star|safe}}
                                         </div>
-                                        <p>{{ review.text}}</p>
+                                        <p>{{ review.text }}</p>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -261,8 +259,7 @@
                                 </small>
 
                                 <form action="{% url 'add_review' %}"
-                                      method="post">{%
-                                    csrf_token %}
+                                      method="post">{% csrf_token %}
                                     <div class="input-group">
                                         <input name="product_id" type="hidden"
                                                value="{{ product.pk }}">
