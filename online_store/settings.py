@@ -128,10 +128,10 @@ AUTH_USER_MODEL = "users.User"
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('en-us', _('English')),
+    ('en', _('English')),
     ('uk', _('Ukraine')),
 )
 
@@ -140,14 +140,6 @@ TIME_ZONE = 'EET'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-EXTRA_LANG_INFO = {
-    'uk': {
-        'bidi': False,
-        'code': 'ua',
-
-    },
-}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

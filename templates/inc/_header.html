@@ -177,6 +177,10 @@
                             {% trans 'Main'%}</a>
                         <a class="nav-item nav-link" href="{% url 'shop' %}">
                             {% trans 'Goods'%}</a>
+                        <a class="nav-item nav-link" href="{% url 'news' %}">
+                            {% trans 'News'%}</a>
+                        <a class="nav-item nav-link"
+                           href="{% url 'contact' %}">{% trans 'Contacts'%}</a>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                                href="#">{% trans 'Order'%}
@@ -191,10 +195,6 @@
                                    href="{% url 'favorite' %}">{% trans 'Likes'%}</a>
                             </div>
                         </div>
-                        <a class="nav-item nav-link"
-                           href="{% url 'contact' %}">{% trans 'Contacts'%}</a>
-                        <a class="nav-item nav-link" href="{% url 'news' %}">
-                            {% trans 'News'%}</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a class="btn px-0" href="{% url 'favorite' %}">
