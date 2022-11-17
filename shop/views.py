@@ -276,5 +276,5 @@ class AddReviewView(View):
                                 status=400)
 
 
-class PageNotFoundView(TemplateView):
-    template_name = 'shop/page_not_found.html'
+def custom_page_not_found_view(request, exception):
+    return render(request, 'shop/page_not_found.html', status=404)
