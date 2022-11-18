@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-16 10:10+0200\n"
+"POT-Creation-Date: 2022-11-18 07:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,17 +22,17 @@ msgid "An error occurred during the execution of the action. Try again later"
 msgstr "Під час виконання дії сталася помилка. Спробуйте ще раз пізніше"
 
 #: .\news\models.py:25 .\news\models.py:26 .\news\views.py:18
-#: .\templates\inc\_footer.html:31 .\templates\inc\_header.html:197
+#: .\templates\inc\_footer.html:31 .\templates\inc\_header.html:176
 msgid "News"
 msgstr "Новини"
 
-#: .\online_store\settings.py:149
-msgid "Ukraine"
-msgstr "Українська"
-
-#: .\online_store\settings.py:150
+#: .\online_store\settings.py:133
 msgid "English"
 msgstr "Англійська"
+
+#: .\online_store\settings.py:134
+msgid "Ukraine"
+msgstr "Українська"
 
 #: .\orders\forms.py:18 .\orders\models.py:15 .\users\forms.py:19
 #: .\users\forms.py:75
@@ -52,7 +52,6 @@ msgid "Phone"
 msgstr "Телефон"
 
 #: .\orders\forms.py:38 .\users\forms.py:94
-
 msgid "Address"
 msgstr "Адреса"
 
@@ -61,7 +60,6 @@ msgid "Postcode"
 msgstr "Індекс"
 
 #: .\orders\forms.py:48 .\users\forms.py:104
-
 msgid "Additional Information"
 msgstr "Додаткова інформація"
 
@@ -93,17 +91,57 @@ msgstr "Добре"
 msgid "Very good"
 msgstr "Дуже добре"
 
-#: .\shop\utils.py:20
+#: .\shop\utils.py:21
 msgid "All products"
 msgstr "Всі товари"
 
-#: .\shop\views.py:172
+#: .\shop\views.py:74
+#, fuzzy
+#| msgid "Product"
+msgid "Products"
+msgstr "Товари"
+
+#: .\shop\views.py:144 .\templates\inc\_footer.html:28
+#: .\templates\inc\_header.html:172
+msgid "Main"
+msgstr "Головна"
+
+#: .\shop\views.py:169
 msgid "Thank you for your request"
 msgstr "Дякуємо за ваш запит"
 
-#: .\shop\views.py:175 .\shop\views.py:178
+#: .\shop\views.py:172 .\shop\views.py:175
 msgid "Error sending the letter. Try again later"
 msgstr "Помилка при відправці листа. Спробуйте пізніше"
+
+#: .\shop\views.py:209 .\templates\users\my_product_review.html:13
+msgid "Product"
+msgstr "Товари"
+
+#: .\shop\views.py:223 .\templates\inc\_footer.html:35
+#: .\templates\inc\_header.html:14
+msgid "About us"
+msgstr "Про нас"
+
+#: .\shop\views.py:231
+msgid "Help"
+msgstr "Допомога"
+
+#: .\shop\views.py:239
+#, fuzzy
+#| msgid "Term"
+msgid "Terms"
+msgstr "Термін"
+
+#: .\shop\views.py:247
+#, fuzzy
+#| msgid "Contacts"
+msgid "Contact"
+msgstr "Контакти"
+
+#: .\shop\views.py:259
+msgid "Search"
+msgstr "Пошук"
 
 #: .\templates\base.html:19
 msgid "MultiShop is an online store of stylish clothes"
@@ -116,7 +154,7 @@ msgstr "Фото"
 
 #: .\templates\basket\basket.html:16 .\templates\basket\order_cost.html:15
 #: .\templates\basket\order_cost.html:53 .\templates\favorite\favorite.html:16
-#: .\templates\inc\_header.html:179
+#: .\templates\inc\_header.html:174
 #: .\templates\shop\inc\list_categories.html:22
 #: .\templates\users\orders.html:56
 msgid "Goods"
@@ -177,7 +215,7 @@ msgstr "Доставка"
 msgid "In total"
 msgstr "Всього"
 
-#: .\templates\basket\order_cost.html:70 .\templates\inc\_header.html:182
+#: .\templates\basket\order_cost.html:70 .\templates\inc\_header.html:181
 #: .\templates\shop\info\terms.html:39
 msgid "Order"
 msgstr "Замовити"
@@ -221,16 +259,8 @@ msgstr "Хрещатик буд. 13, Київ, Україна"
 msgid "Menu"
 msgstr "Меню"
 
-#: .\templates\inc\_footer.html:28 .\templates\inc\_header.html:177
-msgid "Main"
-msgstr "Головна"
-
-#: .\templates\inc\_footer.html:35 .\templates\inc\_header.html:14
-msgid "About us"
-msgstr "Про нас"
-
 #: .\templates\inc\_footer.html:41 .\templates\inc\_header.html:16
-#: .\templates\inc\_header.html:195
+#: .\templates\inc\_header.html:178
 msgid "Contacts"
 msgstr "Контакти"
 
@@ -239,14 +269,15 @@ msgid "My account"
 msgstr "Особистий кабінет"
 
 #: .\templates\inc\_footer.html:51
-msgid "Office"
+
+msgid "My Account"
 msgstr "Особистий кабінет"
 
-#: .\templates\inc\_footer.html:55 .\templates\inc\_header.html:187
+#: .\templates\inc\_footer.html:55 .\templates\inc\_header.html:186
 msgid "Basket"
 msgstr "Корзина"
 
-#: .\templates\inc\_footer.html:59 .\templates\inc\_header.html:191
+#: .\templates\inc\_footer.html:59 .\templates\inc\_header.html:190
 msgid "Likes"
 msgstr "Вподобання"
 
@@ -289,12 +320,12 @@ msgid "Personal account"
 msgstr "Особистий кабінет"
 
 #: .\templates\inc\_header.html:35
-msgid "Entrance"
+msgid "Exit"
 msgstr "Вихід"
 
 #: .\templates\inc\_header.html:38
-msgid "Exit"
-msgstr "Вихід"
+msgid "Sign in"
+msgstr "Вхід"
 
 #: .\templates\inc\_header.html:40 .\templates\users\register.html:10
 msgid "Registration"
@@ -313,7 +344,7 @@ msgstr "Підтримка"
 msgid "Categories"
 msgstr "Категорії"
 
-#: .\templates\inc\_header.html:189
+#: .\templates\inc\_header.html:188 .\templates\orders\checkout.html:50
 msgid "To order"
 msgstr "Оформити замовлення"
 
@@ -385,7 +416,7 @@ msgid "Your password has been set. You may go ahead and log in now."
 msgstr "Ваш пароль встановлено. Ви можете продовжити та увійти зараз."
 
 #: .\templates\registration\password_reset_complete.html:16
-#: .\templates\shop\inc\view_product.html:313 .\templates\users\account.html:37
+#: .\templates\shop\inc\view_product.html:310 .\templates\users\account.html:37
 #: .\templates\users\inc\authorization.html:14
 msgid "Log in"
 msgstr "Авторизація"
@@ -415,6 +446,7 @@ msgstr ""
 "отримай їх найближчим часом"
 
 #: .\templates\registration\password_reset_done.html:18
+#, python-format
 msgid ""
 "If you don’t receive an email, please make sure you’ve entered the address "
 "you\n"
@@ -422,6 +454,10 @@ msgid ""
 msgstr ""
 "Якщо ви не отримали електронний лист, переконайтеся, що ви ввели адресуви "
 "зареєструвалися та перевірте папку зі спамом."
+
+#: .\templates\shop\detail.html:11
+msgid "YOU MIGHT ALSO LIKE"
+msgstr "ВАМ ТАКОЖ МОЖЕ СПОДОБАТИСЬ"
 
 #: .\templates\shop\inc\banner.html:9
 #: .\templates\shop\inc\carousel_banner.html:12
@@ -501,69 +537,69 @@ msgstr "Країна"
 msgid "feedback about"
 msgstr "відгук про"
 
-#: .\templates\shop\inc\view_product.html:256
+#: .\templates\shop\inc\view_product.html:254
 msgid "Leave a review"
 msgstr "Залиште відгук"
 
-#: .\templates\shop\inc\view_product.html:260
+#: .\templates\shop\inc\view_product.html:258
 msgid "Your email address will not be published."
 msgstr "Ваша електронна адреса не буде опублікована."
 
-#: .\templates\shop\inc\view_product.html:275
+#: .\templates\shop\inc\view_product.html:272
 msgid "Evaluation of the product"
 msgstr "Оцінка товару"
 
-#: .\templates\shop\inc\view_product.html:281
+#: .\templates\shop\inc\view_product.html:278
 msgid "Response"
 msgstr "Відповідь"
 
-#: .\templates\shop\inc\view_product.html:288
+#: .\templates\shop\inc\view_product.html:285
 msgid "Would you like to change your review?"
 msgstr "Бажаєте змінити відгук?"
 
-#: .\templates\shop\inc\view_product.html:291
+#: .\templates\shop\inc\view_product.html:288
 msgid "You can leave only one review for one product"
 msgstr "Про один товар можна залишити тільки один відгук"
 
-#: .\templates\shop\inc\view_product.html:295
+#: .\templates\shop\inc\view_product.html:292
 #: .\templates\users\my_product_review.html:28
 msgid "Change review"
 msgstr "Змінити відгук"
 
-#: .\templates\shop\inc\view_product.html:300
+#: .\templates\shop\inc\view_product.html:297
 msgid "Send feedback"
 msgstr "Відправити відгук"
 
-#: .\templates\shop\inc\view_product.html:309
+#: .\templates\shop\inc\view_product.html:306
 msgid "Only authorized users can leave feedback"
 msgstr "Залишити відгук можуть тільки авторизовані користувачі"
 
-#: .\templates\shop\inc\view_product.html:316
-#: .\templates\users\register.html:17 .\users\views.py:59
+#: .\templates\shop\inc\view_product.html:313
+#: .\templates\users\register.html:17 .\users\views.py:58
 msgid "Register"
 msgstr "Реєстрація"
 
-#: .\templates\shop\index.html:58
+#: .\templates\shop\index.html:56
 msgid "Quality product"
 msgstr "Якісний товар"
 
-#: .\templates\shop\index.html:65
+#: .\templates\shop\index.html:63
 msgid "Free shipping"
 msgstr "Безкоштовна доставка"
 
-#: .\templates\shop\index.html:72
+#: .\templates\shop\index.html:70
 msgid "14-Day return"
 msgstr "14-Днів повернення"
 
-#: .\templates\shop\index.html:79
+#: .\templates\shop\index.html:77
 msgid "24/7 Support"
 msgstr "24/7 Підтримка"
 
-#: .\templates\shop\index.html:90
+#: .\templates\shop\index.html:88
 msgid "Popular products"
 msgstr "Популярні товари"
 
-#: .\templates\shop\index.html:125
+#: .\templates\shop\index.html:123
 msgid "Maximum discounts"
 msgstr "Максимальні знижки"
 
@@ -644,7 +680,9 @@ msgid "Courier (Meest) - 110 UAH"
 msgstr "Кур'єр (Meest) - 110 UAH"
 
 #: .\templates\shop\info\help.html:22
-msgid "Free delivery for orders over UAH 2000"
+#, fuzzy
+#| msgid "Free delivery for orders over UAH 2000"
+msgid "Free delivery for orders over 2000 UAH"
 msgstr "Безкоштовна доставка для замовлення від 2000 UAH"
 
 #: .\templates\shop\info\help.html:23
@@ -748,7 +786,6 @@ msgstr ""
 "                            "
 
 #: .\templates\shop\info\help.html:124
-
 msgid ""
 "6 - 10 days: Brody,\n"
 "                            Volodymyr-Volynskyi, Drohobych, Kamianske, "
@@ -764,7 +801,6 @@ msgstr ""
 "                            Павлоград, Стрий, Червоноград"
 
 #: .\templates\shop\info\help.html:129
-
 msgid ""
 "8 - 11 days: Donetsk**,\n"
 "                            Luhansk**"
@@ -787,7 +823,6 @@ msgstr ""
 "                        урядом / адміністрацією України."
 
 #: .\templates\shop\info\help.html:137
-
 msgid ""
 "Unfortunately,\n"
 "                        delivery to retail stores is not available. We "
@@ -799,7 +834,6 @@ msgstr ""
 "                        вибачення за незручності."
 
 #: .\templates\shop\info\help.html:140
-
 msgid ""
 "Possibility\n"
 "                        fitting is not provided. Partial redemption of "
@@ -863,11 +897,11 @@ msgstr "Оплата за підключення згідно з тарифам�
 
 #: .\templates\shop\info\help.html:173
 msgid "Write to us"
-msgstr "Підписатись на нас"
+msgstr "Написати нам"
 
 #: .\templates\shop\info\help.html:178
 msgid "Call me"
-msgstr "Зателефонуй"
+msgstr "Зателефонувати"
 
 #: .\templates\shop\info\help.html:181
 msgid "Hotline"
@@ -916,6 +950,13 @@ msgid "Internet-shop"
 msgstr "Інтернет–магазин"
 
 #: .\templates\shop\info\terms.html:27
+#, fuzzy
+#| msgid ""
+#| "                            online store which\n"
+#| "                            is placed on the site which\n"
+#| "                            belongs to the Seller and has an address on "
+#| "the Internet\n"
+#| "                            "
 msgid ""
 "\n"
 "                            online store which\n"
@@ -924,6 +965,10 @@ msgid ""
 "Internet\n"
 "                            "
 msgstr ""
+" інтернет-магазин, який\n"
+" розміщено на сайті, який\n"
+" належить Продавцю та має адресу на Інтернет\n"
+" "
 
 #: .\templates\shop\info\terms.html:35
 msgid ""
@@ -931,6 +976,9 @@ msgid ""
 "                            offered for sale, terms of payment, delivery,\n"
 "                            return of these Goods."
 msgstr ""
+"на якому представлений Товар, який\n"
+" пропонується до продажу, умови оплати, доставки,\n"
+" повернення цих товарів."
 
 #: .\templates\shop\info\terms.html:40
 msgid ""
@@ -980,7 +1028,7 @@ msgstr ""
 
 #: .\templates\shop\info\terms.html:58
 msgid "Seller"
-msgstr ""
+msgstr "Продавець"
 
 #: .\templates\shop\info\terms.html:59
 msgid ""
@@ -1103,19 +1151,19 @@ msgstr "Вже додаємо товар в цю категорію"
 msgid "Try to check in later"
 msgstr "Спробуйте зайти пізніше"
 
-#: .\templates\users\account.html:10 .\users\views.py:83
+#: .\templates\users\account.html:10 .\users\views.py:82
 msgid "My orders"
 msgstr "Мої замовлення"
 
-#: .\templates\users\account.html:13 .\users\views.py:101
+#: .\templates\users\account.html:13 .\users\views.py:100
 msgid "My data"
 msgstr "Мої дані"
 
-#: .\templates\users\account.html:16 .\users\views.py:152
+#: .\templates\users\account.html:16 .\users\views.py:151
 msgid "Communications"
 msgstr "Комунікації"
 
-#: .\templates\users\account.html:19 .\users\views.py:163
+#: .\templates\users\account.html:19 .\users\views.py:162
 msgid "My reviews"
 msgstr "Мої відгуки"
 
@@ -1128,20 +1176,17 @@ msgid "Authorization is required for access"
 msgstr "Для доступу потрібна авторизація"
 
 #: .\templates\users\account_data.html:26
+#: .\templates\users\communication.html:21
 msgid "Change data"
 msgstr "Змінити дані"
 
-#: .\templates\users\inc\authorization.html:7 .\users\views.py:40
+#: .\templates\users\inc\authorization.html:7 .\users\views.py:41
 msgid "Authorization"
 msgstr "Авторизація"
 
 #: .\templates\users\inc\authorization.html:18
 msgid "I forgot my password"
 msgstr "Забув пароль"
-
-#: .\templates\users\my_product_review.html:13
-msgid "Product"
-msgstr "Товари"
 
 #: .\templates\users\my_product_review.html:17
 msgid "Feedback date"
@@ -1216,7 +1261,6 @@ msgid "Important dates"
 msgstr "Важливі дати!"
 
 #: .\users\forms.py:27 .\users\forms.py:50 .\users\forms.py:66
-
 msgid "Password"
 msgstr "Пароль"
 
@@ -1240,7 +1284,12 @@ msgstr "Отримувати листи на пошту?"
 msgid "email address"
 msgstr "email адреса"
 
-#: .\users\views.py:125
-
+#: .\users\views.py:124
 msgid "Email added"
 msgstr "Еmail доданий"
+
+#~ msgid "Office"
+#~ msgstr "Особистий кабінет"
+
+#~ msgid "Entrance"
+#~ msgstr "Вихід"

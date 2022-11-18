@@ -34,6 +34,7 @@ from .models import User
 class LoginUserView(LoginView):
     form_class = UserLoginForm
     template_name = 'users/login.html'
+    next_page = 'account'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,10 +44,8 @@ class LoginUserView(LoginView):
     def form_valid(self, form):
         session_key = self.request.session.session_key
         user = form.data['username']
-        ProductInBasket.objects.filter(session_key=session_key).update(
-            session_key=user)
-        Favorite.objects.filter(session_key=session_key).update(
-            session_key=user)
+        ProductInBasket.objects.filter(session_key=session_key).update(session_key=user)
+        Favorite.objects.filter(session_key=session_key).update(session_key=user)
         return super().form_valid(form)
 
 

@@ -98,12 +98,13 @@ def get_fa_star(rating=5):
     else:
         rating = float(rating)
     star = ''
+
     for step in range(5):
-        if rating >= 1:
+        if rating >= 0.5:
             star += '<i class="fas fa-star text-primary mr-1"></i>'
         elif rating > 0.3:
             star += '<i class="fas fa-star-half-alt text-primary mr-1"></i>'
         else:
             star += '<i class="far fa-star text-primary mr-1"></i>'
-        rating -= step
+        rating -= 1
     return star

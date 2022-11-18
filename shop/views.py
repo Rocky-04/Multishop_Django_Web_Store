@@ -71,7 +71,7 @@ class SkipFilterView(ShopMixin):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Products'
+        context['title'] = _('Products')
         return context
 
 
@@ -94,9 +94,10 @@ class CategoryView(ShopMixin):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Category.objects.get(slug=self.kwargs['slug'])
-        context['slug'] = Category.objects.get(slug=self.kwargs['slug']).pk
-        context['parent'] = Category.objects.get(slug=self.kwargs['slug']).id
+        cat = Category.objects.get(slug=self.kwargs['slug'])
+        context['title'] = cat
+        context['slug'] = cat.slug
+        context['parent'] = cat.pk
         return context
 
 
@@ -140,15 +141,11 @@ class HomeView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Main'
+        context['title'] = _('Main')
         return context
 
     def get_queryset(self):
         return Category.objects.all()
-
-
-class ContactView(TemplateView):
-    template_name = 'shop/info/contact.html'
 
 
 class SendUserMailView(TemplateView):
@@ -209,7 +206,7 @@ class ProductDetailView(DetailView):
         except Exception as e:
             print(e)
 
-        context['title'] = product
+        context['title'] = _('Product')
         context['product'] = product
         context['slug'] = product.category.pk
         context['colors'] = product.get_all_color()
@@ -221,13 +218,33 @@ class ProductDetailView(DetailView):
 class AboutView(TemplateView):
     template_name = 'shop/info/about-us.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('About us')
+
 
 class HelpView(TemplateView):
     template_name = 'shop/info/help.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Help')
+
 
 class TermsView(TemplateView):
     template_name = 'shop/info/terms.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Terms')
+
+
+class ContactView(TemplateView):
+    template_name = 'shop/info/contact.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Contact')
 
 
 class SearchView(ListView):
@@ -239,7 +256,7 @@ class SearchView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Search'
+        context['title'] = _('Search')
         context['text'] = f"text={self.request.GET.get('text')}&"
         context['empty'] = self.request.GET.get('text')
         return context
