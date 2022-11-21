@@ -298,16 +298,17 @@ class Delivery(models.Model):
         return str(self.price)
 
     @staticmethod
-    def get_delivery(amount) -> int:
+    def get_delivery(amount) -> "Delivery":
         """
         Calculates the delivery cost from the order amount
         :param amount:
-        :return: int
+        :return: Delivery
         """
         delivery = Delivery.objects.filter(is_active=True).order_by("-order_price")
         for item in delivery:
             if amount >= item.order_price:
-                return item.price
+                return item
+        return delivery[-1]
 
 
 class Banner(models.Model):

@@ -67,7 +67,7 @@ class CreateOrderForm(ModelForm):
 
     def clean_promo_code(self):
         """
-        Сhecks the promo code for validity
+        Checks the promo code for validity
         """
         promo_code = self.cleaned_data['promo_code']
         if not promo_code:

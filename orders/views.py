@@ -1,6 +1,7 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.http import JsonResponse
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView
 
@@ -16,27 +17,25 @@ class CheckoutView(CreateView):
     success_url = 'create_order/'
 
     def form_valid(self, form):
-        if self.request.user.is_authenticated:
-            user_authenticated = self.request.user.email
-        else:
-            user_authenticated = self.request.session.user_authenticated
-        products_in_basket = ProductInBasket.objects.filter(
-            user_authenticated=user_authenticated)
+        """
+        Checks the correctness of the order.
+        Makes an order.
+        Removes products from the shopping cart when the order is successful.
+        """
+        user_authenticated = self.request.session['user_authenticated']
+        products_in_basket = ProductInBasket.objects.filter(user_authenticated=user_authenticated)
         if len(products_in_basket) > 0:
             self.object = form.save()
             if form.data['promo_code']:
-                promo_code = PromoCode.objects.get(
-                    title=form.data['promo_code'])
+                promo_code = PromoCode.objects.get(title=form.data['promo_code'])
                 self.object.promo_code = promo_code
             if self.request.user.is_authenticated:
                 self.object.user = self.request.user
-
         else:
-            return JsonResponse({'success': False, 'error': 'Empty basket'},
-                                status=400)
+            messages.error(self.request, _('Empty basket. First you need to add a product'))
+            return HttpResponseRedirect(self.request.path_info)
 
         for item in products_in_basket:
-            print(item)
             GoodsInTheOrder.objects.create(product=item.product,
                                            order=self.object,
                                            total_price=item.total_price,

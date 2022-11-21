@@ -15,7 +15,7 @@ def order_cost(context, button=False):
     user_authenticated = request.session['user_authenticated']
     products_in_basket = ProductInBasket.get_products_in_user_basket(user_authenticated)
     amount = ProductInBasket.get_amount_in_user_basket(user_authenticated)
-    delivery = Delivery.get_delivery(amount)
+    delivery = Delivery.get_delivery(amount).price
 
     return {'request': request,
             'products_in_basket': products_in_basket,
