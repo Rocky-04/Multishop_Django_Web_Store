@@ -17,11 +17,11 @@ class CheckoutView(CreateView):
 
     def form_valid(self, form):
         if self.request.user.is_authenticated:
-            session_key = self.request.user.email
+            user_authenticated = self.request.user.email
         else:
-            session_key = self.request.session.session_key
+            user_authenticated = self.request.session.user_authenticated
         products_in_basket = ProductInBasket.objects.filter(
-            session_key=session_key)
+            user_authenticated=user_authenticated)
         if len(products_in_basket) > 0:
             self.object = form.save()
             if form.data['promo_code']:

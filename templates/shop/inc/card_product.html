@@ -34,7 +34,7 @@
                 <input name="size" type="hidden"
                        value="{{ item.get_title_size_id }}">
                 {% if item.available %}
-                {% if item.get_title_size_id in products_basket_list %}
+                {% if item.get_title_size_id in PRODUCTS_BASKET_LIST %}
                 <a class="btn btn-dark btn-square"
                    href="{% url 'basket' %}"
                    title="{% trans 'Go to basket' %}"><i
@@ -55,7 +55,7 @@
                 {% endif %}
 
 
-                {% if item.get_title_size_id in favorite_list %}
+                {% if item.get_title_size_id in PRODUCTS_FAVORITE_LIST %}
                 <button class="btn btn-dark btn-square"
                         formaction="{% url 'remove_favorite' item.pk %}"
                         title="{% trans 'Remove from favorites' %}"><i

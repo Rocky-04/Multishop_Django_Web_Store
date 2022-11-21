@@ -1,7 +1,7 @@
 class BasketMixin:
 
     def __init__(self):
-        self.session_key = None
+        self.user_authenticated = None
         self.product_id = None
         self.size = None
         self.color = None
@@ -15,8 +15,4 @@ class BasketMixin:
         self.size = data.get("size")
         self.color = data.get("color")
         self.product_id = kwargs.get('id')
-
-        if request.user.is_authenticated:
-            self.session_key = request.user.email
-        else:
-            self.session_key = request.session.session_key
+        self.user_authenticated = request.session['user_authenticated']

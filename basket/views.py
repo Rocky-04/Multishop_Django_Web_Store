@@ -17,14 +17,13 @@ class BasketAddView(BasketMixin, View):
         super().post(request, *args, **kwargs)
         try:
             new_product, created = ProductInBasket.objects.get_or_create(
-                session_key=self.session_key,
+                user_authenticated=self.user_authenticated,
                 product_id=self.product_id,
                 is_active=True,
                 size_id=self.size,
                 color_id=self.color,
                 defaults={"nmb": self.nmb})
             if not created:
-                print("not created")
                 new_product.nmb += int(self.nmb)
                 new_product.save(force_update=True)
 
@@ -44,7 +43,7 @@ class BasketRemoveView(BasketMixin, View):
         super().post(request, *args, **kwargs)
 
         try:
-            ProductInBasket.objects.filter(session_key=self.session_key,
+            ProductInBasket.objects.filter(user_authenticated=self.user_authenticated,
                                            product_id=self.product_id,
                                            size_id=self.size,
                                            color_id=self.color).delete()
@@ -63,15 +62,9 @@ class ViewCart(BasketMixin, View):
     template_name = 'basket/basket.html'
 
     def get(self, request):
-        if request.user.is_authenticated:
-            session_key = request.user.email
-        else:
-            session_key = request.session.session_key
-
-        products_in_basket = ProductInBasket.objects.filter(
-            session_key=session_key, is_active=True)
-
-        context = {'title': 'Product basket',
+        user_authenticated = request.session['user_authenticated']
+        products_in_basket = ProductInBasket.get_products_in_user_basket(user_authenticated)
+        context = {'title': _('Product basket'),
                    'products_in_basket': products_in_basket,
                    }
 
@@ -85,10 +78,9 @@ class EditCartView(BasketMixin, View):
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
-
         try:
             new_product = ProductInBasket.objects.get(
-                session_key=self.session_key,
+                user_authenticated=self.user_authenticated,
                 product_id=self.product_id,
                 size_id=self.size,
                 color_id=self.color)

@@ -12,10 +12,7 @@ class FavoriteAddView(View):
     """
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            session_key = request.user.email
-        else:
-            session_key = request.session.session_key
+        user_authenticated = request.session['user_authenticated']
 
         data = request.POST
         size = data.get("size")
@@ -24,7 +21,7 @@ class FavoriteAddView(View):
         current = request.POST.get('current')
 
         try:
-            Favorite.objects.get_or_create(session_key=session_key,
+            Favorite.objects.get_or_create(user_authenticated=user_authenticated,
                                            product_id=product_id,
                                            is_active=True, size_id=size,
                                            color_id=color)
@@ -40,10 +37,7 @@ class FavoriteRemoveView(View):
     """
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            session_key = request.user.email
-        else:
-            session_key = request.session.session_key
+        user_authenticated = request.session['user_authenticated']
 
         data = request.POST
         size = data.get("size")
@@ -52,7 +46,7 @@ class FavoriteRemoveView(View):
         current = request.POST.get('current')
 
         try:
-            Favorite.objects.filter(session_key=session_key,
+            Favorite.objects.filter(user_authenticated=user_authenticated,
                                     product_id=product_id,
                                     is_active=True, size_id=size,
                                     color_id=color).delete()
@@ -68,11 +62,7 @@ class FavoriteView(View):
     """
 
     def get(self, request):
-        if request.user.is_authenticated:
-            session_key = request.user.email
-        else:
-            session_key = request.session.session_key
-
-        favorites = Favorite.objects.filter(session_key=session_key)
+        user_authenticated = request.session['user_authenticated']
+        favorites = Favorite.objects.filter(user_authenticated=user_authenticated)
         context = {'favorites': favorites}
         return render(request, 'favorite/favorite.html', context=context)

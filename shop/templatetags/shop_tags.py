@@ -44,8 +44,8 @@ def show_carousel_brand():
 @register.inclusion_tag('shop/inc/card_product.html', takes_context=True)
 def show_card_product(context, item):
     return {'item': item,
-            'favorite_list': context['favorite_list'],
-            'products_basket_list': context['products_basket_list'],
+            'PRODUCTS_FAVORITE_LIST': context['PRODUCTS_FAVORITE_LIST'],
+            'PRODUCTS_BASKET_LIST': context['PRODUCTS_BASKET_LIST'],
             'request': context['request']
             }
 

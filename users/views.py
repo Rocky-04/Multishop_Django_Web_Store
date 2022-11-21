@@ -42,10 +42,10 @@ class LoginUserView(LoginView):
         return context
 
     def form_valid(self, form):
-        session_key = self.request.session.session_key
+        user_authenticated = self.request.session.user_authenticated
         user = form.data['username']
-        ProductInBasket.objects.filter(session_key=session_key).update(session_key=user)
-        Favorite.objects.filter(session_key=session_key).update(session_key=user)
+        ProductInBasket.objects.filter(user_authenticated=user_authenticated).update(user_authenticated=user)
+        Favorite.objects.filter(user_authenticated=user_authenticated).update(user_authenticated=user)
         return super().form_valid(form)
 
 
@@ -61,10 +61,10 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         user = form.save()
         session_key = self.request.session.session_key
-        ProductInBasket.objects.filter(session_key=session_key).update(
-            session_key=user.email)
-        Favorite.objects.filter(session_key=session_key).update(
-            session_key=user.email)
+        ProductInBasket.objects.filter(user_authenticated=session_key).update(
+            user_authenticated=user.email)
+        Favorite.objects.filter(user_authenticated=session_key).update(
+            user_authenticated=user.email)
         EmailForNews.objects.create(email=user.email)
         login(self.request, user)
         return redirect('home')

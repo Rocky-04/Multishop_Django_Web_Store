@@ -6,7 +6,6 @@ from .views import FavoriteView
 
 urlpatterns = [
     path('add/<id>/', view=FavoriteAddView.as_view(), name='add_favorite'),
-    path('remove/<id>/', view=FavoriteRemoveView.as_view(),
-         name='remove_favorite'),
+    path('remove/<id>/', view=FavoriteRemoveView.as_view(), name='remove_favorite'),
     path('', FavoriteView.as_view(), name='favorite'),
 ]

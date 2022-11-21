@@ -129,7 +129,7 @@
                                type="number"
                                value="1">
 
-                        {% if active_size.pk in products_basket_list %}
+                        {% if active_size.pk in PRODUCTS_BASKET_LIST %}
                         <div class="input-group-prepend">
                             <button class="btn btn-success active px-3"
                                     formaction="{% url 'add_basket' product.pk %}">
@@ -157,7 +157,7 @@
                             </div>
                             {% endif %}
 
-                            {% if active_size.pk in favorite_list %}
+                            {% if active_size.pk in PRODUCTS_FAVORITE_LIST %}
                             <div class="input-group-prepend">
                                 <button class="btn btn-success active px-3"
                                         formaction="{% url 'remove_favorite' product.pk %}">

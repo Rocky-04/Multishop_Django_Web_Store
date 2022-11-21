@@ -294,16 +294,20 @@ class Delivery(models.Model):
         verbose_name_plural = 'cost of delivery'
         ordering = ['price']
 
-    @staticmethod
-    def get_delivery(amount):
-        delivery = Delivery.objects.filter(is_active=True)
-
-        for item in delivery:
-            if amount >= item.order_price:
-                return item
-
     def __str__(self):
         return str(self.price)
+
+    @staticmethod
+    def get_delivery(amount) -> int:
+        """
+        Calculates the delivery cost from the order amount
+        :param amount:
+        :return: int
+        """
+        delivery = Delivery.objects.filter(is_active=True).order_by("-order_price")
+        for item in delivery:
+            if amount >= item.order_price:
+                return item.price
 
 
 class Banner(models.Model):
