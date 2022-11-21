@@ -22,17 +22,14 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     additional_information = models.TextField(max_length=300, blank=True)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2,
-                                      default=0)
-    status = models.ForeignKey('Status', default=1, on_delete=models.SET_NULL,
-                               blank=True, null=True)
-    delivery = models.ForeignKey(Delivery, on_delete=models.SET_NULL,
-                                 blank=True, null=True, default=None)
-    payment_method = models.ForeignKey('PaymentMethod',
-                                       on_delete=models.SET_NULL, blank=True,
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    status = models.ForeignKey('Status', default=1, on_delete=models.SET_NULL, blank=True,
+                               null=True)
+    delivery = models.ForeignKey(Delivery, on_delete=models.SET_NULL, blank=True, null=True,
+                                 default=None)
+    payment_method = models.ForeignKey('PaymentMethod', on_delete=models.SET_NULL, blank=True,
                                        null=True, default=None)
-    promo_code = models.ForeignKey('PromoCode', on_delete=models.SET_NULL,
-                                   blank=True, null=True)
+    promo_code = models.ForeignKey('PromoCode', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return str(self.id)
@@ -43,29 +40,29 @@ class Order(models.Model):
 
 
 class GoodsInTheOrder(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True,
-                                null=True, default=None)
-    color = models.ForeignKey(AttributeColor, on_delete=models.SET_NULL,
-                              blank=True, null=True, default=None)
-    size = models.ForeignKey(AttributeSize, on_delete=models.SET_NULL,
-                             blank=True, null=True, default=None)
-    order = models.ForeignKey(Order, related_name="goods_in_the_order",
-                              on_delete=models.CASCADE, blank=True, null=True,
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True,
+                                default=None)
+    color = models.ForeignKey(AttributeColor, on_delete=models.SET_NULL, blank=True, null=True,
                               default=None)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2,
-                                      default=0)
+    size = models.ForeignKey(AttributeSize, on_delete=models.SET_NULL, blank=True, null=True,
+                             default=None)
+    order = models.ForeignKey(Order, related_name="goods_in_the_order", on_delete=models.CASCADE,
+                              blank=True, null=True, default=None)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     nmb = models.IntegerField(default=1)
-    price_per_item = models.DecimalField(max_digits=10, decimal_places=2,
-                                         default=0)
+    price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return self.product.title
 
     class Meta:
-        verbose_name = 'goods in the order'
-        verbose_name_plural = 'goods in the orders'
+        verbose_name = _('Goods in the order')
+        verbose_name_plural = _('Goods in the orders')
 
     def save(self, *args, **kwargs):
+        """
+        Saves the product price and the price based on the quantity product
+        """
         self.price_per_item = self.product.price_now
         self.total_price = self.nmb * self.price_per_item
         super(GoodsInTheOrder, self).save(*args, **kwargs)
@@ -78,8 +75,8 @@ class Status(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Status'
-        verbose_name_plural = 'Statuses'
+        verbose_name = _('Status')
+        verbose_name_plural = _('Statuses')
 
 
 class PaymentMethod(models.Model):
@@ -99,6 +96,9 @@ class PromoCode(models.Model):
 
 
 def product_in_order_post_save(sender, instance, created=None, **kwargs):
+    """
+    Edits the order when changing products in the order
+    """
     order = instance.order
     all_products_in_order = GoodsInTheOrder.objects.filter(order=order)
     promo_code = 0

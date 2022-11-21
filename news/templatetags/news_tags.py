@@ -15,9 +15,11 @@ def get_categories():
 
 @register.inclusion_tag('news/list_categories.html')
 def show_categories():
+    """
+    Shows categories with articles and counts the news in the category
+    """
     categories = Category.objects.annotate(
-        cnt=Count('news', filter=F('news__is_published'))).filter(
-        cnt__gt=0).order_by('-cnt')
+        cnt=Count('news', filter=F('news__is_published'))).filter(cnt__gt=0).order_by('-cnt')
     cnt_news = News.objects.filter(is_published=True).aggregate(Count('pk'))
     return {'categories': categories,
             'cnt_news': cnt_news}

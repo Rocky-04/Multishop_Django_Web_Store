@@ -66,6 +66,9 @@ class CreateOrderForm(ModelForm):
                   'payment_method')
 
     def clean_promo_code(self):
+        """
+        Сhecks the promo code for validity
+        """
         promo_code = self.cleaned_data['promo_code']
         if not promo_code:
             return promo_code
