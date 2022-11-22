@@ -14,6 +14,10 @@ from .utils import *
 
 class FilterView(ShopMixin):
     def get_queryset(self):
+        """
+        Filters the product by the selected attributes
+        Available filters: min_price, max_price, color, size, manufacturer
+        """
         min_price = self.request.GET.get('min_price')
         max_price = self.request.GET.get('max_price')
         self.product_list_pk = [int(i) for i in
@@ -62,6 +66,10 @@ class FilterView(ShopMixin):
 
 
 class SkipFilterView(ShopMixin):
+    """
+    Resets enabled filters
+    """
+
     def get_queryset(self):
         self.product_list_pk = [int(i) for i in
                                 self.request.GET.get('product_list_pk')[
@@ -76,6 +84,10 @@ class SkipFilterView(ShopMixin):
 
 
 class ShopView(ShopMixin):
+    """
+    Shows all available products
+    """
+
     def get_queryset(self):
         product = Product.objects.all()
         self.product_list_pk = list(product.values_list('pk', flat=True))
@@ -83,6 +95,9 @@ class ShopView(ShopMixin):
 
 
 class CategoryView(ShopMixin):
+    """
+    Shows products by category
+    """
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
@@ -102,6 +117,9 @@ class CategoryView(ShopMixin):
 
 
 class TagView(ShopMixin):
+    """
+    Shows products by tag
+    """
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
@@ -119,6 +137,9 @@ class TagView(ShopMixin):
 
 
 class BrandView(ShopMixin):
+    """
+    Shows products by brand
+    """
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
@@ -136,6 +157,9 @@ class BrandView(ShopMixin):
 
 
 class HomeView(ListView):
+    """
+    Shows the main page of the site
+    """
     template_name = 'shop/index.html'
     context_object_name = 'category'
 
@@ -152,6 +176,9 @@ class SendUserMailView(TemplateView):
     template_name = 'shop/info/contact.html'
 
     def post(self, request):
+        """
+        Sending a message from a user
+        """
         data = request.POST
         name = data.get('name')
         email = data.get('email')
@@ -178,6 +205,9 @@ class SendUserMailView(TemplateView):
 
 
 class ProductDetailView(DetailView):
+    """
+    Shows the detailed page of the product card
+    """
     model = Product
     template_name = 'shop/detail.html'
     context_object_name = 'context'
@@ -193,23 +223,23 @@ class ProductDetailView(DetailView):
                 context['active_color'] = product.attribute_color.get(
                     color_id=active_color)
             elif product.available:
-                context['active_color'] = product.get_active_color()[0]
+                context['active_color'] = product.get_color()[0]
             else:
                 context['active_color'] = AttributeColor.objects.filter(product=product)[0]
             if active_size is not None:
                 context['active_size'] = context[
                     'active_color'].attribute_size.get(size_id=active_size)
             elif context['active_color'].available:
-                context['active_size'] = context['active_color'].get_active_size()[0]
+                context['active_size'] = context['active_color'].get_size()[0]
             else:
-                context['active_size'] = context['active_color'].get_all_size()[0]
+                context['active_size'] = context['active_color'].get_size(available=False)[0]
         except Exception as e:
             print(e)
 
         context['title'] = _('Product')
         context['product'] = product
         context['slug'] = product.category.pk
-        context['colors'] = product.get_all_color()
+        context['colors'] = product.get_color(available=False)
         context['form'] = ReviewsForm
 
         return context
@@ -248,6 +278,9 @@ class ContactView(TemplateView):
 
 
 class SearchView(ListView):
+    """
+    Shows the product search page
+    """
     template_name = 'shop/search.html'
     paginate_by = 9
     model = Product
@@ -262,20 +295,26 @@ class SearchView(ListView):
         return context
 
     def get_queryset(self):
-        return Product.objects.filter(
-            title__icontains=self.request.GET.get('text'))
+        """
+        The search is based on the name of the product
+        """
+        return Product.objects.filter(title__icontains=self.request.GET.get('text'))
 
 
 class AddReviewView(View):
+    """
+    Adds a product review
+    """
+
     def post(self, request):
         form = ReviewsForm(request.POST)
+        current = request.POST.get('current')
 
         if form.is_valid() and self.request.user.is_authenticated:
             text = form.data['text']
             rating = form.data['rating']
             user = self.request.user
             product_id = request.POST.get('product_id')
-            current = request.POST.get('current')
 
             review = Reviews.objects.filter(user=user, product=product_id)
 
@@ -287,11 +326,15 @@ class AddReviewView(View):
                                        product_id=product_id,
                                        text=text,
                                        rating=rating)
-            return HttpResponseRedirect(current)
+            messages.success(request, _('Feedback successfully left'))
         else:
-            return JsonResponse({'success': False, 'error': 'Not found user'},
-                                status=400)
+            messages.error(request, _('Failed to leave feedback. Try again later'))
+        return HttpResponseRedirect(current)
 
 
 def custom_page_not_found_view(request, exception):
+    """
+    Custom page not found.
+    Status 404 is required for correct operation of LocaleMiddleware
+    """
     return render(request, 'shop/page_not_found.html', status=404)

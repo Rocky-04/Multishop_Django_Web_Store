@@ -53,8 +53,10 @@ class AttributeColorInlineLevelOne(NestedStackedInline):
 
 @admin.register(Product)
 class ProductAdminLevel(NestedModelAdmin, TranslationAdmin):
+    """
+    Nested ModelAdmin is used for two levels of nesting
+    """
     model = Product
-
     prepopulated_fields = {'slug': ('title',)}
     list_display = (
         'id', 'title', 'price', 'price_now', 'discount', 'count_sale',

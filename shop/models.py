@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Avg
 from django.db.models import CharField
 from django.db.models import Count
+from django.db.models import QuerySet
 from django.db.models.signals import post_save
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -124,8 +125,8 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     currency = models.ForeignKey('Currency', on_delete=models.SET_NULL, default=1, null=True)
     category = TreeForeignKey(Category, on_delete=models.PROTECT, null=True)
-    country = models.ForeignKey('Country', on_delete=models.SET_NULL,
-                                null=True, default=1, blank=True)
+    country = models.ForeignKey('Country', on_delete=models.SET_NULL, null=True, default=1,
+                                blank=True)
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.SET_NULL, null=True,
                                      default=1, related_name='manufacturer', blank=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name='products')
@@ -144,6 +145,9 @@ class Product(models.Model):
         return reverse_lazy('detail', kwargs={'slug': self.slug})
 
     def get_title_photo(self):
+        """
+        Chooses a photo of the main color of the product or uses the default photo
+        """
         images = AttributeColorImage.objects.filter(product__product=self, product__available=True)
         if images:
             return images[0].images.url
@@ -153,29 +157,43 @@ class Product(models.Model):
         else:
             return '/media/images/empty/empty.png'
 
-    def get_title_color_id(self):
+    def get_title_color_id(self) -> int:
+        """
+        Returns the default color id of the selected product
+        """
         return AttributeColor.objects.filter(product=self)[0].id
 
-    def get_title_size_id(self):
+    def get_title_size_id(self) -> int:
+        """
+        Returns the default size id of the selected product
+        """
         return AttributeSize.objects.filter(product__product=self)[0].id
 
     def save(self, *args, **kwargs):
+        """
+        Sets the price of the product, taking into account the discount
+        """
         if self.discount == 0:
             self.price_now = self.price
         else:
             self.price_now = self.price - (self.price / 100 * self.discount)
         super(Product, self).save(*args, **kwargs)
 
-    def get_pk(self):
-        return self.pk
-
-    def get_active_color(self):
-        return AttributeColor.objects.filter(product=self, available=True)
-
-    def get_all_color(self):
+    def get_color(self, available: bool = True) -> QuerySet:
+        """
+        Returns the colors of the selected product
+        :param available: bool
+        :return: QuerySet
+        """
+        if available:
+            return AttributeColor.objects.filter(product=self, available=True)
         return AttributeColor.objects.filter(product=self)
 
-    def get_reviews(self):
+    def get_reviews(self) -> QuerySet:
+        """
+        Collects all product reviews
+        :return: QuerySet
+        """
         return Reviews.objects.filter(product=self)
 
 
@@ -205,8 +223,12 @@ class AttributeColor(models.Model):
         return str(self.product.title) + ' ' + str(self.color)
 
     def save(self, *args, **kwargs):
+        """
+        Changes the product availability of the main product when
+        the availability of its colors is changed
+        """
         if self.available is False and self.product.available is True:
-            product = self.product.get_active_color()
+            product = self.product.get_color()
             if len(product) <= 1:
                 self.product.available = False
                 self.product.save()
@@ -217,19 +239,29 @@ class AttributeColor(models.Model):
         super().save(*args, **kwargs)
 
     def get_photo(self):
+        """
+        Returns all photos of the selected color
+        """
         return AttributeColorImage.objects.filter(product=self)
 
     def get_title_photo(self):
+        """
+        Returns the main photo of the selected color
+        """
         images = AttributeColorImage.objects.filter(product=self)
         if len(images) > 0:
             return images[0].images.url
         else:
             return '/media/images/empty/empty.png'
 
-    def get_active_size(self):
-        return AttributeSize.objects.filter(product=self, available=True)
-
-    def get_all_size(self):
+    def get_size(self, available: bool = True) -> QuerySet:
+        """
+        Returns the sizes of the selected color
+        :param available: bool
+        :return: QuerySet
+        """
+        if available:
+            return AttributeSize.objects.filter(product=self, available=True)
         return AttributeSize.objects.filter(product=self)
 
 
@@ -259,8 +291,12 @@ class AttributeSize(models.Model):
         return str(self.product) + ' ' + str(self.size)
 
     def save(self, *args, **kwargs):
+        """
+        Changes the color availability when
+        the availability of its sizes is changed
+        """
         if self.available is False and self.product.available is True:
-            product = self.product.get_active_size()
+            product = self.product.get_size()
             if len(product) <= 1:
                 self.product.available = False
                 self.product.save()
@@ -359,6 +395,10 @@ class Reviews(models.Model):
 
 
 def rating_in_product_post_save(sender, instance, created=None, **kwargs):
+    """
+    Reacts to the change or addition of product reviews.
+    Changes the average product review
+    """
     product = instance.product
     reviews = Reviews.objects.filter(product=product).aggregate(Avg('rating'), Count('rating'))
     rating = reviews['rating__avg']

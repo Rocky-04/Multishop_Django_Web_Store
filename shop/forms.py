@@ -17,6 +17,9 @@ class ColorForm(forms.ModelForm):
 
 
 class SizeInlineFormSet(BaseInlineFormSet):
+    """
+    Fills in the default sizes in the admin
+    """
 
     def __init__(self, *args, **kwargs):
         kwargs['initial'] = [

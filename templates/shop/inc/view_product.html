@@ -86,7 +86,7 @@
                     <strong class="text-dark mr-3">{% trans 'Dimensions' %}:</strong>
 
 
-                    {% for size in active_color.get_active_size %}
+                    {% for size in active_color.get_size %}
                     <form action="{% url 'detail' slug=product.slug %}"
                           method="get">
                         <input name="size" type="hidden"
