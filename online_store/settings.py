@@ -46,11 +46,11 @@ INSTALLED_APPS = [
     'users',
     'orders',
     'news',
-    'debug_toolbar',
     'ckeditor',
     'mptt',
     'nested_admin',
     'captcha',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -62,8 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'online_store.middleware.CheckAuthenticationMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'online_store.urls'
@@ -144,7 +144,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 if DEBUG:
     STATIC_ROOT = ''
     STATICFILES_DIRS = (os.path.join('static'),)
@@ -159,7 +159,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-INTERNAL_IPS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1']
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
