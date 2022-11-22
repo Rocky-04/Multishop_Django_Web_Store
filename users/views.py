@@ -42,10 +42,16 @@ class LoginUserView(LoginView):
         return context
 
     def form_valid(self, form):
-        user_authenticated = self.request.session.user_authenticated
+        """
+        If the user successfully authenticated, then user_authenticated
+        will be changed to email in basket and in favorite
+        """
+        session_key = self.request.session.session_key
         user = form.data['username']
-        ProductInBasket.objects.filter(user_authenticated=user_authenticated).update(user_authenticated=user)
-        Favorite.objects.filter(user_authenticated=user_authenticated).update(user_authenticated=user)
+        ProductInBasket.objects.filter(user_authenticated=session_key).update(
+            user_authenticated=user)
+        Favorite.objects.filter(user_authenticated=session_key).update(
+            user_authenticated=user)
         return super().form_valid(form)
 
 
@@ -59,6 +65,11 @@ class RegisterUserView(CreateView):
         return context
 
     def form_valid(self, form):
+        """
+        If the user successfully registered, then user_authenticated
+        will be changed to email in basket and in favorite.
+        The email will be added to the news mailing list
+        """
         user = form.save()
         session_key = self.request.session.session_key
         ProductInBasket.objects.filter(user_authenticated=session_key).update(
@@ -71,6 +82,9 @@ class RegisterUserView(CreateView):
 
 
 class AccountUserView(TemplateView):
+    """
+    Page with user orders
+    """
     template_name = 'users/orders.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -116,6 +130,9 @@ class PasswordResetConfirmView(PasswordResetConfirmView_):
 
 
 def subscriber_email(request):
+    """
+    Adding emails to the newsletter list
+    """
     current = request.POST.get('current')
     if request.method == 'POST':
         form = SubscriberEmailForm(request.POST)
@@ -154,6 +171,9 @@ class CommunicationView(UpdateView):
 
 
 class MyProductReviewView(ListView):
+    """
+    Page with user reviews
+    """
     template_name = 'users/my_product_review.html'
     context_object_name = 'reviews'
 

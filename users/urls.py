@@ -17,6 +17,5 @@ urlpatterns = [
     path('subscriber_email', subscriber_email, name='subscriber_email'),
     path('my_product_review', login_required(MyProductReviewView.as_view()),
          name='my_product_review'),
-    path('communication', login_required(CommunicationView.as_view()),
-         name='communication'),
+    path('communication', login_required(CommunicationView.as_view()), name='communication'),
 ]
