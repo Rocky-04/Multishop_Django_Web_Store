@@ -28,7 +28,7 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1']
+ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1', 'testserver']
 
 # Application definition
 
@@ -102,6 +102,9 @@ DATABASES = {
         'PASSWORD': DATABASE_PASSWORD,
         'HOST': "rocky0u0.beget.tech",
         'PORT': '3306',
+        'TEST': {
+            'NAME': 'testdatabase',
+        },
     }
 }
 
@@ -128,7 +131,7 @@ AUTH_USER_MODEL = "users.User"
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', _('English')),
@@ -138,13 +141,12 @@ LANGUAGES = (
 TIME_ZONE = 'EET'
 
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 if DEBUG:
     STATIC_ROOT = ''
     STATICFILES_DIRS = (os.path.join('static'),)
