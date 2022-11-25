@@ -1,27 +1,9 @@
-import os
-
-from django.test import SimpleTestCase
-from django.test import TestCase
 from django.urls import reverse
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "online_store.settings")
-import django
-
-django.setup()
+from tests.settings_test import Settings
 
 
-# class Settings(TestCase):
-#     @classmethod
-#     def setUpClass(cls):
-#         super().setUpClass()
-
-
-class BasketUrlsTestCase(SimpleTestCase):
-    def test_home_url(self):
-        assert 1 == 1
-
-
-class UrlsTestCase(TestCase):
+class UrlsShopTestCase(Settings):
     def test_urls_home(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
@@ -31,7 +13,7 @@ class UrlsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_urls_detail(self):
-        response = self.client.get(reverse('detail'))
+        response = self.client.get(reverse('detail', kwargs={'slug': 'mini_bag'}))
         self.assertEqual(response.status_code, 200)
 
     def test_urls_contact(self):
@@ -39,15 +21,15 @@ class UrlsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_urls_category(self):
-        response = self.client.get(reverse('category'))
+        response = self.client.get(reverse('category', kwargs={'slug': 'bags'}))
         self.assertEqual(response.status_code, 200)
 
     def test_urls_tag(self):
-        response = self.client.get(reverse('tag'))
+        response = self.client.get(reverse('tag', kwargs={'slug': 'sale'}))
         self.assertEqual(response.status_code, 200)
 
     def test_urls_brand(self):
-        response = self.client.get(reverse('brand'))
+        response = self.client.get(reverse('brand', kwargs={'slug': 'zara'}))
         self.assertEqual(response.status_code, 200)
 
     def test_urls_about(self):
@@ -76,12 +58,41 @@ class UrlsTestCase(TestCase):
 
     def test_urls_add_review(self):
         response = self.client.get(reverse('add_review'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 405)
 
     def test_urls_send_user_mail(self):
         response = self.client.get(reverse('send_user_mail'))
         self.assertEqual(response.status_code, 200)
 
 
-if __name__ == '__main__':
-    main()
+class UrlsBasketTestCase(Settings):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.context = {"size": cls.product.get_title_color_id,
+                       "color": cls.product.get_title_size_id,
+                       "count": 5,
+                       "current": reverse('basket')}
+
+    def test_urls_basket(self):
+        response = self.client.get(reverse('basket'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_urls_add_basket(self):
+        response = self.client.post(reverse('add_basket', kwargs={'id': self.product.id}),
+                                    data=self.context,
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_urls_remove_basket(self):
+        response = self.client.post(reverse('remove_basket', kwargs={'id': self.product.id}),
+                                    data=self.context,
+                                    follow=True)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_urls_edit_basket(self):
+        response = self.client.post(reverse('edit_basket', kwargs={'id': self.product.id}),
+                                    data=self.context,
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)

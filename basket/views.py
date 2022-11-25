@@ -41,6 +41,8 @@ class BasketRemoveView(BasketMixin, View):
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
+        print(self.current)
+
 
         try:
             ProductInBasket.objects.filter(user_authenticated=self.user_authenticated,

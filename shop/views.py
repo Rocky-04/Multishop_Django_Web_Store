@@ -18,11 +18,20 @@ class FilterView(ShopMixin):
         Filters the product by the selected attributes
         Available filters: min_price, max_price, color, size, manufacturer
         """
-        min_price = self.request.GET.get('min_price')
-        max_price = self.request.GET.get('max_price')
-        self.product_list_pk = [int(i) for i in
-                                self.request.GET.get('product_list_pk')[
-                                1:-1].split(', ')]
+        if self.request.GET.get('min_price'):
+            min_price = self.request.GET.get('min_price')
+        else:
+            min_price = 0
+        if self.request.GET.get('max_price'):
+            max_price = self.request.GET.get('max_price')
+        else:
+            max_price = 100000
+        if self.product_list_pk:
+            self.product_list_pk = [int(i) for i in
+                                    self.request.GET.get('product_list_pk')[
+                                    1:-1].split(', ')]
+        else:
+            self.product_list_pk = Product.objects.all()
 
         if self.request.GET.getlist("color"):
             filter_color = AttributeColor.objects.filter(
@@ -71,9 +80,11 @@ class SkipFilterView(ShopMixin):
     """
 
     def get_queryset(self):
-        self.product_list_pk = [int(i) for i in
-                                self.request.GET.get('product_list_pk')[
-                                1:-1].split(', ')]
+        if self.request.GET.get('product_list_pk'):
+            self.product_list_pk = [int(i) for i in
+                                    self.request.GET.get('product_list_pk')[1:-1].split(', ')]
+        else:
+            self.product_list_pk = Product.objects.all()
         queryset = Product.objects.filter(pk__in=self.product_list_pk)
         return queryset
 
@@ -298,7 +309,9 @@ class SearchView(ListView):
         """
         The search is based on the name of the product
         """
-        return Product.objects.filter(title__icontains=self.request.GET.get('text'))
+        if self.request.GET.get('text'):
+            return Product.objects.filter(title__icontains=self.request.GET.get('text'))
+        return Product.objects.all()
 
 
 class AddReviewView(View):
