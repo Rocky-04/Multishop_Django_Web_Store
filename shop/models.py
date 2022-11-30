@@ -157,13 +157,13 @@ class Product(models.Model):
         else:
             return '/media/images/empty/empty.png'
 
-    def get_title_color_id(self) -> int:
+    def get_default_color_id(self) -> int:
         """
         Returns the default color id of the selected product
         """
         return AttributeColor.objects.filter(product=self)[0].id
 
-    def get_title_size_id(self) -> int:
+    def get_default_size_id(self) -> int:
         """
         Returns the default size id of the selected product
         """
@@ -391,7 +391,7 @@ class Reviews(models.Model):
         unique_together = ('user', 'product')
 
     def __str__(self):
-        return self.rating
+        return str(self.rating)
 
 
 def rating_in_product_post_save(sender, instance, created=None, **kwargs):

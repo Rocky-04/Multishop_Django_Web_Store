@@ -7,7 +7,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os.path
+import sys
 from pathlib import Path
+
 from django.utils.translation import gettext_lazy as _
 
 from config import DATABASE_PASSWORD
@@ -26,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1', 'testserver']
 
@@ -62,8 +64,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'online_store.middleware.CheckAuthenticationMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'online_store.middleware.CheckAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'online_store.urls'
@@ -102,11 +104,16 @@ DATABASES = {
         'PASSWORD': DATABASE_PASSWORD,
         'HOST': "rocky0u0.beget.tech",
         'PORT': '3306',
-        'TEST': {
-            'NAME': 'testdatabase',
-        },
-    }
+        'ATOMIC_REQUEST': False,
+    },
 }
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test_data',
+        'ATOMIC_REQUESTS': False,
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -188,3 +195,56 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 CAPTCHA_FONT_SIZE = 40
 CAPTCHA_IMAGE_SIZE = (120, 50)
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'log/logs.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'root': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+    }
+}

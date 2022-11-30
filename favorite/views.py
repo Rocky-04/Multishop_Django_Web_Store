@@ -23,7 +23,8 @@ class FavoriteAddView(View):
         try:
             Favorite.objects.get_or_create(user_authenticated=user_authenticated,
                                            product_id=product_id,
-                                           is_active=True, size_id=size,
+                                           is_active=True,
+                                           size_id=size,
                                            color_id=color)
         except ValueError as err:
             return JsonResponse({'success': False, 'error': str(err)},

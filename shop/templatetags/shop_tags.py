@@ -1,3 +1,4 @@
+import logging
 from django import template
 from django.core.paginator import Paginator
 from django.db.models import Count
@@ -12,6 +13,7 @@ from shop.models import Tag
 
 register = template.Library()
 
+logger = logging.getLogger(__name__)
 
 @register.inclusion_tag('shop/inc/list_categories.html')
 def show_category(parent: int = None):
@@ -33,7 +35,11 @@ def show_banner(pk_banner: int):
     Shows banner from Tag
     :param pk_banner: int
     """
-    tag = Tag.objects.get(title=Banner.objects.get(pk=pk_banner).tag)
+    try:
+        tag = Tag.objects.get(title=Banner.objects.get(pk=pk_banner).tag)
+    except Exception as error:
+        logger.warning(error)
+        tag = Tag.objects.all().last()
     return {'tag': tag}
 
 
@@ -43,7 +49,11 @@ def show_carousel_banner(pk_banner: int):
     Shows carousel banner from Tag
     :param pk_banner: int
     """
-    tag = Tag.objects.get(title=Banner.objects.get(pk=pk_banner).tag)
+    try:
+        tag = Tag.objects.get(title=Banner.objects.get(pk=pk_banner).tag)
+    except Exception as error:
+        logger.warning(error)
+        tag = Tag.objects.all().last()
     return {'tag': tag}
 
 
