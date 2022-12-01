@@ -1,4 +1,5 @@
 import logging
+
 from django import template
 from django.core.paginator import Paginator
 from django.db.models import Count
@@ -14,6 +15,7 @@ from shop.models import Tag
 register = template.Library()
 
 logger = logging.getLogger(__name__)
+
 
 @register.inclusion_tag('shop/inc/list_categories.html')
 def show_category(parent: int = None):

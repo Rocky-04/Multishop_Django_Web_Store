@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -29,6 +31,8 @@ from .forms import UserLoginForm
 from .forms import UserRegisterForm
 from .models import EmailForNews
 from .models import User
+
+logger = logging.getLogger(__name__)
 
 
 class LoginUserView(LoginView):
@@ -155,8 +159,8 @@ class CommunicationView(UpdateView):
         if self.request.user.is_authenticated:
             try:
                 obj = EmailForNews.objects.get(email=self.request.user.email)
-            except Exception as ex:
-                print(ex)
+            except Exception as error:
+                logger.warning(error)
                 obj = EmailForNews.objects.create(
                     email=self.request.user.email)
 

@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -10,6 +12,8 @@ from django.views.generic import TemplateView
 from online_store.settings import EMAIL_HOST_USER
 from .forms import ReviewsForm
 from .utils import *
+
+logger = logging.getLogger(__name__)
 
 
 class FilterView(ShopMixin):
@@ -244,8 +248,8 @@ class ProductDetailView(DetailView):
                 context['active_size'] = context['active_color'].get_size()[0]
             else:
                 context['active_size'] = context['active_color'].get_size(available=False)[0]
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            logger.warning(error)
 
         context['title'] = _('Product')
         context['product'] = product

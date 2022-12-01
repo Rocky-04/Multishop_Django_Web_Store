@@ -3,5 +3,6 @@
 
 setup.cfg
 django_cache
+logs.log
 .env
 

@@ -28,7 +28,6 @@ class Settings(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "online_store.settings")
-        print('1----------------------------------------------------')
         # Create a temporary folder
         tracemalloc.start()
         activate('en')

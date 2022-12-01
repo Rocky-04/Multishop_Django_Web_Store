@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -6,6 +8,8 @@ from django.views.generic import View
 
 from .models import ProductInBasket
 from .ultis import BasketMixin
+
+logger = logging.getLogger(__name__)
 
 
 class BasketAddView(BasketMixin, View):
@@ -27,8 +31,8 @@ class BasketAddView(BasketMixin, View):
                 new_product.nmb += int(self.nmb)
                 new_product.save(force_update=True)
 
-        except ValueError as err:
-            print(err)
+        except ValueError as error:
+            logger.warning(error)
             messages.error(request, _(
                 'An error occurred during the execution of the action. Try again later'))
         return HttpResponseRedirect(self.current)
@@ -41,16 +45,14 @@ class BasketRemoveView(BasketMixin, View):
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
-        print(self.current)
-
 
         try:
             ProductInBasket.objects.filter(user_authenticated=self.user_authenticated,
                                            product_id=self.product_id,
                                            size_id=self.size,
                                            color_id=self.color).delete()
-        except ValueError as err:
-            print(err)
+        except ValueError as error:
+            logger.warning(error)
             messages.error(request, _(
                 'An error occurred during the execution of the action. Try again later'))
         return HttpResponseRedirect(self.current)
@@ -88,8 +90,8 @@ class EditCartView(BasketMixin, View):
                 color_id=self.color)
             new_product.nmb = self.nmb
             new_product.save(force_update=True)
-        except ValueError as err:
-            print(err)
+        except ValueError as error:
+            logger.warning(error)
             messages.error(request, _(
                 'An error occurred during the execution of the action. Try again later'))
 

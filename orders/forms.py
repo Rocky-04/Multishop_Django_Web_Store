@@ -1,3 +1,5 @@
+import logging
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelChoiceField
@@ -7,6 +9,8 @@ from django.utils.translation import gettext_lazy as _
 from orders.models import Order
 from orders.models import PaymentMethod
 from orders.models import PromoCode
+
+logger = logging.getLogger(__name__)
 
 
 class CreateOrderForm(ModelForm):
@@ -78,6 +82,6 @@ class CreateOrderForm(ModelForm):
                 return self.cleaned_data['promo_code']
             else:
                 raise ValidationError(_('Promo code is not active'))
-        except Exception as ex:
-            print(ex)
+        except Exception as error:
+            logger.warning(error)
             raise ValidationError(_('Promo code is not active'))

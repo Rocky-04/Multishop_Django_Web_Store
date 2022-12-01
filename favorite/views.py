@@ -1,9 +1,14 @@
+import logging
+
+from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.http import JsonResponse
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
 
 from .models import Favorite
+
+logger = logging.getLogger(__name__)
 
 
 class FavoriteAddView(View):
@@ -26,9 +31,10 @@ class FavoriteAddView(View):
                                            is_active=True,
                                            size_id=size,
                                            color_id=color)
-        except ValueError as err:
-            return JsonResponse({'success': False, 'error': str(err)},
-                                status=400)
+        except ValueError as error:
+            logger.warning(error)
+            messages.error(request, _(
+                'An error occurred during the execution of the action. Try again later'))
         return HttpResponseRedirect(current)
 
 
@@ -51,9 +57,11 @@ class FavoriteRemoveView(View):
                                     product_id=product_id,
                                     is_active=True, size_id=size,
                                     color_id=color).delete()
-        except ValueError as err:
-            return JsonResponse({'success': False, 'error': str(err)},
-                                status=400)
+        except ValueError as error:
+            logger.warning(error)
+            messages.error(request, _(
+                'An error occurred during the execution of the action. Try again later'))
+
         return HttpResponseRedirect(current)
 
 

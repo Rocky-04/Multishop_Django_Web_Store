@@ -16,6 +16,7 @@ from config import DATABASE_PASSWORD
 from config import EMAIL_HOST_PASSWORD
 from config import EMAIL_HOST_USER
 from config import SECRET_KEY
+from config import SERVER_EMAIL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -189,12 +190,19 @@ EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+SERVER_EMAIL = SERVER_EMAIL
+ADMINS = [
+    ('Rocky', 'rocky01396@gmail.com'),
+    ('Frank', "rocky113@ukr.net"),
+]
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 CAPTCHA_FONT_SIZE = 40
 CAPTCHA_IMAGE_SIZE = (120, 50)
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+
+LOG_ROOT = os.path.join(BASE_DIR, 'logs')
 
 LOGGING = {
     'version': 1,
@@ -222,13 +230,14 @@ LOGGING = {
             'formatter': 'simple'
         },
         'mail_admins': {
-            'level': 'ERROR',
+            'level': 'WARNING',
             'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'verbose',
         },
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'log/logs.log',
+            'filename': LOG_ROOT + '/logs.log',
             'formatter': 'verbose'
         },
     },
@@ -237,14 +246,10 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'propagate': True,
         },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
         'root': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
+            'handlers': ['mail_admins'],
+            'level': 'WARNING',
+            'propagate': True,
         },
     }
 }
