@@ -17,6 +17,7 @@ from shop.models import Currency
 from shop.models import Delivery
 from shop.models import Manufacturer
 from shop.models import Product
+from shop.models import Reviews
 from shop.models import Size
 from shop.models import Tag
 from users.models import User
@@ -75,7 +76,10 @@ class Settings(TestCase):
                                                price=100, )
         cls.user = User.objects.create(email='roock@gmail.com',
                                        password='aaaa12154')
-
+        cls.review = Reviews.objects.create(user=cls.user,
+                                            product=cls.product,
+                                            text='Simple text',
+                                            rating=Reviews.RATINGS[3][0])
 
     @classmethod
     def tearDownClass(cls):

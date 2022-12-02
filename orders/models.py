@@ -105,18 +105,16 @@ def product_in_order_post_save(sender, instance, created=None, **kwargs):
     order_total_price = 0
     for item in all_products_in_order:
         order_total_price += item.total_price
-
     if order_total_price:
         delivery = Delivery.get_delivery(order_total_price)
+
         instance.order.delivery = delivery
         delivery = delivery.price
         if instance.order.promo_code:
             promo_code = instance.order.promo_code.price
-
     else:
         instance.order.delivery = None
         delivery = 0
-
     total_price = order_total_price + delivery - promo_code
     instance.order.total_price = 0 if total_price < 0 else total_price
     instance.order.save(force_update=True)
