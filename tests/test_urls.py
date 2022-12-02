@@ -4,7 +4,7 @@ from django.utils.translation import activate
 from tests.test_settings import Settings
 
 
-class UrlsShopTestCase(Settings):
+class ShopUrlsTest(Settings):
 
     def test_urls_home(self):
         response = self.client.get(reverse('home'))
@@ -98,7 +98,7 @@ class UrlsShopTestCase(Settings):
         self.assertEqual(response.status_code, 200)
 
 
-class UrlsBasketTestCase(Settings):
+class BasketUrlsTest(Settings):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -145,7 +145,7 @@ class UrlsBasketTestCase(Settings):
         self.assertEqual(response.status_code, 200)
 
 
-class UrlsFavoriteTestCase(Settings):
+class FavoriteUrlsTest(Settings):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -180,7 +180,7 @@ class UrlsFavoriteTestCase(Settings):
         self.assertEqual(response.status_code, 200)
 
 
-class UrlsUserTestCase(Settings):
+class UserUrlsTest(Settings):
     def test_urls_login(self):
         response = self.client.post(reverse('login'))
         self.assertEqual(response.request['PATH_INFO'], reverse('login'))
@@ -232,7 +232,7 @@ class UrlsUserTestCase(Settings):
         self.assertEqual(response.status_code, 200)
 
 
-class UrlsNewsTestCase(Settings):
+class NewsUrlsTest(Settings):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -266,7 +266,7 @@ class UrlsNewsTestCase(Settings):
         self.assertEqual(response.status_code, 200)
 
 
-class UrlsOrderTestCase(Settings):
+class OrderUrlsTest(Settings):
 
     def test_urls_checkout(self):
         response = self.client.get(reverse('checkout'))

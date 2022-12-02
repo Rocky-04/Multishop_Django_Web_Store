@@ -76,6 +76,7 @@ class Settings(TestCase):
         cls.user = User.objects.create(email='roock@gmail.com',
                                        password='aaaa12154')
 
+
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()

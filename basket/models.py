@@ -39,7 +39,7 @@ class ProductInBasket(models.Model):
         super(ProductInBasket, self).save(*args, **kwargs)
 
     @staticmethod
-    def get_amount_in_user_basket(user_authenticated) -> int:
+    def get_amount_in_user_basket(user_authenticated) -> 'Decimal':
         """
         Calculates the total cost of goods in the basket for the selected user
         :param user_authenticated:
