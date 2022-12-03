@@ -168,8 +168,7 @@ class FavoriteUrlsTest(Settings):
 
     def test_urls_remove_favorite(self):
         from favorite.models import Favorite
-        Favorite.objects.create(user_authenticated=self.user.email,
-                                product=self.product,
+        Favorite.objects.create(product=self.product,
                                 is_active=True,
                                 size_id=self.product.get_default_size_id(),
                                 color_id=self.product.get_default_color_id())

@@ -212,9 +212,11 @@ class SendUserMailView(TemplateView):
             else:
                 messages.error(request,
                                _('Error sending the letter. Try again later'))
+                logger.warning('Error sending the letter')
         else:
             messages.error(request,
                            _('Error sending the letter. Try again later'))
+            logger.warning('Error sending the letter')
 
         return render(request, self.template_name)
 
@@ -346,6 +348,7 @@ class AddReviewView(View):
             messages.success(request, _('Feedback successfully left'))
         else:
             messages.error(request, _('Failed to leave feedback. Try again later'))
+            logger.warning('Failed to leave feedback')
         return HttpResponseRedirect(current)
 
 

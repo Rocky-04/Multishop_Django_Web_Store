@@ -27,7 +27,7 @@ class NewsCategoryView(ListView):
     template_name = 'news/news.html'
     context_object_name = 'news'
     slug_url_kwarg = 'slug'
-    allow_empty = False
+    allow_empty = True
     paginate_by = 5
 
     def get_queryset(self):
