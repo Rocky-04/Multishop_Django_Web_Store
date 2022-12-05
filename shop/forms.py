@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelForm
 from django.forms.models import BaseInlineFormSet
 
 from .models import Reviews
@@ -34,7 +35,7 @@ class SizeInlineFormSet(BaseInlineFormSet):
         super(SizeInlineFormSet, self).__init__(*args, **kwargs)
 
 
-class ReviewsForm(forms.ModelForm):
+class ReviewsForm(ModelForm):
     class Meta:
         model = Reviews
         fields = ('rating', 'text')
