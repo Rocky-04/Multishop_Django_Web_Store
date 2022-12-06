@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.db.models import QuerySet
 from django.db.models import Sum
@@ -29,7 +31,7 @@ class ProductInBasket(models.Model):
     def __str__(self):
         return self.product.title
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         """
         Saves the product price and the price based on the quantity product
         """
@@ -39,7 +41,7 @@ class ProductInBasket(models.Model):
         super(ProductInBasket, self).save(*args, **kwargs)
 
     @staticmethod
-    def get_amount_in_user_basket(user_authenticated) -> 'Decimal':
+    def get_amount_in_user_basket(user_authenticated) -> Decimal:
         """
         Calculates the total cost of goods in the basket for the selected user
         :param user_authenticated:

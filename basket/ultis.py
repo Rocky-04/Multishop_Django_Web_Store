@@ -1,6 +1,14 @@
-class BasketMixin:
+import logging
+
+from django.views import View
+
+logger = logging.getLogger(__name__)
+
+
+class BasketMixin(View):
 
     def __init__(self):
+        super().__init__()
         self.user_authenticated = None
         self.product_id = None
         self.size = None

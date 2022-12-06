@@ -66,7 +66,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'online_store.middleware.CheckAuthenticationMiddleware',
+    'shop.middleware.CheckAuthenticationMiddleware',
+    'shop.middleware.CheckExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'online_store.urls'
@@ -230,7 +231,7 @@ LOGGING = {
             'formatter': 'simple'
         },
         'mail_admins': {
-            'level': 'WARNING',
+            'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
             'formatter': 'verbose',
         },

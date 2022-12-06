@@ -47,3 +47,4 @@ else:
     ]
 
 handler404 = 'shop.views.custom_page_not_found_view'
+handler500 = 'shop.views.custom_page_server_error'

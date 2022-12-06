@@ -357,4 +357,14 @@ def custom_page_not_found_view(request, exception):
     Custom page not found.
     Status 404 is required for correct operation of LocaleMiddleware
     """
-    return render(request, 'shop/page_not_found.html', status=404)
+    context = {'text': _('There is no such page')}
+    return render(request, 'shop/page_error.html', context=context, status=404)
+
+
+def custom_page_server_error(request):
+    """
+    Custom page server error.
+    Status 500 is required for correct operation of LocaleMiddleware
+    """
+    context = {'text': _('Server error. Our specialists are already repairing')}
+    return render(request, 'shop/page_error.html', context=context, status=500)
