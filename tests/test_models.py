@@ -98,13 +98,13 @@ class FavoriteModelTest(Settings):
         self.assertEqual(product.size.pk, self.size.pk)
         self.assertEqual(product.__str__(), self.product.title)
 
-    def test_get_products_in_user_favorite(self):
+    def test_get_products_user_from_favorite(self):
         product = Favorite.objects.create(
             product=self.product,
             user_authenticated=self.user,
             size_id=self.product.get_default_size_id(),
             color_id=self.product.get_default_color_id())
-        answer = product.get_products_in_user_favorite(self.user)
+        answer = product.get_products_user_from_favorite(self.user)
         self.assertEqual(type(answer), QuerySet)
         self.assertEqual(answer.count(), 1)
 

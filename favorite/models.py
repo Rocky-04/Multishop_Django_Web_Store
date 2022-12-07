@@ -27,10 +27,8 @@ class Favorite(models.Model):
         verbose_name_plural = 'Favorites'
 
     @staticmethod
-    def get_products_in_user_favorite(user_authenticated) -> QuerySet:
+    def get_products_user_from_favorite(user_authenticated) -> QuerySet:
         """
         Returns goods from the user's favorite
-        :param user_authenticated:
-        :return: QuerySet
         """
         return Favorite.objects.filter(user_authenticated=user_authenticated, is_active=True)

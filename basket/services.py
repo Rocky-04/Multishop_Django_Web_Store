@@ -1,8 +1,4 @@
-import logging
-
 from basket.models import ProductInBasket
-
-logger = logging.getLogger(__name__)
 
 
 def add_products_to_basket(user_authenticated: str,

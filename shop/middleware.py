@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponseServerError
 from django.utils.translation import gettext_lazy as _
 
+from online_store.settings import DEBUG
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,7 +35,8 @@ class CheckExceptionMiddleware:
         return self._get_response(request)
 
     def process_exception(self, request, exception):
-        logger.error(exception + ' : ' + request.user.is_authenticated)
+        logger.error(str(exception) + ' : ' + str(request.user.is_authenticated))
         messages.error(request, _(
             'An error occurred while executing the request. Try again later'))
-        return HttpResponseServerError
+        if not DEBUG:
+            return HttpResponseServerError

@@ -1,9 +1,9 @@
 from .models import ProductInBasket
 
 
-def getting_basket_info(request):
+def basket(request):
     """
-    Creates a list of the user's products in the basket.
+    Creates a QuerySet of the user's products in the basket.
     Creates a variable for the number of items in the basket.
     """
     user_authenticated = request.session['user_authenticated']
