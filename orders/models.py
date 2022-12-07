@@ -94,6 +94,13 @@ class PromoCode(models.Model):
     def __str__(self):
         return str(self.price)
 
+    @staticmethod
+    def get_promo_code(title: str) -> 'PromoCode':
+        """
+        Returns a PromoCode by the title of the promo code
+        """
+        return PromoCode.objects.get(title=title)
+
 
 def product_in_order_post_save(sender, instance, created=None, **kwargs):
     """
@@ -107,7 +114,6 @@ def product_in_order_post_save(sender, instance, created=None, **kwargs):
         order_total_price += item.total_price
     if order_total_price:
         delivery = Delivery.get_delivery(order_total_price)
-
         instance.order.delivery = delivery
         delivery = delivery.price
         if instance.order.promo_code:

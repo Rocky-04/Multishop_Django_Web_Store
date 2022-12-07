@@ -102,12 +102,15 @@ class CreateOrderFormTest(Settings):
         self.assertTrue(response.context['form'].errors.get_json_data()['promo_code'])
 
     def test_create_form_correct_promo_code(self):
+        PromoCode.objects.create(title='promo 2',
+                                 price=250,
+                                 is_active=True)
         count = Order.objects.count()
         form_data = {'phone_number': '+3805050',
                      "payment_method": 1,
                      "email": 'frank@gmail.com',
                      'first_name': 'Michel',
-                     'promo_code': 'promo 1'}
+                     'promo_code': 'promo 2'}
         self.client.post(reverse('checkout'),
                          data=form_data,
                          follow=True)

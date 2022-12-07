@@ -7,8 +7,8 @@ from django.views.generic import CreateView
 
 from basket.models import ProductInBasket
 from orders.forms import CreateOrderForm
-from orders.models import GoodsInTheOrder
 from orders.models import PromoCode
+from orders.services import add_products_to_the_order_list
 
 
 class CheckoutView(CreateView):
@@ -20,32 +20,23 @@ class CheckoutView(CreateView):
         """
         Checks the correctness of the order.
         Makes an order.
-        Removes products from the shopping cart when the order is successful.
+        Removes products from the shopping cart when the order is successfully created.
         """
         user_authenticated = self.request.session['user_authenticated']
-        products_in_basket = ProductInBasket.objects.filter(user_authenticated=user_authenticated)
+        products_in_basket = ProductInBasket.get_products_from_user_basket(user_authenticated)
         if len(products_in_basket) > 0:
             self.object = form.save()
             if form.data['promo_code']:
-                promo_code = PromoCode.objects.get(title=form.data['promo_code'])
-                self.object.promo_code = promo_code
+                self.object.promo_code = PromoCode.get_promo_code(title=form.data['promo_code'])
             if self.request.user.is_authenticated:
                 self.object.user = self.request.user
+            self.object.save()
         else:
             messages.error(self.request, _('Empty basket. First you need to add a product'))
             return HttpResponseRedirect(self.request.path_info)
 
-        for item in products_in_basket:
-            GoodsInTheOrder.objects.create(product=item.product,
-                                           order=self.object,
-                                           total_price=item.total_price,
-                                           nmb=item.nmb,
-                                           price_per_item=item.price_per_item,
-                                           color=item.color,
-                                           size=item.size)
-            item.product.count_sale += 1
-            item.product.save()
-            item.delete()
+        add_products_to_the_order_list(products_in_basket, order_id=self.object.pk)
+
         return HttpResponseRedirect(self.get_success_url())
 
 
