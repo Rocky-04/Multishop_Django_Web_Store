@@ -41,11 +41,9 @@ class ProductInBasket(models.Model):
         super(ProductInBasket, self).save(*args, **kwargs)
 
     @staticmethod
-    def get_amount_in_user_basket(user_authenticated) -> Decimal:
+    def get_amount_from_user_basket(user_authenticated: str) -> Decimal:
         """
         Calculates the total cost of goods in the basket for the selected user
-        :param user_authenticated:
-        :return: amount
         """
         amount = ProductInBasket.objects.filter(
             user_authenticated=user_authenticated,
@@ -54,10 +52,8 @@ class ProductInBasket(models.Model):
         return 0 if amount is None else amount
 
     @staticmethod
-    def get_products_in_user_basket(user_authenticated) -> QuerySet:
+    def get_products_from_user_basket(user_authenticated: str) -> QuerySet:
         """
         Returns goods from the user's basket
-        :param user_authenticated:
-        :return: QuerySet
         """
         return ProductInBasket.objects.filter(user_authenticated=user_authenticated, is_active=True)

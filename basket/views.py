@@ -18,7 +18,7 @@ class ViewCart(BasketMixin, View):
 
     def get(self, request):
         user_authenticated = request.session['user_authenticated']
-        products_in_basket = ProductInBasket.get_products_in_user_basket(user_authenticated)
+        products_in_basket = ProductInBasket.get_products_from_user_basket(user_authenticated)
         context = {'title': _('Product basket'),
                    'products_in_basket': products_in_basket}
 

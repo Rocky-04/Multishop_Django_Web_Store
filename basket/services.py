@@ -49,3 +49,16 @@ def edit_product_from_basket(user_authenticated: str,
         color_id=color_id)
     new_product.nmb = nmb
     new_product.save(force_update=True)
+
+
+def get_basket_list(user_authenticated: str) -> tuple:
+    """
+    Creates a QuerySet of the user's products in the basket.
+    basket_list: QuerySet
+    Creates a variable for the number of items in the basket.
+    basket_nmb: int
+    """
+    products = ProductInBasket.get_products_from_user_basket(user_authenticated)
+    basket_list = products.values_list('size', flat=True)
+    basket_nmb = products.count()
+    return basket_list, basket_nmb

@@ -13,8 +13,8 @@ def order_cost(context, button=False):
     """
     request = context['request']
     user_authenticated = request.session['user_authenticated']
-    products_in_basket = ProductInBasket.get_products_in_user_basket(user_authenticated)
-    amount = ProductInBasket.get_amount_in_user_basket(user_authenticated)
+    products_in_basket = ProductInBasket.get_products_from_user_basket(user_authenticated)
+    amount = ProductInBasket.get_amount_from_user_basket(user_authenticated)
     delivery = Delivery.get_delivery(amount).price
 
     return {'request': request,

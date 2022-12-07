@@ -1,8 +1,4 @@
-import logging
-
 from django.views import View
-
-logger = logging.getLogger(__name__)
 
 
 class BasketMixin(View):

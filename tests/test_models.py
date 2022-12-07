@@ -66,15 +66,15 @@ class BasketModelTest(Settings):
         product.save()
         self.assertEqual(product.total_price, float(self.product.price_now) * 3)
 
-    def test_get_products_in_user_basket(self):
+    def test_get_products_from_user_basket(self):
         product = ProductInBasket.objects.last()
-        answer = product.get_products_in_user_basket(self.user)
+        answer = product.get_products_from_user_basket(self.user)
         self.assertEqual(type(answer), QuerySet)
         self.assertEqual(answer.count(), 1)
 
-    def test_get_amount_in_user_basket(self):
+    def test_get_amount_from_user_basket(self):
         product = ProductInBasket.objects.last()
-        answer = product.get_amount_in_user_basket(self.user)
+        answer = product.get_amount_from_user_basket(self.user)
         self.assertEqual(type(answer), Decimal)
         self.assertEqual(answer, Decimal(self.product.price_now))
 
