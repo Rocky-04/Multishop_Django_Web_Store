@@ -13,7 +13,7 @@
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel related-carousel">
-                {% get_products limit=8 tag_id=6 as products %}
+                {% get_products limit=8 tags=6 as products %}
                 {% for item in products %}
                 <div class="product-item bg-light">
                     {% show_card_product item %}

@@ -28,6 +28,9 @@ class CheckAuthenticationMiddleware:
 
 
 class CheckExceptionMiddleware:
+    """
+    Checks and logs exceptions at the top level
+    """
     def __init__(self, get_response):
         self._get_response = get_response
 

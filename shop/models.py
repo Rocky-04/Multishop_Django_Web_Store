@@ -55,6 +55,20 @@ class Category(MPTTModel, models.Model):
 
         return list_categories_pk
 
+    @staticmethod
+    def get_category(parent: int = None) -> QuerySet:
+        """
+        Gets the categories with the parent filter
+        """
+        return Category.objects.filter(parent__exact=parent)
+
+    @staticmethod
+    def get_all_categories():
+        """
+        Gets all categories
+        """
+        return Category.objects.all()
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=50, unique=True)
@@ -108,6 +122,13 @@ class Manufacturer(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('brand', kwargs={'slug': self.slug})
+
+    @staticmethod
+    def get_active_brand() -> QuerySet:
+        """
+        Gets manufacturers with photo
+        """
+        return Manufacturer.objects.annotate(cnt=Count('picture')).filter(cnt__gt=0)
 
 
 class Product(models.Model):
