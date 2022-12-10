@@ -4,23 +4,23 @@
 {% load i18n %}
 
 {% block content %}
-{% include 'shop/inc/view_product.html' %}
+    {% include 'shop/inc/view_product.html' %}
 
-<div class="container-fluid py-5">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">{% trans 'YOU MIGHT ALSO LIKE' %}</span>
-    </h2>
-    <div class="row px-xl-5">
-        <div class="col">
-            <div class="owl-carousel related-carousel">
-                {% get_products limit=8 tags=6 as products %}
-                {% for item in products %}
-                <div class="product-item bg-light">
-                    {% show_card_product item %}
+    <div class="container-fluid py-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+            <span class="bg-secondary pr-3">{% trans 'YOU MIGHT ALSO LIKE' %}</span>
+        </h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel related-carousel">
+                    {% get_products limit=8 tags=6 as products %}
+                    {% for item in products %}
+                        <div class="product-item bg-light">
+                            {% show_card_product item %}
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

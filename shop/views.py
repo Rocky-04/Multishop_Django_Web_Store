@@ -11,6 +11,9 @@ from django.views.generic import TemplateView
 
 from online_store.settings import EMAIL_HOST_USER
 from .forms import ReviewsForm
+from .services import filter_products
+from .services import get_filter_products
+from .services import get_products_list_pk
 from .utils import *
 
 logger = logging.getLogger(__name__)
@@ -22,59 +25,12 @@ class FilterView(ShopMixin):
         Filters the product by the selected attributes
         Available filters: min_price, max_price, color, size, manufacturer
         """
-        if self.request.GET.get('min_price'):
-            min_price = self.request.GET.get('min_price')
-        else:
-            min_price = 0
-        if self.request.GET.get('max_price'):
-            max_price = self.request.GET.get('max_price')
-        else:
-            max_price = 100000
-        if self.product_list_pk:
-            self.product_list_pk = [int(i) for i in
-                                    self.request.GET.get('product_list_pk')[
-                                    1:-1].split(', ')]
-        else:
-            self.product_list_pk = Product.objects.all()
-
-        if self.request.GET.getlist("color"):
-            filter_color = AttributeColor.objects.filter(
-                Q(color__in=self.request.GET.getlist("color"))).values_list(
-                'product', flat=True)
-        else:
-            filter_color = AttributeColor.objects.all().values_list('product',
-                                                                    flat=True)
-
-        if self.request.GET.getlist("size"):
-            filter_size = AttributeSize.objects.filter(
-                Q(size__in=self.request.GET.getlist("size"))).values_list(
-                'product__product', flat=True)
-        else:
-            filter_size = AttributeSize.objects.all().values_list(
-                'product__product', flat=True)
-
-        if self.request.GET.getlist("manufacturer"):
-            filter_manufacturer = Manufacturer.objects.filter(
-                Q(id__in=self.request.GET.getlist(
-                    "manufacturer"))).values_list('manufacturer', flat=True)
-        else:
-            filter_manufacturer = Manufacturer.objects.all().values_list(
-                'manufacturer', flat=True)
-
-        queryset = Product.objects.filter(
-            Q(pk__in=self.product_list_pk) & Q
-            (pk__in=filter_color) & Q
-            (pk__in=filter_size) & Q
-            (pk__in=filter_manufacturer) & Q
-            (price_now__gte=min_price,
-             price_now__lte=max_price)
-        )
-
-        return queryset
+        self.product_list_pk = get_products_list_pk(self.request.GET.get('product_list_pk'))
+        return filter_products(request=self.request, product_list_pk=self.product_list_pk)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Filter'
+        context['title'] = _('Filter')
         return context
 
 
@@ -84,12 +40,8 @@ class SkipFilterView(ShopMixin):
     """
 
     def get_queryset(self):
-        if self.request.GET.get('product_list_pk'):
-            self.product_list_pk = [int(i) for i in
-                                    self.request.GET.get('product_list_pk')[1:-1].split(', ')]
-        else:
-            self.product_list_pk = Product.objects.all()
-        queryset = Product.objects.filter(pk__in=self.product_list_pk)
+        self.product_list_pk = get_products_list_pk(self.request.GET.get('product_list_pk'))
+        queryset = get_filter_products(pk__in=self.product_list_pk)
         return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -104,8 +56,8 @@ class ShopView(ShopMixin):
     """
 
     def get_queryset(self):
-        product = Product.objects.all()
-        self.product_list_pk = list(product.values_list('pk', flat=True))
+        product = get_filter_products()
+        self.product_list_pk = get_products_list_pk()
         return product
 
 
@@ -118,7 +70,7 @@ class CategoryView(ShopMixin):
     def get_queryset(self):
         list_categories_pk = Category.objects.get(
             slug=self.kwargs['slug']).get_list_nested_categories()
-        product = Product.objects.filter(category_id__in=list_categories_pk)
+        product = get_filter_products(category_id__in=list_categories_pk)
         self.product_list_pk = list(product.values_list('pk', flat=True))
         return product
 
@@ -231,14 +183,14 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        product = Product.objects.get(slug=self.kwargs['slug'])
+        product = Product.objects.select_related('category', 'country', 'manufacturer').get(
+            slug=self.kwargs['slug'])
         active_color = self.request.GET.get('color')
         active_size = self.request.GET.get('size')
 
         try:
             if active_color is not None:
-                context['active_color'] = product.attribute_color.get(
-                    color_id=active_color)
+                context['active_color'] = product.attribute_color.get(color_id=active_color)
             elif product.available:
                 context['active_color'] = product.get_color()[0]
             else:
@@ -246,6 +198,7 @@ class ProductDetailView(DetailView):
             if active_size is not None:
                 context['active_size'] = context[
                     'active_color'].attribute_size.get(size_id=active_size)
+
             elif context['active_color'].available:
                 context['active_size'] = context['active_color'].get_size()[0]
             else:

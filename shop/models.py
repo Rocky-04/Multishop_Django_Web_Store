@@ -203,8 +203,6 @@ class Product(models.Model):
     def get_color(self, available: bool = True) -> QuerySet:
         """
         Returns the colors of the selected product
-        :param available: bool
-        :return: QuerySet
         """
         if available:
             return AttributeColor.objects.filter(product=self, available=True)

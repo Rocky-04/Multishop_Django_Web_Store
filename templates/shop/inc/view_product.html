@@ -133,7 +133,8 @@
                             <div class="input-group-prepend">
                                 <button class="btn btn-success active px-3"
                                         formaction="{% url 'add_basket' product.pk %}">
-                                    <i class="fa fa-shopping-cart mr-1"> {% trans 'Add more to cart' %}
+                                    <i class="fa fa-shopping-cart mr-1">
+                                        {% trans 'Add more to cart' %}
                                     </i></button>
                             </div>
                         {% else %}
@@ -141,7 +142,8 @@
                                 <button class="btn btn-primary px-3"
                                         formaction="{% url 'add_basket' product.pk %}">
                                     <i
-                                            class="fa fa-shopping-cart mr-1"> {% trans 'Add to cart' %}
+                                            class="fa fa-shopping-cart mr-1">
+                                        {% trans 'Add to cart' %}
                                     </i></button>
                             </div>
                         {% endif %}
@@ -283,7 +285,8 @@
 
                                                     {% get_user_review request.user.pk product.pk as user_review %}
                                                     {% if user_review %}
-                                                        <h5>{% trans "Would you like to change your review?" %}
+                                                        <h5>
+                                                            {% trans "Would you like to change your review?" %}
                                                         </h5>
                                                         <small>
                                                             {% trans "You can leave only one review for one product" %}
