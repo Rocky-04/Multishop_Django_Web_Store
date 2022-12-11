@@ -374,8 +374,6 @@ class Delivery(models.Model):
     def get_delivery(amount) -> "Delivery":
         """
         Calculates the delivery cost from the order amount
-        :param amount:
-        :return: Delivery
         """
         delivery = Delivery.objects.filter(is_active=True).order_by("-order_price")
         for item in delivery:
