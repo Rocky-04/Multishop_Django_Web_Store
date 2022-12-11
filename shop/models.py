@@ -36,34 +36,25 @@ class Category(MPTTModel, models.Model):
         """
         Returns count product of nested categories
         """
-        list_categories_pk = self.get_list_nested_categories()
-        return Product.objects.filter(
-            category_id__in=list_categories_pk).count()
-
-    def get_list_nested_categories(self):
-        """
-        Returns list of pk categories
-        """
-        list_categories_pk = [self.pk]
-
-        for item in self.get_children():
-            list_categories_pk.append(item.pk)
-            for item_two in item.get_children():
-                list_categories_pk.append(item_two.pk)
-                for item_three in item_two.get_children():
-                    list_categories_pk.append(item_three.pk)
-
-        return list_categories_pk
+        list_categories = self.get_descendants(include_self=True)
+        return Product.objects.filter(category__in=list_categories).count()
 
     @staticmethod
-    def get_category(parent: int = None) -> QuerySet:
+    def get_category(slug: str) -> 'Category':
+        """
+        Gets a category by slug
+        """
+        return Category.objects.get(slug=slug)
+
+    @staticmethod
+    def get_parent_categories(parent: int = None) -> QuerySet:
         """
         Gets the categories with the parent filter
         """
         return Category.objects.filter(parent__exact=parent)
 
     @staticmethod
-    def get_all_categories():
+    def get_all_categories() -> QuerySet:
         """
         Gets all categories
         """
@@ -89,6 +80,13 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('tag', kwargs={'slug': self.slug})
+
+    @staticmethod
+    def get_tag(slug: str) -> 'Tag':
+        """
+        Gets a tag by slug
+        """
+        return Tag.objects.get(slug=slug)
 
 
 class Country(models.Model):
@@ -129,6 +127,13 @@ class Manufacturer(models.Model):
         Gets manufacturers with photo
         """
         return Manufacturer.objects.annotate(cnt=Count('picture')).filter(cnt__gt=0)
+
+    @staticmethod
+    def get_brand(slug: str) -> 'Manufacturer':
+        """
+        Gets a brand by slug
+        """
+        return Manufacturer.objects.get(slug=slug)
 
 
 class Product(models.Model):
@@ -211,9 +216,22 @@ class Product(models.Model):
     def get_reviews(self) -> QuerySet:
         """
         Collects all product reviews
-        :return: QuerySet
         """
         return Reviews.objects.filter(product=self)
+
+    @staticmethod
+    def get_product(slug: str) -> 'Product':
+        """
+        Gets a product by slug
+        """
+        return Product.objects.select_related('category', 'country', 'manufacturer').get(slug=slug)
+
+    @staticmethod
+    def get_all_products() -> QuerySet:
+        """
+        Gets all products
+        """
+        return Product.objects.all()
 
 
 class Color(models.Model):
@@ -224,7 +242,7 @@ class Color(models.Model):
         verbose_name_plural = 'Colors'
 
     def __str__(self):
-        return self.value
+        return str(self.value)
 
 
 class AttributeColor(models.Model):
@@ -292,7 +310,7 @@ class Size(models.Model):
         verbose_name_plural = 'Sizes'
 
     def __str__(self):
-        return self.value
+        return str(self.value)
 
 
 class AttributeSize(models.Model):
@@ -335,7 +353,7 @@ class AttributeColorImage(models.Model):
         verbose_name_plural = 'images'
 
     def __str__(self):
-        return self.product
+        return str(self.product)
 
 
 class Delivery(models.Model):

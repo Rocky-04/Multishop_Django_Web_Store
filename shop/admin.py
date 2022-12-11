@@ -5,6 +5,7 @@ from modeltranslation.admin import TranslationAdmin
 from mptt.admin import DraggableMPTTAdmin
 from nested_admin import NestedModelAdmin
 from nested_admin import NestedStackedInline
+from nested_admin import NestedTabularInline
 
 from .forms import ColorForm
 from .forms import SizeForm
@@ -25,7 +26,7 @@ class AttributeColorInline(admin.StackedInline):
     extra = 3
 
 
-class AttributeSizeLevelTwo(NestedStackedInline, admin.StackedInline):
+class AttributeSizeLevelTwo(NestedTabularInline, admin.StackedInline):
     model = AttributeSize
     min_num = 7
     max_num = 7
@@ -120,6 +121,7 @@ class CustomMPTTModelAdmin(DraggableMPTTAdmin, TranslationAdmin):
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('title', 'id')
     mptt_level_indent = 10
+    list_display = ("tree_actions", "indented_title", 'id')
 
 
 @admin.register(Delivery)

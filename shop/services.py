@@ -1,14 +1,19 @@
 import logging
 from typing import Union
 
+from django.contrib import messages
+from django.core.mail import send_mail
 from django.db.models import Count
 from django.db.models import Q
 from django.db.models import QuerySet
+from django.utils.translation import gettext_lazy as _
 from modeltranslation.manager import MultilingualQuerySet
 
+from online_store.settings import EMAIL_HOST_USER
 from shop.models import AttributeColor
 from shop.models import AttributeSize
 from shop.models import Banner
+from shop.models import Category
 from shop.models import Color
 from shop.models import Manufacturer
 from shop.models import Product
@@ -45,7 +50,7 @@ def get_html_star(rating: int = 5) -> str:
     rating = float(rating)
     star = ''
 
-    for _ in range(5):
+    for _x in range(5):
         if rating >= 0.5:
             star += '<i class="fas fa-star text-primary mr-1"></i>'
         elif rating > 0.3:
@@ -106,14 +111,18 @@ def convert_str_into_list_int(string_of_numbers: str) -> list:
     return [int(i) for i in string_of_numbers[1:-1].split(', ')]
 
 
-def get_products_list_pk(string_of_data: str = '') -> list:
+def get_products_list_pk(data: Union[str, QuerySet, None] = '') -> list:
     """
     Forms a list of product identifiers
     """
-    if string_of_data and isinstance(string_of_data, str):
-        return convert_str_into_list_int(string_of_data)
-    else:
+    if data and isinstance(data, str):
+        return convert_str_into_list_int(data)
+    if isinstance(data, (QuerySet, MultilingualQuerySet)):
+        return list(data.values_list('pk', flat=True))
+    if data is None or data == '':
         return list(Product.objects.all().values_list('pk', flat=True))
+    logger.error(f'Invalid type data. Type: {type(data)}')
+    raise TypeError
 
 
 def get_products_with_color_filtered(color: list) -> QuerySet:
@@ -182,3 +191,94 @@ def filter_products(request, product_list_pk):
     )
 
     return queryset
+
+
+def get_list_of_nested_category_id(slug: str) -> list:
+    """
+    Returns a list of nested categories id by category slug
+    """
+    categories = Category.objects.get(slug=slug).get_descendants(include_self=True)
+    return list(categories.values_list('pk', flat=True))
+
+
+def send_message_from_user(request):
+    """
+    Sends a message from the user to the email
+    """
+    data = request.POST
+    name = data.get('name')
+    email = data.get('email')
+    subject = data.get('subject')
+    message = data.get('message')
+
+    if name and email and subject and message:
+        text_subject = f"contact form: {subject} {name}"
+        text_message = (f"You have received a new message from your website contact form.\n\n"
+                        f"Here are the details:\n\nName: {name}\n\n\nEmail: {email}\n\n"
+                        f"Subject: {subject}\n\nMessage: {message}")
+        mail = send_mail(text_subject, text_message, EMAIL_HOST_USER,
+                         [email], fail_silently=False)
+        if mail:
+            messages.success(request, _('Thank you for your request'))
+        else:
+            messages.error(request,
+                           _('Error sending the letter. Try again later'))
+            logger.warning('Error sending the letter')
+    else:
+        messages.error(request,
+                       _('Error sending the letter. Try again later'))
+        logger.warning('Error sending the letter')
+
+
+def get_active_color(product: Product, color: Union[str, None]) -> AttributeColor:
+    """
+    Gets active AttributeColor selected product.
+    If active_color is not selected returns main AttributeColor.
+    """
+    if color is not None:
+        color = product.attribute_color.get(color_id=color)
+    elif product.available:
+        color = product.get_color()[0]
+    else:
+        color = AttributeColor.objects.filter(product=product)[0]
+    return color
+
+
+def get_active_size(active_color: AttributeColor, size: Union[str, None]) -> AttributeSize:
+    """
+    Gets active AttributeSize selected product.
+    If active_size is not selected returns main AttributeSize.
+    """
+    if size is not None:
+        size = active_color.attribute_size.get(size_id=size)
+    elif active_color.available:
+        size = active_color.get_size()[0]
+    else:
+        size = active_color.get_size(available=False)[0]
+    return size
+
+
+def add_user_review(form, request):
+    """
+    If form valid and user is authenticated, adds a product review.
+    """
+    if form.is_valid() and request.user.is_authenticated:
+        text = form.data['text']
+        rating = form.data['rating']
+        user = request.user
+        product_id = request.POST.get('product_id')
+
+        review = Reviews.objects.filter(user=user, product=product_id)
+
+        if len(review) >= 1:
+            review.update(text=text,
+                          rating=rating)
+        else:
+            Reviews.objects.create(user=user,
+                                   product_id=product_id,
+                                   text=text,
+                                   rating=rating)
+        messages.success(request, _('Feedback successfully left'))
+    else:
+        messages.error(request, _('Failed to leave feedback. Try again later'))
+        logger.warning('Failed to leave feedback')

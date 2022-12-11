@@ -21,7 +21,7 @@ def show_category(parent: int = None):
     """
     Shows subcategories
     """
-    return {'category': Category.get_category(parent=parent)}
+    return {'category': Category.get_parent_categories(parent=parent)}
 
 
 @register.inclusion_tag('shop/inc/banner.html')

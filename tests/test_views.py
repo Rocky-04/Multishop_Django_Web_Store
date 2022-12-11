@@ -287,21 +287,21 @@ class ShopViewsTest(Settings):
     def test_views_category(self):
         response = self.client.get(reverse('category', kwargs={'slug': self.category.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(type(response.context['products']), MultilingualQuerySet)
+        self.assertEqual(type(response.context['products']), list)
         self.assertEqual(len(response.context['products']), 1)
         self.assertEqual(response.context['parent'], 1)
 
     def test_views_tag(self):
         response = self.client.get(reverse('tag', kwargs={'slug': self.tag.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(type(response.context['products']), MultilingualQuerySet)
+        self.assertEqual(type(response.context['products']), list)
         self.assertEqual(len(response.context['products']), 1)
         self.assertEqual(response.context['parent'], False)
 
     def test_views_brand(self):
         response = self.client.get(reverse('brand', kwargs={'slug': self.manufacturer.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(type(response.context['products']), MultilingualQuerySet)
+        self.assertEqual(type(response.context['products']), list)
         self.assertEqual(len(response.context['products']), 1)
         self.assertEqual(response.context['parent'], False)
 

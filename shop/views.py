@@ -1,7 +1,5 @@
 import logging
 
-from django.contrib import messages
-from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
@@ -9,11 +7,15 @@ from django.views import View
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 
-from online_store.settings import EMAIL_HOST_USER
 from .forms import ReviewsForm
+from .services import add_user_review
 from .services import filter_products
+from .services import get_active_color
+from .services import get_active_size
 from .services import get_filter_products
+from .services import get_list_of_nested_category_id
 from .services import get_products_list_pk
+from .services import send_message_from_user
 from .utils import *
 
 logger = logging.getLogger(__name__)
@@ -68,18 +70,18 @@ class CategoryView(ShopMixin):
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        list_categories_pk = Category.objects.get(
-            slug=self.kwargs['slug']).get_list_nested_categories()
+        self.cat = Category.get_category(slug=self.kwargs['slug'])
+        list_categories_pk = get_list_of_nested_category_id(slug=self.kwargs['slug'])
         product = get_filter_products(category_id__in=list_categories_pk)
-        self.product_list_pk = list(product.values_list('pk', flat=True))
+        self.product_list_pk = get_products_list_pk(product)
         return product
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        cat = Category.objects.get(slug=self.kwargs['slug'])
-        context['title'] = cat
-        context['slug'] = cat.slug
-        context['parent'] = cat.pk
+
+        context['title'] = self.cat
+        context['slug'] = self.cat.slug
+        context['parent'] = self.cat.pk
         return context
 
 
@@ -90,15 +92,15 @@ class TagView(ShopMixin):
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        product = Product.objects.filter(
-            tags=Tag.objects.get(slug=self.kwargs['slug']))
-        self.product_list_pk = list(product.values_list('pk', flat=True))
+        self.tag = Tag.get_tag(self.kwargs['slug'])
+        product = get_filter_products(tags=self.tag)
+        self.product_list_pk = get_products_list_pk(product)
         return product
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Tag.objects.get(slug=self.kwargs['slug'])
-        context['slug'] = Tag.objects.get(slug=self.kwargs['slug']).pk
+        context['title'] = self.tag
+        context['slug'] = self.tag.pk
         context['parent'] = False
         return context
 
@@ -110,15 +112,15 @@ class BrandView(ShopMixin):
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        product = Product.objects.filter(
-            manufacturer=Manufacturer.objects.get(slug=self.kwargs['slug']))
-        self.product_list_pk = list(product.values_list('pk', flat=True))
+        self.brand = Manufacturer.get_brand(self.kwargs['slug'])
+        product = get_filter_products(manufacturer=self.brand)
+        self.product_list_pk = get_products_list_pk(product)
         return product
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Manufacturer.objects.get(slug=self.kwargs['slug'])
-        context['slug'] = Manufacturer.objects.get(slug=self.kwargs['slug']).pk
+        context['title'] = self.brand
+        context['slug'] = self.brand.pk
         context['parent'] = False
         return context
 
@@ -130,13 +132,13 @@ class HomeView(ListView):
     template_name = 'shop/index.html'
     context_object_name = 'category'
 
+    def get_queryset(self):
+        return Category.get_all_categories()
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Main')
         return context
-
-    def get_queryset(self):
-        return Category.objects.all()
 
 
 class SendUserMailView(TemplateView):
@@ -144,32 +146,9 @@ class SendUserMailView(TemplateView):
 
     def post(self, request):
         """
-        Sending a message from a user
+        Sends a message from the user to the email
         """
-        data = request.POST
-        name = data.get('name')
-        email = data.get('email')
-        subject = data.get('subject')
-        message = data.get('message')
-
-        if name and email and subject and message:
-            text_subject = f"contact form: {subject} {name}"
-            text_message = (f"You have received a new message from your website contact form.\n\n"
-                            f"Here are the details:\n\nName: {name}\n\n\nEmail: {email}\n\n"
-                            f"Subject: {subject}\n\nMessage: {message}")
-            mail = send_mail(text_subject, text_message, EMAIL_HOST_USER,
-                             [email], fail_silently=False)
-            if mail:
-                messages.success(request, _('Thank you for your request'))
-            else:
-                messages.error(request,
-                               _('Error sending the letter. Try again later'))
-                logger.warning('Error sending the letter')
-        else:
-            messages.error(request,
-                           _('Error sending the letter. Try again later'))
-            logger.warning('Error sending the letter')
-
+        send_message_from_user(request)
         return render(request, self.template_name)
 
 
@@ -183,35 +162,19 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        product = Product.objects.select_related('category', 'country', 'manufacturer').get(
-            slug=self.kwargs['slug'])
-        active_color = self.request.GET.get('color')
+        product = Product.get_product(slug=self.kwargs['slug'])
         active_size = self.request.GET.get('size')
+        active_color = self.request.GET.get('color')
 
-        try:
-            if active_color is not None:
-                context['active_color'] = product.attribute_color.get(color_id=active_color)
-            elif product.available:
-                context['active_color'] = product.get_color()[0]
-            else:
-                context['active_color'] = AttributeColor.objects.filter(product=product)[0]
-            if active_size is not None:
-                context['active_size'] = context[
-                    'active_color'].attribute_size.get(size_id=active_size)
-
-            elif context['active_color'].available:
-                context['active_size'] = context['active_color'].get_size()[0]
-            else:
-                context['active_size'] = context['active_color'].get_size(available=False)[0]
-        except Exception as error:
-            logger.warning(error)
-
-        context['title'] = _('Product')
+        context['title'] = product.title
         context['product'] = product
         context['slug'] = product.category.pk
         context['colors'] = product.get_color(available=False)
         context['form'] = ReviewsForm
-
+        context['active_color'] = get_active_color(product=product, color=active_color)
+        context['active_size'] = get_active_size(active_color=context['active_color'],
+                                                 size=active_size,
+                                                 )
         return context
 
 
@@ -257,51 +220,31 @@ class SearchView(ListView):
     context_object_name = 'products'
     allow_empty = True
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Search')
-        context['text'] = f"text={self.request.GET.get('text')}&"
-        context['empty'] = self.request.GET.get('text')
-        return context
-
     def get_queryset(self):
         """
         The search is based on the name of the product
         """
-        if self.request.GET.get('text'):
-            return Product.objects.filter(title__icontains=self.request.GET.get('text'))
-        return Product.objects.all()
+        self.text = self.request.GET.get('text')
+        if self.text:
+            return get_filter_products(title__icontains=self.text)
+        return Product.get_all_products()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Search')
+        context['text'] = f"text={self.text}&"
+        context['empty'] = self.text
+        return context
 
 
 class AddReviewView(View):
     """
-    Adds a product review
+    If form valid and user is authenticated, adds a product review.
     """
-
     def post(self, request):
         form = ReviewsForm(request.POST)
         current = request.POST.get('current')
-
-        if form.is_valid() and self.request.user.is_authenticated:
-            text = form.data['text']
-            rating = form.data['rating']
-            user = self.request.user
-            product_id = request.POST.get('product_id')
-
-            review = Reviews.objects.filter(user=user, product=product_id)
-
-            if len(review) >= 1:
-                review.update(text=text,
-                              rating=rating)
-            else:
-                Reviews.objects.create(user=user,
-                                       product_id=product_id,
-                                       text=text,
-                                       rating=rating)
-            messages.success(request, _('Feedback successfully left'))
-        else:
-            messages.error(request, _('Failed to leave feedback. Try again later'))
-            logger.warning('Failed to leave feedback')
+        add_user_review(form, request)
         return HttpResponseRedirect(current)
 
 
