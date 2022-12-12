@@ -3,25 +3,25 @@
 
 {% block content %}
 
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span
-                    class="bg-secondary pr-3">{% trans 'Placing an order' %}</span>
-            </h5>
-            <div class="bg-light p-30 mb-5">
-                <p>
-                    {%translate "The order has been successfully placed. Our employee will contact you shortly."%}
-                </p>
-                <p>
-                    {%translate 'You can check the status of the order in your personal account'%}</p>
-                <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
-                   href="{% url 'home' %}">{% trans 'On the main page' %}</a>
-                <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
-                   href="{% url 'account' %}">{% trans 'On the personal account' %}</a>
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span
+                        class="bg-secondary pr-3">{% trans 'Placing an order' %}</span>
+                </h5>
+                <div class="bg-light p-30 mb-5">
+                    <p>
+                        {% translate "The order has been successfully placed. Our employee will contact you shortly." %}
+                    </p>
+                    <p>
+                        {% translate 'You can check the status of the order in your personal account' %}</p>
+                    <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                       href="{% url 'home' %}">{% trans 'On the main page' %}</a>
+                    <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                       href="{% url 'account' %}">{% trans 'On the personal account' %}</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

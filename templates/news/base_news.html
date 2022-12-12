@@ -2,18 +2,18 @@
 {% load news_tags %}
 
 {% block content %}
-<div class="container-fluid mb-3">
-    <div class="row px-xl-5">
+    <div class="container-fluid mb-3">
+        <div class="row px-xl-5">
 
-        <div class="col-md-4">
-            {% show_categories %}
-        </div>
-        <div class="col-md-8">
-            {% block news %}
-            {% endblock %}
+            <div class="col-md-4">
+                {% show_categories %}
+            </div>
+            <div class="col-md-8">
+                {% block news %}
+                {% endblock %}
 
-            {% include 'inc/paginator.html' %}
+                {% include 'inc/paginator.html' %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

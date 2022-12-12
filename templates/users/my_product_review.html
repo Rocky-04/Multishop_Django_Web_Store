@@ -3,40 +3,42 @@
 {% block content_account %}
 
 
-{% for review in reviews %}
+    {% for review in reviews %}
 
-<article class="card">
-    <div class="card-body row">
-        <div class="col"><strong>{% trans 'Photo' %}:</strong> <br><br><img
-                alt="" src="{{review.product.get_title_photo}}"
-                style="width: 75px; "></div>
-        <div class="col"><strong>{% trans 'Product' %}:</strong> <br><br> <a
-                href="{{  review.product.get_absolute_url }}"
-                style="width: 100px; color: black;">{{review.product|upper}}</a>
-        </div>
-        <div class="col"><strong>{% trans 'Feedback date' %}:</strong> <br><br>{{review.updated}}
-        </div>
-        <div class="col"><strong>{% trans 'Rating' %}:</strong> <br><br>
-            {{ review.rating }}
-        </div>
-    </div>
-    <hr>
-    <div class="d-flex justify-content-center">{{review.text}}</div>
-    <br>
+        <article class="card">
+            <div class="card-body row">
+                <div class="col"><strong>{% trans 'Photo' %}:</strong> <br><br><img
+                        alt="" src="{{ review.product.get_title_photo }}"
+                        style="width: 75px; "></div>
+                <div class="col"><strong>{% trans 'Product' %}:</strong> <br><br> <a
+                        href="{{ review.product.get_absolute_url }}"
+                        style="width: 100px; color: black;">{{ review.product|upper }}</a>
+                </div>
+                <div class="col"><strong>{% trans 'Feedback date' %}:</strong>
+                    <br><br>{{ review.updated }}
+                </div>
+                <div class="col"><strong>{% trans 'Rating' %}:</strong> <br><br>
+                    {{ review.rating }}
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center">{{ review.text }}</div>
+            <br>
 
-    <a class="btn btn-primary" href="{{  review.product.get_absolute_url }}"
-       type="button">{% trans 'Change review' %}
-    </a>
+            <a class="btn btn-primary" href="{{ review.product.get_absolute_url }}"
+               type="button">{% trans 'Change review' %}
+            </a>
 
 
-</article>
+        </article>
 
-<br>
-<br>
-{% empty %}
-<div class="d-flex justify-content-center">
-    {% trans 'You have not left any product reviews yet' %}
-</div><br>
+        <br>
+        <br>
+    {% empty %}
+        <div class="d-flex justify-content-center">
+            {% trans 'You have not left any product reviews yet' %}
+        </div><br>
 
-{% endfor %}
+
+    {% endfor %}
 {% endblock %}

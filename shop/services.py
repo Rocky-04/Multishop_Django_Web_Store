@@ -2,6 +2,7 @@ import logging
 from typing import Union
 
 from django.contrib import messages
+from django.core.handlers.wsgi import WSGIRequest
 from django.core.mail import send_mail
 from django.db.models import Count
 from django.db.models import Q
@@ -10,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from modeltranslation.manager import MultilingualQuerySet
 
 from online_store.settings import EMAIL_HOST_USER
+from shop.forms import ReviewsForm
 from shop.models import AttributeColor
 from shop.models import AttributeSize
 from shop.models import Banner
@@ -162,7 +164,7 @@ def get_products_with_manufacturer_filtered(manufacturer: list) -> QuerySet:
     return filter_manufacturer
 
 
-def filter_products(request, product_list_pk):
+def filter_products(request: WSGIRequest, product_list_pk: list) -> QuerySet:
     """
     Filters the product by the selected attributes
     Available filters: min_price, max_price, color, size, manufacturer
@@ -189,7 +191,6 @@ def filter_products(request, product_list_pk):
         (price_now__gte=min_price,
          price_now__lte=max_price)
     )
-
     return queryset
 
 
@@ -201,7 +202,7 @@ def get_list_of_nested_category_id(slug: str) -> list:
     return list(categories.values_list('pk', flat=True))
 
 
-def send_message_from_user(request):
+def send_message_from_user(request: WSGIRequest) -> None:
     """
     Sends a message from the user to the email
     """
@@ -258,7 +259,7 @@ def get_active_size(active_color: AttributeColor, size: Union[str, None]) -> Att
     return size
 
 
-def add_user_review(form, request):
+def add_user_review(form: ReviewsForm, request: WSGIRequest) -> None:
     """
     If form valid and user is authenticated, adds a product review.
     """

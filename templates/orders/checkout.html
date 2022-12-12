@@ -5,67 +5,67 @@
 {% block content %}
 
 
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <form method="post">{% csrf_token %}
-                <h5 class="section-title position-relative text-uppercase mb-3">
-                    <span class="bg-secondary pr-3">{% trans 'Placing an order' %}</span>
-                </h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="row">
-
-                        {% for field in form %}
-                        {% if field.label != 'Payment method' %}
-                        <div class="col-md-6 form-group">
-                            {% if field.errors %}
-                            <a style="width: 100px; color: red; ">{{
-                                field.label }}: {{ field.errors|striptags }}</a>
-                            {{ field}}
-                            {% else %}
-                            <a style="width: 100px; color: black; ">{{ field.label }}</a>
-                            {{ field}}
-                            {% endif %}
-
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-
-                        <div class="col-md-12 form-group">
-                        </div>
-                        <div class="col-md-12">
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-5">
-
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <form method="post">{% csrf_token %}
                     <h5 class="section-title position-relative text-uppercase mb-3">
-                        <span class="bg-secondary pr-3">{% trans 'Payment method' %}</span>
+                        <span class="bg-secondary pr-3">{% trans 'Placing an order' %}</span>
                     </h5>
-                    <div class="bg-light p-30">
-                        {{form.payment_method}}
-                        <br>
-                        {% if PRODUCTS_BASKET_LIST %}
-                        <button class="btn btn-block btn-primary font-weight-bold py-3">
-                            {% trans 'To order' %}
-                        </button>
-                        {% else %}
-                        <button class="btn btn-block btn-primary font-weight-bold py-3"
-                                disabled>{% trans 'Add the product to the cart'%}
-                        </button>
-                        {% endif %}
+                    <div class="bg-light p-30 mb-5">
+                        <div class="row">
+
+                            {% for field in form %}
+                                {% if field.label != 'Payment method' %}
+                                    <div class="col-md-6 form-group">
+                                        {% if field.errors %}
+                                            <a style="width: 100px; color: red; ">{{
+                                                    field.label }}: {{ field.errors|striptags }}</a>
+                                            {{ field }}
+                                        {% else %}
+                                            <a style="width: 100px; color: black; ">{{ field.label }}</a>
+                                            {{ field }}
+                                        {% endif %}
+
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            <div class="col-md-12 form-group">
+                            </div>
+                            <div class="col-md-12">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                    <div class="mb-5">
+
+                        <h5 class="section-title position-relative text-uppercase mb-3">
+                            <span class="bg-secondary pr-3">{% trans 'Payment method' %}</span>
+                        </h5>
+                        <div class="bg-light p-30">
+                            {{ form.payment_method }}
+                            <br>
+                            {% if PRODUCTS_BASKET_LIST %}
+                                <button class="btn btn-block btn-primary font-weight-bold py-3">
+                                    {% trans 'To order' %}
+                                </button>
+                            {% else %}
+                                <button class="btn btn-block btn-primary font-weight-bold py-3"
+                                        disabled>{% trans 'Add the product to the cart' %}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
 
 
-        <div class="col-lg-4">
-            {% order_cost %}
+            <div class="col-lg-4">
+                {% order_cost %}
 
 
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

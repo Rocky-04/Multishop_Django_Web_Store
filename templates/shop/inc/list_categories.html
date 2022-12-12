@@ -2,33 +2,33 @@
 {% load i18n %}
 {% if category|length > 0 %}
 
-<div class="container-fluid pt-5">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
-            class="bg-secondary pr-3">{% trans 'Categories' %} </span>
-    </h2>
-    <div class="row px-xl-5 pb-3">
-        {% for item in category %}
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="{{ item.get_absolute_url }}">
-                <div class="cat-item d-flex align-items-center mb-4">
-                    <div class="overflow-hidden"
-                         style="width: 100px; height: 100px;">
-                        <img alt="" class="img-fluid"
-                             src="{{ item.picture.url }}">
-                    </div>
-                    <div class="flex-fill pl-3">
-                        <h6>{{ item.title }}</h6>
-                        <small class="text-body">{{item.get_count_product_in_category}}
-                            {% trans 'Goods' %}</small>
-                    </div>
+    <div class="container-fluid pt-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
+                class="bg-secondary pr-3">{% trans 'Categories' %} </span>
+        </h2>
+        <div class="row px-xl-5 pb-3">
+            {% for item in category %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="{{ item.get_absolute_url }}">
+                        <div class="cat-item d-flex align-items-center mb-4">
+                            <div class="overflow-hidden"
+                                 style="width: 100px; height: 100px;">
+                                <img alt="" class="img-fluid"
+                                     src="{{ item.picture.url }}">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>{{ item.title }}</h6>
+                                <small class="text-body">{{ item.get_count_product_in_category }}
+                                    {% trans 'Goods' %}</small>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
+
+
+            {% endfor %}
         </div>
-
-
-        {% endfor %}
     </div>
-</div>
 
 
 {% endif %}

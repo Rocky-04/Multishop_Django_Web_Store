@@ -1,41 +1,42 @@
 {% extends 'base.html' %}}
 {% block content %}
-{% load i18n %}
+    {% load i18n %}
 
 
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <h2 class="text-secondary text-uppercase">
-                {% trans 'Subscribe to the news'%}</h2>
-            <p>
-                {% trans 'Enter your email to receive discounts and news'%}</p>
-            <div class="bg-light p-30 mb-5">
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h2 class="text-secondary text-uppercase">
+                    {% trans 'Subscribe to the news' %}</h2>
+                <p>
+                    {% trans 'Enter your email to receive discounts and news' %}</p>
+                <div class="bg-light p-30 mb-5">
 
-                <form action="{% url 'subscriber_email' %}" method="post">
-                    {% csrf_token %}
-                    <input name="current" type="hidden"
-                           value="{{ request.get_full_path }}">
-                    {% for field in form %}
+                    <form action="{% url 'subscriber_email' %}" method="post">
+                        {% csrf_token %}
+                        <input name="current" type="hidden"
+                               value="{{ request.get_full_path }}">
+                        {% for field in form %}
 
-                    {% if field.errors %}
-                    <a style="width: 100px; color: red; ">{{ field.errors|striptags }}</a>
-                    <br>
-                    {%endif%}
-                    <div class="input-group">
-                        {{ field }}
-                        <div class="input-group-append">
-                            {% endfor %}
-                            <button class="btn btn-block btn-primary ">
-                                {% trans 'Send'%}
-                            </button>
+                            {% if field.errors %}
+                                <a style="width: 100px; color: red; ">{{ field.errors|striptags }}
+                                </a>
+                                <br>
+                            {% endif %}
+                            <div class="input-group">
+                            {{ field }}
+                            <div class="input-group-append">
+                        {% endfor %}
+                        <button class="btn btn-block btn-primary ">
+                            {% trans 'Send' %}
+                        </button>
                         </div>
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}

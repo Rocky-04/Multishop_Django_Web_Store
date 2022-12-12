@@ -1,120 +1,124 @@
 {% extends 'users/account.html' %}}
 {% load i18n %}
 {% block content_account %}
-{% load static %}
+    {% load static %}
 
 
-{% for order in orders %}
+    {% for order in orders %}
 
-<article class="card">
-    <div class="card-body row">
-        <div class="col"><strong>{% trans 'Order date' %}:</strong> <br>{{order.created}}
-        </div>
-        <div class="col"><strong>{% trans 'Order ID' %}:</strong> <br>
-            {{order.id}}
-        </div>
-        <div class="col"><strong>{% trans 'Status' %}:</strong> <br>
-            {{order.status}}
-        </div>
-        <div class="col"><strong>{% trans 'The cost of the order' %}:</strong>
-            <br> {{order.total_price}}
-        </div>
-    </div>
+        <article class="card">
+            <div class="card-body row">
+                <div class="col"><strong>{% trans 'Order date' %}:</strong> <br>{{ order.created }}
+                </div>
+                <div class="col"><strong>{% trans 'Order ID' %}:</strong> <br>
+                    {{ order.id }}
+                </div>
+                <div class="col"><strong>{% trans 'Status' %}:</strong> <br>
+                    {{ order.status }}
+                </div>
+                <div class="col"><strong>{% trans 'The cost of the order' %}:</strong>
+                    <br> {{ order.total_price }}
+                </div>
+            </div>
 
 
-    <div class="card-body p-4">
+            <div class="card-body p-4">
 
-        <div class="progress progress-bar-striped"
-             style="height: 20px; width: 100%; border-radius: 25px; ">
-            <div aria-valuemax="100" aria-valuemin="0"
-                 aria-valuenow="20"
-                 class="progress-bar bg-success "
-                 role="progressbar" style="width: {% widthratio order.status.id 1 25 %}%; border-radius: 25px; "></div>
-        </div>
-        <div class="d-flex justify-content-around mb-1">
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'New' %}</p>
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Preparing for shipment' %}</p>
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'In the way' %}</p>
-            <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Delivered' %}</p>
-        </div>
-    </div>
-    <br>
+                <div class="progress progress-bar-striped"
+                     style="height: 20px; width: 100%; border-radius: 25px; ">
+                    <div aria-valuemax="100" aria-valuemin="0"
+                         aria-valuenow="20"
+                         class="progress-bar bg-success "
+                         role="progressbar"
+                         style="width: {% widthratio order.status.id 1 25 %}%;
+                                 border-radius: 25px;"></div>
+                </div>
+                <div class="d-flex justify-content-around mb-1">
+                    <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'New' %}</p>
+                    <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Preparing for shipment' %}
+                    </p>
+                    <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'In the way' %}</p>
+                    <p class="text-muted mt-1 mb-0  ms-xl-5">{% trans 'Delivered' %}</p>
+                </div>
+            </div>
+            <br>
 
-    {% if order.goods_in_the_order.all %}
+            {% if order.goods_in_the_order.all %}
 
-    <button aria-controls="demo" aria-expanded="false" class="btn btn-primary"
-            data-target="#demo"
-            data-toggle="collapse" type="button">
-        {% trans 'Order details' %}
-    </button>
-    <div class="collapse multi-collapse" id="demo">
+                <button aria-controls="demo" aria-expanded="false" class="btn btn-primary"
+                        data-target="#demo"
+                        data-toggle="collapse" type="button">
+                    {% trans 'Order details' %}
+                </button>
+                <div class="collapse multi-collapse" id="demo">
 
-        <table class="table table-light table-borderless table-hover text-center mb-0">
-            <thead class="thead-dark">
-            <tr>
-                <th>{% trans 'Photo' %}</th>
-                <th>{% trans 'Goods' %}</th>
-                <th>{% trans 'Price' %}</th>
-                <th>{% trans 'Number' %}</th>
-                <th>{% trans 'Sum' %}</th>
-            </tr>
-            </thead>
-            {% for item in order.goods_in_the_order.all %}
-            <tbody class="align-middle">
-            <tr>
-                <td class="align-middle"><img
-                        alt="" src="{{ item.color.get_title_photo }}"
-                        style="width: 75px; "></td>
-                <td class="align-middle"><a
-                        href="{{  item.product.get_absolute_url }}"
-                        style="width: 100px; color: black; ">{{ item.product.title|upper }}<br>
-                    {% trans 'COLOR' %}: {{item.color.color|upper}} <br>
-                    {% trans 'SIZE' %}: {{item.size.size|upper}}</a>
-                </td>
-                <td class="align-middle">${{item.price_per_item}}</td>
-                <td class="align-middle">{{item.nmb}}</td>
-                <td class="align-middle">${{ item.total_price }}</td>
+                    <table class="table table-light table-borderless table-hover text-center mb-0">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>{% trans 'Photo' %}</th>
+                            <th>{% trans 'Goods' %}</th>
+                            <th>{% trans 'Price' %}</th>
+                            <th>{% trans 'Number' %}</th>
+                            <th>{% trans 'Sum' %}</th>
+                        </tr>
+                        </thead>
+                        {% for item in order.goods_in_the_order.all %}
+                            <tbody class="align-middle">
+                            <tr>
+                                <td class="align-middle"><img
+                                        alt="" src="{{ item.color.get_title_photo }}"
+                                        style="width: 75px; "></td>
+                                <td class="align-middle"><a
+                                        href="{{ item.product.get_absolute_url }}"
+                                        style="width: 100px; color: black; ">
+                                    {{ item.product.title|upper }}<br>
+                                    {% trans 'COLOR' %}: {{ item.color.color|upper }} <br>
+                                    {% trans 'SIZE' %}: {{ item.size.size|upper }}</a>
+                                </td>
+                                <td class="align-middle">${{ item.price_per_item }}</td>
+                                <td class="align-middle">{{ item.nmb }}</td>
+                                <td class="align-middle">${{ item.total_price }}</td>
 
-            </tr>
-            {% endfor %}
+                            </tr>
+                        {% endfor %}
 
-            <tbody class="align-middle">
-            <tr>
-                <td class="align-middle"><img
-                        alt="" src="{% static 'img/shiping.png' %}"
-                        style="width: 75px; "></td>
-                <td class="align-middle"><a href="{%  url 'help' %}"
-                                            style="width: 100px; color: black; ">
-                    {% trans 'Delivery' %}</a></td>
-                <td class="align-middle"></td>
-                <td class="align-middle"></td>
-                <td class="align-middle">${{ order.delivery }}</td>
-            </tr>
-            {% if order.promo_code %}
-            <tbody class="align-middle">
-            <tr>
-                <td class="align-middle"><img
-                        alt="" src="{% static 'img/promocode.jpg' %}"
-                        style="width: 75px; "></td>
-                <td class="align-middle"><a href="{%  url 'help' %}"
-                                            style="width: 100px; color: black; ">
-                    {% trans 'Promo code' %}</a></td>
-                <td class="align-middle"></td>
-                <td class="align-middle"></td>
-                <td class="align-middle">- ${{ order.promo_code }}</td>
-            </tr>
+                        <tbody class="align-middle">
+                        <tr>
+                            <td class="align-middle"><img
+                                    alt="" src="{% static 'img/shiping.png' %}"
+                                    style="width: 75px; "></td>
+                            <td class="align-middle"><a href="{% url 'help' %}"
+                                                        style="width: 100px; color: black; ">
+                                {% trans 'Delivery' %}</a></td>
+                            <td class="align-middle"></td>
+                            <td class="align-middle"></td>
+                            <td class="align-middle">${{ order.delivery }}</td>
+                        </tr>
+                        {% if order.promo_code %}
+                            <tbody class="align-middle">
+                            <tr>
+                                <td class="align-middle"><img
+                                        alt="" src="{% static 'img/promocode.jpg' %}"
+                                        style="width: 75px; "></td>
+                                <td class="align-middle"><a href="{% url 'help' %}"
+                                                            style="width: 100px; color: black; ">
+                                    {% trans 'Promo code' %}</a></td>
+                                <td class="align-middle"></td>
+                                <td class="align-middle"></td>
+                                <td class="align-middle">- ${{ order.promo_code }}</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                </article>
+
+                <br>
+                <br>
+
             {% endif %}
-            </tbody>
-        </table>
-    </div>
-
-</article>
-
-<br>
-<br>
-
-{% endif %}
-{% endfor %}
+    {% endfor %}
 {% endblock %}
 
 

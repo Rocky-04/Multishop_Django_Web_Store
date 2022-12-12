@@ -7,146 +7,146 @@
 {% block content %}
 
 
-<div class="container-fluid mb-3">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <div class="carousel slide carousel-fade mb-30 mb-lg-0"
-                 data-ride="carousel"
-                 id="header-carousel">
-                <ol class="carousel-indicators">
-                    <li class="active" data-slide-to="0"
-                        data-target="#header-carousel"></li>
-                    <li data-slide-to="1" data-target="#header-carousel"></li>
-                    <li data-slide-to="2" data-target="#header-carousel"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item position-relative active"
-                         style="height: 430px;">
-                        {% show_carousel_banner 6 %}
-                    </div>
-                    <div class="carousel-item position-relative"
-                         style="height: 430px;">
-                        {% show_carousel_banner 7 %}
-                    </div>
-                    <div class="carousel-item position-relative"
-                         style="height: 430px;">
-                        {% show_carousel_banner 8 %}
-                    </div>
+    <div class="container-fluid mb-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="carousel slide carousel-fade mb-30 mb-lg-0"
+                     data-ride="carousel"
+                     id="header-carousel">
+                    <ol class="carousel-indicators">
+                        <li class="active" data-slide-to="0"
+                            data-target="#header-carousel"></li>
+                        <li data-slide-to="1" data-target="#header-carousel"></li>
+                        <li data-slide-to="2" data-target="#header-carousel"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item position-relative active"
+                             style="height: 430px;">
+                            {% show_carousel_banner 6 %}
+                        </div>
+                        <div class="carousel-item position-relative"
+                             style="height: 430px;">
+                            {% show_carousel_banner 7 %}
+                        </div>
+                        <div class="carousel-item position-relative"
+                             style="height: 430px;">
+                            {% show_carousel_banner 8 %}
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                {% show_banner 4 %}
+                {% show_banner 5 %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel End -->
+
+
+    <!-- Featured Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4"
+                     style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">{% trans 'Quality product' %}</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4"
+                     style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">{% trans 'Free shipping' %}</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4"
+                     style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">{% trans '14-Day return' %}</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4"
+                     style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">{% trans '24/7 Support' %}</h5>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            {% show_banner 4 %}
-            {% show_banner 5 %}
+    </div>
+
+    {% show_category %}
+
+
+    <div class="container-fluid pt-5 pb-3">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+            <span class="bg-secondary pr-3">{% trans 'Popular products' %}</span>
+        </h2>
+        <div class="row px-xl-5">
+
+
+            {% get_products limit=8 as products %}
+
+            {% for item in products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    {% show_card_product item %}
+                </div>
+            {% endfor %}
+
+
         </div>
     </div>
-</div>
-
-<!-- Carousel End -->
+    <!-- Products End -->
 
 
-<!-- Featured Start -->
-<div class="container-fluid pt-5">
-    <div class="row px-xl-5 pb-3">
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4"
-                 style="padding: 30px;">
-                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">{% trans 'Quality product' %}</h5>
+    <!-- Offer Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <div class="row px-xl-5">
+            <div class="col-md-6">
+                {% show_banner 5 %}
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4"
-                 style="padding: 30px;">
-                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                <h5 class="font-weight-semi-bold m-0">{% trans 'Free shipping' %}</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4"
-                 style="padding: 30px;">
-                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">{% trans '14-Day return' %}</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4"
-                 style="padding: 30px;">
-                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">{% trans '24/7 Support' %}</h5>
+            <div class="col-md-6">
+                {% show_banner 6 %}
             </div>
         </div>
     </div>
-</div>
-
-{% show_category %}
+    <!-- Offer End -->
 
 
-<div class="container-fluid pt-5 pb-3">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">{% trans 'Popular products' %}</span>
-    </h2>
-    <div class="row px-xl-5">
+    <div class="container-fluid pt-5 pb-3">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+            <span class="bg-secondary pr-3">{% trans 'Maximum discounts' %}</span>
+        </h2>
+        <div class="row px-xl-5">
 
 
-        {% get_products limit=8 as products %}
+            {% get_products limit=8 tags=6 as products %}
 
-        {% for item in products %}
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            {% show_card_product item %}
-        </div>
-        {% endfor %}
-
-
-    </div>
-</div>
-<!-- Products End -->
+            {% for item in products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    {% show_card_product item %}
+                </div>
+            {% endfor %}
 
 
-<!-- Offer Start -->
-<div class="container-fluid pt-5 pb-3">
-    <div class="row px-xl-5">
-        <div class="col-md-6">
-            {% show_banner 5 %}
-        </div>
-        <div class="col-md-6">
-            {% show_banner 6 %}
         </div>
     </div>
-</div>
-<!-- Offer End -->
 
 
-<div class="container-fluid pt-5 pb-3">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">{% trans 'Maximum discounts' %}</span>
-    </h2>
-    <div class="row px-xl-5">
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
 
+            {% show_carousel_brand %}
 
-        {% get_products limit=8 tags=6 as products %}
-
-        {% for item in products %}
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            {% show_card_product item %}
         </div>
-        {% endfor %}
-
-
     </div>
-</div>
 
-
-<!-- Vendor Start -->
-<div class="container-fluid py-5">
-    <div class="row px-xl-5">
-
-        {% show_carousel_brand %}
-
-    </div>
-</div>
-
-<!-- Vendor End -->
+    <!-- Vendor End -->
 
 {% endblock %}

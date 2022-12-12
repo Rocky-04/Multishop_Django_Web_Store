@@ -19,29 +19,29 @@
             </thead>
             <tbody class="align-middle">
             <tr>
-                {% for item in products_in_basket%}
-                <td class="align-middle">
-                    <form action="{% url 'remove_basket' item.product.pk %}"
-                          method="post">{% csrf_token %}
-                        <input name="current" type="hidden"
-                               value="{{ request.path }}">
-                        <input name="color" type="hidden"
-                               value="{{ item.color.pk }}">
-                        <input name="size" type="hidden"
-                               value="{{ item.size.pk }}">
-                        <button
-                                class="btn btn-sm "><i class="fa fa-times"></i>
-                        </button>
-                    </form>
-                </td>
-                <td class="align-middle"><a
-                        href="{{  item.product.get_absolute_url }}"
-                        style="color: black;">{{ item|truncatechars:23 }}</a>
-                </td>
-                <td class="align-middle"> {{item.nmb}}</td>
-                <td class="align-middle"> ${{item.total_price}}</td>
-            </tr>
-            {% endfor %}
+                {% for item in products_in_basket %}
+                    <td class="align-middle">
+                        <form action="{% url 'remove_basket' item.product.pk %}"
+                              method="post">{% csrf_token %}
+                            <input name="current" type="hidden"
+                                   value="{{ request.path }}">
+                            <input name="color" type="hidden"
+                                   value="{{ item.color.pk }}">
+                            <input name="size" type="hidden"
+                                   value="{{ item.size.pk }}">
+                            <button
+                                    class="btn btn-sm "><i class="fa fa-times"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td class="align-middle"><a
+                            href="{{ item.product.get_absolute_url }}"
+                            style="color: black;">{{ item|truncatechars:23 }}</a>
+                    </td>
+                    <td class="align-middle"> {{ item.nmb }}</td>
+                    <td class="align-middle"> ${{ item.total_price }}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -65,14 +65,14 @@
             <h5>${{ amount|add:delivery }}</h5>
         </div>
         {% if button %}
-        {% if amount %}
-        <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
-           href="{% url 'checkout' %}">{% trans 'Order' %}</a>
-        {% else %}
-        <button class="btn btn-block btn-secondary font-weight-bold my-3 py-3"
-                disabled>{% trans 'No products added' %}
-        </button>
-        {% endif %}
+            {% if amount %}
+                <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                   href="{% url 'checkout' %}">{% trans 'Order' %}</a>
+            {% else %}
+                <button class="btn btn-block btn-secondary font-weight-bold my-3 py-3"
+                        disabled>{% trans 'No products added' %}
+                </button>
+            {% endif %}
         {% endif %}
     </div>
 </div>

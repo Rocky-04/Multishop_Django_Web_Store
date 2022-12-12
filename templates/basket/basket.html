@@ -4,102 +4,103 @@
 {% load basket_tags %}
 {% block content %}
 
-<!-- Cart Start -->
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8 table-responsive mb-5">
-            {% if products_in_basket %}
-            <table class="table table-light table-borderless table-hover text-center mb-0">
-                <thead class="thead-dark">
-                <tr>
-                    <th>{% trans 'Photo' %}</th>
-                    <th>{% trans 'Goods' %}</th>
-                    <th>{% trans 'Price' %}</th>
-                    <th>{% trans 'Quantity' %}</th>
-                    <th>{% trans 'Amount' %}</th>
-                    <th>{% trans 'Remove' %}</th>
-                </tr>
-                </thead>
-                <tbody class="align-middle">
-                <tr>
-                    {% for item in products_in_basket %}
-                    <td class="align-middle"><img
-                            alt="" src="{{ item.color.get_title_photo }}"
-                            style="width: 75px; "></td>
-                    <td class="align-middle"><a
-                            href="{{  item.product.get_absolute_url }}"
-                            style="width: 100px; color: black; ">
-                        {{ item.product.title|upper }}<br>{% trans 'Color' %}:
-                        {{item.color.color|upper}} <br> {% trans 'Dimensions' %}:
-                        {{item.size.size|upper}}</a></td>
-                    <td class="align-middle">${{item.price_per_item}}</td>
-                    <td class="align-middle">
+    <!-- Cart Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                {% if products_in_basket %}
+                    <table class="table table-light table-borderless table-hover text-center mb-0">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>{% trans 'Photo' %}</th>
+                            <th>{% trans 'Goods' %}</th>
+                            <th>{% trans 'Price' %}</th>
+                            <th>{% trans 'Quantity' %}</th>
+                            <th>{% trans 'Amount' %}</th>
+                            <th>{% trans 'Remove' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                        <tr>
+                            {% for item in products_in_basket %}
+                                <td class="align-middle"><img
+                                        alt="" src="{{ item.color.get_title_photo }}"
+                                        style="width: 75px; "></td>
+                                <td class="align-middle"><a
+                                        href="{{ item.product.get_absolute_url }}"
+                                        style="width: 100px; color: black; ">
+                                    {{ item.product.title|upper }}<br>{% trans 'Color' %}:
+                                    {{ item.color.color|upper }} <br> {% trans 'Dimensions' %}:
+                                    {{ item.size.size|upper }}</a></td>
+                                <td class="align-middle">${{ item.price_per_item }}</td>
+                                <td class="align-middle">
 
-                        {% if item.size.available %}
-                        <form action="{% url 'edit_basket' item.product.pk %}"
-                              method="post">{% csrf_token %}
-                            <input name="current" type="hidden"
-                                   value="{{ request.path }}">
-                            <input name="color" type="hidden"
-                                   value="{{ item.color.pk }}">
-                            <input name="size" type="hidden"
-                                   value="{{ item.size.pk }}">
-                            <div class="input-group input-group-sm mb-3">
-                                <input class=" bg-secondary border-0 text-center" id="count" name="count"
-                                       style="width: 100px; height: 40px;"
-                                       type="number"
-                                       value="{{item.nmb}}">
+                                    {% if item.size.available %}
+                                        <form action="{% url 'edit_basket' item.product.pk %}"
+                                              method="post">{% csrf_token %}
+                                            <input name="current" type="hidden"
+                                                   value="{{ request.path }}">
+                                            <input name="color" type="hidden"
+                                                   value="{{ item.color.pk }}">
+                                            <input name="size" type="hidden"
+                                                   value="{{ item.size.pk }}">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <input class=" bg-secondary border-0 text-center"
+                                                       id="count" name="count"
+                                                       style="width: 100px; height: 40px;"
+                                                       type="number"
+                                                       value="{{ item.nmb }}">
 
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-sm btn-success border-0">
-                                        <i class="fa fa-check"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                        {% else %}
-                        <h6>{% trans 'Not available' %}</h6>
-                        {% endif %}
-                    </td>
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-sm btn-success border-0">
+                                                        <i class="fa fa-check"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    {% else %}
+                                        <h6>{% trans 'Not available' %}</h6>
+                                    {% endif %}
+                                </td>
 
-                    <td class="align-middle">${{ item.total_price }}</td>
+                                <td class="align-middle">${{ item.total_price }}</td>
 
-                    <td class="align-middle">
-                        <form action="{% url 'remove_basket' item.product.pk %}"
-                              method="post">{% csrf_token %}
-                            <input name="current" type="hidden"
-                                   value="{{ request.path }}">
-                            <input name="color" type="hidden"
-                                   value="{{ item.color.pk }}">
-                            <input name="size" type="hidden"
-                                   value="{{ item.size.pk }}">
-                            <button
-                                    class="btn btn-sm btn-danger"
-                                    style="width: 40px; height: 40px;"><i
-                                    class="fa fa-times"></i>
-                            </button>
-                        </form>
-                    </td>
+                                <td class="align-middle">
+                                    <form action="{% url 'remove_basket' item.product.pk %}"
+                                          method="post">{% csrf_token %}
+                                        <input name="current" type="hidden"
+                                               value="{{ request.path }}">
+                                        <input name="color" type="hidden"
+                                               value="{{ item.color.pk }}">
+                                        <input name="size" type="hidden"
+                                               value="{{ item.size.pk }}">
+                                        <button
+                                                class="btn btn-sm btn-danger"
+                                                style="width: 40px; height: 40px;"><i
+                                                class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+                                </td>
 
 
-                </tr>
-                {% endfor %}
+                                </tr>
+                            {% endfor %}
 
-                </tbody>
-            </table>
-            {% else %}
-            <div class="bg-light p-30 mb-5">
-                <h3>{% translate 'The basket is empty' %}</h3>
-                <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
-                   href="{% url 'shop' %}">{% trans 'Go to catalog' %}</a>
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="bg-light p-30 mb-5">
+                        <h3>{% translate 'The basket is empty' %}</h3>
+                        <a class="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                           href="{% url 'shop' %}">{% trans 'Go to catalog' %}</a>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-        <div class="col-lg-4">
-            {% order_cost button=True %}
-        </div>
+            <div class="col-lg-4">
+                {% order_cost button=True %}
+            </div>
 
+        </div>
     </div>
-</div>
-<!-- Cart End -->
+    <!-- Cart End -->
 
 {% endblock %}

@@ -241,6 +241,7 @@ class AddReviewView(View):
     """
     If form valid and user is authenticated, adds a product review.
     """
+
     def post(self, request):
         form = ReviewsForm(request.POST)
         current = request.POST.get('current')

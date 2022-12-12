@@ -1,46 +1,46 @@
 {% load shop_tags %}
 {% load i18n %}
 {% if page_obj.has_other_pages %}
-<div class="col-12">
-    <nav>
-        <ul class="pagination justify-content-center">
+    <div class="col-12">
+        <nav>
+            <ul class="pagination justify-content-center">
 
-            {% if page_obj.has_previous %}
+                {% if page_obj.has_previous %}
 
-            <li class="page-item"><a class="page-link"
-                                     href="?page={{page_obj.previous_page_nuber}}">
-                {% trans 'Previous' %}</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ page_obj.previous_page_nuber }}">
+                        {% trans 'Previous' %}</a></li>
 
-            {% endif %}
+                {% endif %}
 
 
-            {% get_proper_elided_page_range paginator page_obj.number 1 1 as page_range %}
-            {% for i in page_range %}
-            {% if page_obj.number == i %}
-            <li class="active page-item">
-                <span class="page-link">{{ i }}</span>
-            </li>
-            {% else %}
-            {% if i == paginator.ELLIPSIS %}
-            <li class="page-item">
-                <span class="page-link">{{ paginator.ELLIPSIS }}</span>
-            </li>
-            {% else %}
-            <li class="page-item">
-                <a class="page-link" href="?{{text}}page={{ i }}">{{ i }}</a>
-            </li>
-            {% endif %}
-            {% endif %}
-            {% endfor %}
+                {% get_proper_elided_page_range paginator page_obj.number 1 1 as page_range %}
+                {% for i in page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="active page-item">
+                            <span class="page-link">{{ i }}</span>
+                        </li>
+                    {% else %}
+                        {% if i == paginator.ELLIPSIS %}
+                            <li class="page-item">
+                                <span class="page-link">{{ paginator.ELLIPSIS }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{{ text }}page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
 
-            {% if page_obj.has_next %}
+                {% if page_obj.has_next %}
 
-            <li class="page-item"><a class="page-link"
-                                     href="?{{text}}page={{ page_obj.next_page_number}}">
-                {% trans 'Next' %}</a></li>
-            {% endif %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?{{ text }}page={{ page_obj.next_page_number }}">
+                        {% trans 'Next' %}</a></li>
+                {% endif %}
 
-        </ul>
-    </nav>
-</div>
+            </ul>
+        </nav>
+    </div>
 {% endif %}

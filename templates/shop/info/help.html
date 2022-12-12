@@ -3,196 +3,217 @@
 {% load i18n %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="self-service-question">
-                <div class="nav" data-static="self-service-popular-question">
-                    <nav class="nav-links" id="selfServiceNav"></nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="self-service-question">
+                    <div class="nav" data-static="self-service-popular-question">
+                        <nav class="nav-links" id="selfServiceNav"></nav>
 
-                    <h1>{% trans "Cost and delivery time" %}</h1>
-                </div>
-                <div>
-                    <p><strong>{% blocktrans %}We draw your attention! Approximate order delivery time is 6-9 working
-                        days. We apologize for the inconvenience.{% endblocktrans %}</strong></p>
-                    <p style="text-align: justify;">{% trans 'DELIVERY TIME AND COST' %}</p>
-                    <p style="text-align: justify;">
-                        {% trans 'Collection at the collection point (Meest, Nova Poshta) - 110 UAH' %}</p>
-                    <p style="text-align: justify;">{% trans "Courier (Meest) - 110 UAH" %}</p>
-                    <p style="text-align: justify;">{% trans 'Free delivery for orders over 2000 UAH' %}</p>
-                    <p><strong>{% trans "Regions to which delivery by COURIER is possible:" %}</strong></p>
-                    <table border="1" cellpadding="0" cellspacing="0"
-                           style="width: 100%;">
-                        <tbody>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Vinnytsia' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Ivano-Frankivsk' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Lviv' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Ternopilsk' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Volynsk' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Poltava' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Cherkasy' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Zhytomyr' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Kyivska' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Kyiv' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Odesa' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Khmelnytska' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Zakarpattia' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Kirovohradsk' %}</p>
-                            </td>
-                        </tr>
-                        <tr style="border: 1px;">
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Rivne' %}</p>
-                            </td>
-                            <td align="center"
-                                style="border: 1px solid #d1d1d1; border-left: 1;" valign="middle">
-                                <p>{% trans 'Chernivtsi' %}</p>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <p><br>
-                        {% trans "Delivery times depend on your region:" %}</p>
-                    <p style="text-align: justify;">{% trans 'Term' %} <br>
-                        {% trans '(working days) Settlement' %}</p>
-                    <ul style="text-align: justify;"></ul>
-                    <ul style="text-align: justify;"></ul>
-                    <ul style="text-align: justify;">
-                        <li>{% blocktrans %}4 - 8 days: Vinnytsia, Volyn,
-                            Dnipro, Zhytomyr, Transcarpathia, Zaporizhzhia,
-                            Ivano-Frankivsk, Kyiv, Kovel, Kolomyia, Kremenchuk,
-                            Lviv, Mykolaiv, Novovolynsk, Odesa, Poltava,
-                            Rivne, Sumy, Ternopil, Kharkiv, Kherson,
-                            Khmelnytskyi, Cherkasy, Chernivtsi, Chernihiv
-                            {% endblocktrans %}
-                        </li>
-                        <li>{% blocktrans %}6 - 10 days: Brody,
-                            Volodymyr-Volynskyi, Drohobych, Kamianske, Kryvyi
-                            Riga, Kropyvnytskyi, Lubny, Melitopol, Nikopol,
-                            Pavlograd, Stryi, Chervonograd{% endblocktrans %}
-                        </li>
-                        <li>{% blocktrans %}8 - 11 days: Donetsk**,
-                            Luhansk**{% endblocktrans %}
-                        </li>
-                    </ul>
-                    <p style="text-align: justify;">{% trans 'Other settlements: From 7 to 11 days' %}</p>
-                    <p style="text-align: justify;">{% blocktrans %} **Delivery
-                        only to Ukrainian-controlled settlements
-                        the government / administration of Ukraine.{% endblocktrans %}</p>
-                    <p style="text-align: justify;">{% blocktrans %}Unfortunately,
-                        delivery to retail stores is not available. We bring
-                        sorry for the inconvenience.{% endblocktrans %}</p>
-                    <p style="text-align: justify;">{% blocktrans %}Possibility
-                        fitting is not provided. Partial redemption of things from
-                        order is not possible.{% endblocktrans %}</p>
-                    <p style="text-align: justify;">{% blocktrans %}If
-                        the order cannot be delivered to the specified address from
-                        the first time, the courier will try to do it again. If
-                        the parcel will not be delivered on the second attempt, she
-                        returns to the online store.{% endblocktrans %}</p>
-                    <p style="text-align: justify;"><span
-                            style="font-size: medium;"><strong>{% trans 'Importantly!' %}</strong> </span>
-                        {% blocktrans %}During the period of increased number of orders
-                        (sale periods, advertising campaigns) delivery time
-                        can be increased. Current time, cost and
-                        available forms of delivery are visible when ordering.
-                        {% endblocktrans %}</p>
-                    <p style="text-align: justify;">&nbsp;</p></div>
-                <div class="footer-section" data-page='{% trans "Cost and delivery time" %}'
-                     id="footerSection">
-                    <h3 class="title">{% trans 'Did this answer help you?' %}</h3>
-                    <div class="rate" id="rating">
-                        <div class="like rate-icon" data-type="like"
-                             id="likeIcon"></div>
-                        <div class="dislike rate-icon" data-type="dislike"
-                             id="dislikeIcon"></div>
+                        <h1>{% trans "Cost and delivery time" %}</h1>
                     </div>
-                    <h3 class="title">{% trans "Didn't find the answer to your question?" %}</h3>
-                    <p>{% trans "Payment for connection according to the operator's tariffs" %}</p>
-                    <div class="tiles">
-                        <a class="tile hover"
-                           data-tile="email"
-                           href="https://www.multishop.com/ua/uk/contacts/">
-                            <div class="icon email"></div>
-                            <a href="{% url 'contact' %}"><h4 class="subtitle">
-                                {% trans 'Write to us' %}</h4></a>
-                        </a>
-                        <div class="tile prevent-toggle-desktop"
-                             data-tile="phone">
-                            <div class="icon phones"></div>
-                            <h4 class="subtitle">{% trans 'Call me' %}</h4>
-                            <div class="hover">
-                                <a class="" href="tel:+38 063 195 90 83">
-                                    <h5 class="title">{% trans 'Hotline' %}</h5>
-                                    <div class="phone">+38 063 195 90 83</div>
-                                    <div class="details">
-                                    </div>
-                                </a>
-                            </div>
+                    <div>
+                        <p><strong>{% blocktrans %}We draw your attention! Approximate order
+                            delivery time is 6-9 working
+                            days. We apologize for the inconvenience.{% endblocktrans %}</strong>
+                        </p>
+                        <p style="text-align: justify;">{% trans 'DELIVERY TIME AND COST' %}</p>
+                        <p style="text-align: justify;">
+                            {% trans 'Collection at the collection point (Meest, Nova Poshta) - 110 UAH' %}</p>
+                        <p style="text-align: justify;">{% trans "Courier (Meest) - 110 UAH" %}</p>
+                        <p style="text-align: justify;">{% trans 'Free delivery for orders over 2000 UAH' %}</p>
+                        <p>
+                            <strong>{% trans "Regions to which delivery by COURIER is possible:" %}</strong>
+                        </p>
+                        <table border="1" cellpadding="0" cellspacing="0"
+                               style="width: 100%;">
+                            <tbody>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Vinnytsia' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Ivano-Frankivsk' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Lviv' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Ternopilsk' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Volynsk' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Poltava' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Cherkasy' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Zhytomyr' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Kyivska' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Kyiv' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Odesa' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Khmelnytska' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Zakarpattia' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Kirovohradsk' %}</p>
+                                </td>
+                            </tr>
+                            <tr style="border: 1px;">
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Rivne' %}</p>
+                                </td>
+                                <td align="center"
+                                    style="border: 1px solid #d1d1d1; border-left: 1;"
+                                    valign="middle">
+                                    <p>{% trans 'Chernivtsi' %}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p><br>
+                            {% trans "Delivery times depend on your region:" %}</p>
+                        <p style="text-align: justify;">{% trans 'Term' %} <br>
+                            {% trans '(working days) Settlement' %}</p>
+                        <ul style="text-align: justify;"></ul>
+                        <ul style="text-align: justify;"></ul>
+                        <ul style="text-align: justify;">
+                            <li>{% blocktrans %}4 - 8 days: Vinnytsia, Volyn,
+                                Dnipro, Zhytomyr, Transcarpathia, Zaporizhzhia,
+                                Ivano-Frankivsk, Kyiv, Kovel, Kolomyia, Kremenchuk,
+                                Lviv, Mykolaiv, Novovolynsk, Odesa, Poltava,
+                                Rivne, Sumy, Ternopil, Kharkiv, Kherson,
+                                Khmelnytskyi, Cherkasy, Chernivtsi, Chernihiv
+                            {% endblocktrans %}
+                            </li>
+                            <li>{% blocktrans %}6 - 10 days: Brody,
+                                Volodymyr-Volynskyi, Drohobych, Kamianske, Kryvyi
+                                Riga, Kropyvnytskyi, Lubny, Melitopol, Nikopol,
+                                Pavlograd, Stryi, Chervonograd{% endblocktrans %}
+                            </li>
+                            <li>{% blocktrans %}8 - 11 days: Donetsk**,
+                                Luhansk**{% endblocktrans %}
+                            </li>
+                        </ul>
+                        <p style="text-align: justify;">{% trans 'Other settlements: From 7 to 11 days' %}</p>
+                        <p style="text-align: justify;">{% blocktrans %} **Delivery
+                            only to Ukrainian-controlled settlements
+                            the government / administration of Ukraine.{% endblocktrans %}</p>
+                        <p style="text-align: justify;">{% blocktrans %}Unfortunately,
+                            delivery to retail stores is not available. We bring
+                            sorry for the inconvenience.{% endblocktrans %}</p>
+                        <p style="text-align: justify;">{% blocktrans %}Possibility
+                            fitting is not provided. Partial redemption of things from
+                            order is not possible.{% endblocktrans %}</p>
+                        <p style="text-align: justify;">{% blocktrans %}If
+                            the order cannot be delivered to the specified address from
+                            the first time, the courier will try to do it again. If
+                            the parcel will not be delivered on the second attempt, she
+                            returns to the online store.{% endblocktrans %}</p>
+                        <p style="text-align: justify;"><span
+                                style="font-size: medium;"><strong>{% trans 'Importantly!' %}</strong> </span>
+                            {% blocktrans %}During the period of increased number of orders
+                                (sale periods, advertising campaigns) delivery time
+                                can be increased. Current time, cost and
+                                available forms of delivery are visible when ordering.
+                            {% endblocktrans %}</p>
+                        <p style="text-align: justify;">&nbsp;</p></div>
+                    <div class="footer-section" data-page='{% trans "Cost and delivery time" %}'
+                         id="footerSection">
+                        <h3 class="title">{% trans 'Did this answer help you?' %}</h3>
+                        <div class="rate" id="rating">
+                            <div class="like rate-icon" data-type="like"
+                                 id="likeIcon"></div>
+                            <div class="dislike rate-icon" data-type="dislike"
+                                 id="dislikeIcon"></div>
                         </div>
+                        <h3 class="title">{% trans "Didn't find the answer to your question?" %}</h3>
+                        <p>{% trans "Payment for connection according to the operator's tariffs" %}
+                        </p>
+                        <div class="tiles">
+                            <a class="tile hover"
+                               data-tile="email"
+                               href="https://www.multishop.com/ua/uk/contacts/">
+                                <div class="icon email"></div>
+                                <a href="{% url 'contact' %}"><h4 class="subtitle">
+                                    {% trans 'Write to us' %}</h4></a>
+                            </a>
+                            <div class="tile prevent-toggle-desktop"
+                                 data-tile="phone">
+                                <div class="icon phones"></div>
+                                <h4 class="subtitle">{% trans 'Call me' %}</h4>
+                                <div class="hover">
+                                    <a class="" href="tel:+38 063 195 90 83">
+                                        <h5 class="title">{% trans 'Hotline' %}</h5>
+                                        <div class="phone">+38 063 195 90 83</div>
+                                        <div class="details">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 
 {% endblock %}

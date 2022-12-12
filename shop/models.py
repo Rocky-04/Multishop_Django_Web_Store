@@ -32,7 +32,7 @@ class Category(MPTTModel, models.Model):
     def get_absolute_url(self):
         return reverse_lazy('category', kwargs={'slug': self.slug})
 
-    def get_count_product_in_category(self):
+    def get_count_product_in_category(self) -> int:
         """
         Returns count product of nested categories
         """
@@ -105,10 +105,8 @@ class Country(models.Model):
 
 class Manufacturer(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=50, unique=True, blank=True,
-                            db_index=True)
-    picture = models.ImageField(upload_to='photo/%Y/%m/%d/', null=True,
-                                blank=True)
+    slug = models.SlugField(max_length=50, unique=True, blank=True, db_index=True)
+    picture = models.ImageField(upload_to='photo/%Y/%m/%d/', null=True, blank=True)
 
     class Meta:
         verbose_name = 'brand'
@@ -294,8 +292,6 @@ class AttributeColor(models.Model):
     def get_size(self, available: bool = True) -> QuerySet:
         """
         Returns the sizes of the selected color
-        :param available: bool
-        :return: QuerySet
         """
         if available:
             return AttributeSize.objects.filter(product=self, available=True)
