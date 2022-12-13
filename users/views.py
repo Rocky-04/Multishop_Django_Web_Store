@@ -6,7 +6,6 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import PasswordResetConfirmView as PasswordResetConfirmView_
 from django.contrib.auth.views import PasswordResetView as PasswordResetView_
-from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -18,10 +17,6 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
-from basket.models import ProductInBasket
-from favorite.models import Favorite
-from orders.models import Order
-from shop.models import Reviews
 from .forms import CommunicationForm
 from .forms import PasswordResetForm
 from .forms import SetPasswordForm
@@ -31,6 +26,13 @@ from .forms import UserLoginForm
 from .forms import UserRegisterForm
 from .models import EmailForNews
 from .models import User
+from .services import add_email_to_the_mailing_list
+from .services import get_email_from_email_the_news
+from .services import get_user
+from .services import get_user_orders
+from .services import get_user_reviews
+from .services import update_user_in_basket
+from .services import update_user_in_favorite
 
 logger = logging.getLogger(__name__)
 
@@ -52,10 +54,9 @@ class LoginUserView(LoginView):
         """
         session_key = self.request.session.session_key
         user = form.data['username']
-        ProductInBasket.objects.filter(user_authenticated=session_key).update(
-            user_authenticated=user)
-        Favorite.objects.filter(user_authenticated=session_key).update(
-            user_authenticated=user)
+        update_user_in_basket(old_user=session_key, new_user=user)
+        update_user_in_favorite(old_user=session_key, new_user=user)
+
         return super().form_valid(form)
 
 
@@ -72,15 +73,13 @@ class RegisterUserView(CreateView):
         """
         If the user successfully registered, then user_authenticated
         will be changed to email in basket and in favorite.
-        The email will be added to the news mailing list
+        Adds an email to the news mailing list
         """
         user = form.save()
         session_key = self.request.session.session_key
-        ProductInBasket.objects.filter(user_authenticated=session_key).update(
-            user_authenticated=user.email)
-        Favorite.objects.filter(user_authenticated=session_key).update(
-            user_authenticated=user.email)
-        EmailForNews.objects.create(email=user.email)
+        update_user_in_basket(old_user=session_key, new_user=user)
+        update_user_in_favorite(old_user=session_key, new_user=user)
+        add_email_to_the_mailing_list(email=user.email)
         login(self.request, user)
         return redirect('home')
 
@@ -93,10 +92,7 @@ class AccountUserView(TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        orders = Order.objects.filter(Q(user=self.request.user) | Q(
-            email=self.request.user.email)).order_by('-id')
-
-        context['orders'] = orders
+        context['orders'] = get_user_orders(self.request)
         context['title'] = _('My orders')
         return context
 
@@ -109,9 +105,10 @@ class AccountDataUserView(UpdateView):
 
     def get_object(self, queryset=None):
         if self.request.user.is_authenticated:
-            obj = User.objects.get(id=self.request.user.pk)
-            return obj
-        raise Http404()
+            return get_user(self.request.user.pk)
+        else:
+            logger.warning("User isn't authenticated")
+            raise Http404()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -133,22 +130,6 @@ class PasswordResetConfirmView(PasswordResetConfirmView_):
     form_class = SetPasswordForm
 
 
-def subscriber_email(request):
-    """
-    Adding emails to the newsletter list
-    """
-    current = request.POST.get('current')
-    if request.method == 'POST':
-        form = SubscriberEmailForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _('Email added'))
-            return HttpResponseRedirect(current)
-    else:
-        form = SubscriberEmailForm()
-    return render(request, 'users/subscriber_email.html', {'form': form})
-
-
 class CommunicationView(UpdateView):
     template_name = 'users/communication.html'
     form_class = CommunicationForm
@@ -158,12 +139,10 @@ class CommunicationView(UpdateView):
     def get_object(self, queryset=None):
         if self.request.user.is_authenticated:
             try:
-                obj = EmailForNews.objects.get(email=self.request.user.email)
+                obj = get_email_from_email_the_news(self.request.user.email)
             except Exception as error:
                 logger.warning(error)
-                obj = EmailForNews.objects.create(
-                    email=self.request.user.email)
-
+                obj = add_email_to_the_mailing_list(self.request.user.email)
             return obj
         raise Http404()
 
@@ -187,4 +166,20 @@ class MyProductReviewView(ListView):
         return context
 
     def get_queryset(self):
-        return Reviews.objects.filter(user=self.request.user)
+        return get_user_reviews(request=self.request)
+
+
+def subscriber_email(request):
+    """
+    Adding emails to the newsletter list
+    """
+    current = request.POST.get('current')
+    if request.method == 'POST':
+        form = SubscriberEmailForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Email added'))
+            return HttpResponseRedirect(current)
+    else:
+        form = SubscriberEmailForm()
+    return render(request, 'users/subscriber_email.html', {'form': form})
