@@ -7,9 +7,9 @@ from django.db.models import QuerySet
 from shop.models import Category
 from shop.models import Manufacturer
 from shop.services import get_filter_products
-from shop.services import get_html_star
-from shop.services import get_review
-from shop.services import get_tag
+from shop.services import get_rating_html
+from shop.services import get_review_for_user_and_product
+from shop.services import get_tag_by_banner
 
 register = template.Library()
 
@@ -29,7 +29,7 @@ def show_banner(pk_banner: int):
     """
     Shows banner from Tag
     """
-    return {'tag': get_tag(pk_banner)}
+    return {'tag': get_tag_by_banner(pk_banner)}
 
 
 @register.inclusion_tag('shop/inc/carousel_banner.html')
@@ -37,7 +37,7 @@ def show_carousel_banner(pk_banner: int):
     """
     Shows carousel banner from Tag
     """
-    return {'tag': get_tag(pk_banner)}
+    return {'tag': get_tag_by_banner(pk_banner)}
 
 
 @register.inclusion_tag('shop/inc/carousel_brand.html')
@@ -91,7 +91,7 @@ def get_user_review(user_id: int, product_id: int):
     """
     Returns the rating given by the user of the product
     """
-    return get_review(user_id=user_id, product_id=product_id)
+    return get_review_for_user_and_product(user_id=user_id, product_id=product_id)
 
 
 @register.simple_tag()
@@ -99,4 +99,4 @@ def get_fa_star(rating: int = 5) -> str:
     """
     Draws product rating stars based on average rating
     """
-    return get_html_star(rating)
+    return get_rating_html(rating)

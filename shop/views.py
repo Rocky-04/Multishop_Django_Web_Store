@@ -8,14 +8,14 @@ from django.views.generic import DetailView
 from django.views.generic import TemplateView
 
 from .forms import ReviewsForm
-from .services import add_user_review
-from .services import filter_products
-from .services import get_active_color
-from .services import get_active_size
+from .services import add_or_update_review
+from .services import apply_product_filters
+from .services import get_product_active_color
+from .services import get_product_active_size
 from .services import get_filter_products
-from .services import get_list_of_nested_category_id
-from .services import get_products_list_pk
-from .services import send_message_from_user
+from .services import get_nested_category_ids
+from .services import get_product_ids
+from .services import send_contact_form_message
 from .utils import *
 
 logger = logging.getLogger(__name__)
@@ -27,8 +27,8 @@ class FilterView(ShopMixin):
         Filters the product by the selected attributes
         Available filters: min_price, max_price, color, size, manufacturer
         """
-        self.product_list_pk = get_products_list_pk(self.request.GET.get('product_list_pk'))
-        return filter_products(request=self.request, product_list_pk=self.product_list_pk)
+        self.product_list_pk = get_product_ids(self.request.GET.get('product_list_pk'))
+        return apply_product_filters(request=self.request, pk_list=self.product_list_pk)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,7 +42,7 @@ class SkipFilterView(ShopMixin):
     """
 
     def get_queryset(self):
-        self.product_list_pk = get_products_list_pk(self.request.GET.get('product_list_pk'))
+        self.product_list_pk = get_product_ids(self.request.GET.get('product_list_pk'))
         queryset = get_filter_products(pk__in=self.product_list_pk)
         return queryset
 
@@ -59,7 +59,7 @@ class ShopView(ShopMixin):
 
     def get_queryset(self):
         product = get_filter_products()
-        self.product_list_pk = get_products_list_pk()
+        self.product_list_pk = get_product_ids()
         return product
 
 
@@ -71,9 +71,9 @@ class CategoryView(ShopMixin):
 
     def get_queryset(self):
         self.cat = Category.get_category(slug=self.kwargs['slug'])
-        list_categories_pk = get_list_of_nested_category_id(slug=self.kwargs['slug'])
+        list_categories_pk = get_nested_category_ids(category_slug=self.kwargs['slug'])
         product = get_filter_products(category_id__in=list_categories_pk)
-        self.product_list_pk = get_products_list_pk(product)
+        self.product_list_pk = get_product_ids(product)
         return product
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -94,7 +94,7 @@ class TagView(ShopMixin):
     def get_queryset(self):
         self.tag = Tag.get_tag(self.kwargs['slug'])
         product = get_filter_products(tags=self.tag)
-        self.product_list_pk = get_products_list_pk(product)
+        self.product_list_pk = get_product_ids(product)
         return product
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -114,7 +114,7 @@ class BrandView(ShopMixin):
     def get_queryset(self):
         self.brand = Manufacturer.get_brand(self.kwargs['slug'])
         product = get_filter_products(manufacturer=self.brand)
-        self.product_list_pk = get_products_list_pk(product)
+        self.product_list_pk = get_product_ids(product)
         return product
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -148,7 +148,7 @@ class SendUserMailView(TemplateView):
         """
         Sends a message from the user to the email
         """
-        send_message_from_user(request)
+        send_contact_form_message(request)
         return render(request, self.template_name)
 
 
@@ -171,8 +171,8 @@ class ProductDetailView(DetailView):
         context['slug'] = product.category.pk
         context['colors'] = product.get_color(available=False)
         context['form'] = ReviewsForm
-        context['active_color'] = get_active_color(product=product, color=active_color)
-        context['active_size'] = get_active_size(active_color=context['active_color'],
+        context['active_color'] = get_product_active_color(product=product, color=active_color)
+        context['active_size'] = get_product_active_size(active_color=context['active_color'],
                                                  size=active_size,
                                                  )
         return context
@@ -245,7 +245,7 @@ class AddReviewView(View):
     def post(self, request):
         form = ReviewsForm(request.POST)
         current = request.POST.get('current')
-        add_user_review(form, request)
+        add_or_update_review(form, request)
         return HttpResponseRedirect(current)
 
 

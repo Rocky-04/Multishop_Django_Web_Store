@@ -3,9 +3,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 
 from .models import *
-from .services import get_color_filter
-from .services import get_manufacturer_filter
-from .services import get_size_filter
+from .services import filter_colors_by_products
+from .services import filter_manufacturers_by_products
+from .services import filter_size_by_products
 
 
 class ShopMixin(ListView):
@@ -24,7 +24,7 @@ class ShopMixin(ListView):
         context['title'] = _("All products")
         context['parent'] = None
         context['product_list_pk'] = self.product_list_pk
-        context['color_filter'] = get_color_filter(self.product_list_pk)
-        context['size_filter'] = get_size_filter(self.product_list_pk)
-        context['manufacturer_filter'] = get_manufacturer_filter(self.product_list_pk)
+        context['color_filter'] = filter_colors_by_products(self.product_list_pk)
+        context['size_filter'] = filter_size_by_products(self.product_list_pk)
+        context['manufacturer_filter'] = filter_manufacturers_by_products(self.product_list_pk)
         return context
