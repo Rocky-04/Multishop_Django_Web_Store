@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 def get_filter_products(limit: int = 99999, **kwargs) -> QuerySet:
     """
-        Retrieves a queryset of products that match the specified filters.
+    Retrieves a queryset of products that match the specified filters.
 
     :param limit: The maximum number of products to return (defaults to 99999)
     :param kwargs: Filters to apply to the products queryset (e.g. category="Clothing")
@@ -41,7 +41,7 @@ def get_filter_products(limit: int = 99999, **kwargs) -> QuerySet:
 
 def get_review_for_user_and_product(user_id: int, product_id: int) -> Optional[Reviews]:
     """
-        Retrieves the review (if any) that the specified user has left for the specified product.
+    Retrieves the review (if any) that the specified user has left for the specified product.
 
     :param user_id: The ID of the user to retrieve the review for.
     :param product_id: The ID of the product to retrieve the review for.
@@ -56,7 +56,7 @@ def get_review_for_user_and_product(user_id: int, product_id: int) -> Optional[R
 
 def get_rating_html(rating: int = 5) -> str:
     """
-        Draws product rating stars based on average rating.
+    Draws product rating stars based on average rating.
 
     :param rating: The average rating of the product, on a scale of 1 to 5.
     :return: A string containing the HTML for the star rating.
@@ -80,8 +80,8 @@ def get_rating_html(rating: int = 5) -> str:
 
 def get_tag_by_banner(pk_banner: int) -> Tag:
     """
-        Gets the tag for a given banner.
-    If no banner with the given primary key exists, return the last tag in the database as a default
+    Gets the tag for a given banner. If no banner with the given primary key exists, return the
+    last tag in the database as a default.
 
     :param pk_banner: The primary key of the banner.
     :return:  The tag for the given banner.
@@ -100,7 +100,7 @@ def get_tag_by_banner(pk_banner: int) -> Tag:
 
 def filter_colors_by_products(product_list_pk: list) -> MultilingualQuerySet:
     """
-        Gets the color filter for a list of products.
+    Gets the color filter for a list of products.
 
     :param product_list_pk: The primary keys of the products to filter.
     :return: A queryset of colors that are associated with the given products,
@@ -114,7 +114,7 @@ def filter_colors_by_products(product_list_pk: list) -> MultilingualQuerySet:
 
 def filter_size_by_products(product_list_pk: list) -> QuerySet:
     """
-        Gets the size filter for a list of products.
+    Gets the size filter for a list of products.
 
     :param product_list_pk: The primary keys of the products to filter.
     :return: A queryset of size that are associated with the given products,
@@ -129,7 +129,7 @@ def filter_size_by_products(product_list_pk: list) -> QuerySet:
 
 def filter_manufacturers_by_products(product_list_pk: list) -> QuerySet:
     """
-        Gets the manufacturer filter for a list of products.
+    Gets the manufacturer filter for a list of products.
 
     :param product_list_pk: The primary keys of the products to filter.
     :return: A queryset of manufacturers that are associated with the given products,
@@ -144,7 +144,7 @@ def filter_manufacturers_by_products(product_list_pk: list) -> QuerySet:
 
 def convert_str_to_int_list(string_of_numbers: str) -> list:
     """
-        Converts a string of numbers in list format to a list of integers.
+    Converts a string of numbers in list format to a list of integers.
 
     :param string_of_numbers: The string to convert, in the format '[25, 14, 13, 20]'.
     :return: A list of integers that were extracted from the input string.
@@ -156,7 +156,7 @@ def convert_str_to_int_list(string_of_numbers: str) -> list:
 
 def get_product_ids(data: Union[str, QuerySet, None] = '') -> list:
     """
-        Forms a list of product identifiers based on the given data.
+    Forms a list of product identifiers based on the given data.
 
     :param data: The data to use to generate the list of product identifiers.
             This can be a string of numbers in list format, a queryset of products,
@@ -183,7 +183,7 @@ def get_product_ids(data: Union[str, QuerySet, None] = '') -> list:
 
 def get_filtered_products_by_color(color: list) -> QuerySet:
     """
-        Gets the products that match the given color filter.
+    Gets the products that match the given color filter.
     If no color filter is specified, get all products.
 
     :param color: A list of colors to filter by.
@@ -199,7 +199,7 @@ def get_filtered_products_by_color(color: list) -> QuerySet:
 
 def get_filtered_products_by_size(size: list) -> QuerySet:
     """
-        Gets the products that match the given size filter.
+    Gets the products that match the given size filter.
     If no size filter is specified, get all products.
 
     :param size: A list of size to filter by.
@@ -215,7 +215,7 @@ def get_filtered_products_by_size(size: list) -> QuerySet:
 
 def get_filtered_products_by_manufacturer(brand: list) -> QuerySet:
     """
-        Gets the products that match the given brand filter.
+    Gets the products that match the given brand filter.
     If no brand filter is specified, get all products.
 
     :param brand: A list of brand to filter by.
@@ -231,7 +231,7 @@ def get_filtered_products_by_manufacturer(brand: list) -> QuerySet:
 
 def apply_product_filters(request: WSGIRequest, pk_list: list) -> QuerySet:
     """
-        Filters a list of products based on criteria specified in a WSGIRequest object.
+    Filters a list of products based on criteria specified in a WSGIRequest object.
     The function filters the product list using criteria such as minimum and maximum price,
     color, size, and manufacturer.
 
@@ -266,7 +266,7 @@ def apply_product_filters(request: WSGIRequest, pk_list: list) -> QuerySet:
 
 def get_nested_category_ids(category_slug: str) -> List[int]:
     """
-        Gets a list of primary keys for the given category and its nested subcategories.
+    Gets a list of primary keys for the given category and its nested subcategories.
 
     :param category_slug: The slug of the category to get the nested subcategories for.
     :return: A list of primary keys for the given category and its nested subcategories.
@@ -278,14 +278,12 @@ def get_nested_category_ids(category_slug: str) -> List[int]:
 
 def send_contact_form_message(request: WSGIRequest) -> None:
     """
-        Sends a message from a user using a contact form on a website.
+    Sends a message from a user using a contact form on a website.
 
     :param request: A WSGIRequest object containing the message to send.
     :return: None.
     """
-    """
-    Sends a message from a user using a contact form on a website.
-    """
+
     data = request.POST
     name = data.get('name')
     email = data.get('email')
@@ -319,7 +317,7 @@ def send_contact_form_message(request: WSGIRequest) -> None:
 
 def get_product_active_color(product: Product, color: Union[str, None]) -> AttributeColor:
     """
-        Gets the active color for a given product.
+    Gets the active color for a given product.
 
     :param product: The product to get the active color for.
     :param color: The color to get (if provided).
@@ -337,7 +335,7 @@ def get_product_active_color(product: Product, color: Union[str, None]) -> Attri
 
 def get_product_active_size(active_color: AttributeColor, size: Union[str, None]) -> AttributeSize:
     """
-        Gets the active size for a given product.
+    Gets the active size for a given product.
 
     :param active_color: The active product color to get the active size for.
     :param size: The size to get (if provided).
@@ -354,9 +352,8 @@ def get_product_active_size(active_color: AttributeColor, size: Union[str, None]
 
 def add_or_update_review(form: ReviewsForm, request: WSGIRequest) -> None:
     """
-        Adds a product review if the form is valid and the user is authenticated.
-
-        If the authenticated user has already left a review for the given product,
+    Adds a product review if the form is valid and the user is authenticated.
+    If the authenticated user has already left a review for the given product,
     the existing review is updated with the new values provided in the form.
     Otherwise, a new review is created.
 
