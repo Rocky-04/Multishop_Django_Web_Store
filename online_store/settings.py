@@ -66,8 +66,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'shop.middleware.CheckAuthenticationMiddleware',
-    'shop.middleware.CheckExceptionMiddleware',
+    'online_store.middleware.SessionAuthenticationMiddleware',
+    'online_store.middleware.ExceptionLoggingMiddleware'
 ]
 
 ROOT_URLCONF = 'online_store.urls'
