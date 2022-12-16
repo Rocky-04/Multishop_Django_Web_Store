@@ -10,6 +10,7 @@ from .services import filter_size_by_products
 class ShopMixin(ListView):
     """
     Generic mixin is for a product listing page
+
     Passes the following data to the template:
     :title: Page title
     :parent: The ID of the parent category to filter by.

@@ -2,8 +2,20 @@ from django.views import View
 
 
 class BasketMixin(View):
+    """
+    Generic mixin is for a user's basket
+    """
 
     def __init__(self):
+        """
+        Receives data from the post method:
+        :self.current: A string representing the full path to the requested page.
+        :self.nmb: The number of products.
+        :self.size: The ID of the size of the product.
+        :self.color: The ID of the color of the product.
+        :self.product_id: The ID of the product to from the basket.
+        :self.user_authenticated: The unique identifier of the session or user's email.
+        """
         super().__init__()
         self.user_authenticated = None
         self.product_id = None

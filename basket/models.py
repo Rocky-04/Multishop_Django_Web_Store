@@ -1,5 +1,5 @@
 from decimal import Decimal
-
+import logging
 from django.db import models
 from django.db.models import QuerySet
 from django.db.models import Sum
@@ -7,6 +7,8 @@ from django.db.models import Sum
 from shop.models import AttributeColor
 from shop.models import AttributeSize
 from shop.models import Product
+
+logger = logging.getLogger(__name__)
 
 
 class ProductInBasket(models.Model):
@@ -33,7 +35,11 @@ class ProductInBasket(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         """
-        Saves the product price and the price based on the quantity product
+        Saves the product price and the price based on the quantity product to the database.
+
+        :param args: Additional arguments to be passed to the parent class's save method.
+        :param kwargs: Additional keyword arguments to be passed to the parent class's save method.
+        :return: None
         """
         price_per_item = self.product.price_now
         self.price_per_item = price_per_item
@@ -43,17 +49,34 @@ class ProductInBasket(models.Model):
     @staticmethod
     def get_amount_from_user_basket(user_authenticated: str) -> Decimal:
         """
-        Calculates the total cost of goods in the basket for the selected user
+        Calculates the total cost of goods in the basket for the specified user.
+
+        :param user_authenticated: The username of the user to retrieve the basket amount for.
+        :return: The total cost of goods in the user's basket, or 0 if there are no items
+            in the basket.
         """
-        amount = ProductInBasket.objects.filter(
-            user_authenticated=user_authenticated,
-            size__available=True).aggregate(
-            total=Sum('total_price'))['total']
-        return 0 if amount is None else amount
+        try:
+            basket_total = ProductInBasket.objects.filter(
+                user_authenticated=user_authenticated,
+                size__available=True).aggregate(
+                total=Sum('total_price'))['total']
+            return 0 if basket_total is None else basket_total
+        except Exception as error:
+            logger.error(f"Error calculating basket total for user {user_authenticated}: {error}")
+            return 0
 
     @staticmethod
     def get_products_from_user_basket(user_authenticated: str) -> QuerySet:
         """
-        Returns goods from the user's basket
+        Returns the products in the basket for the specified user.
+
+        :param user_authenticated: The username of the user to retrieve the basket products for.
+        :return: A queryset of `ProductInBasket` objects representing the products in the user's
+            basket, or an empty queryset if an error occurs.
         """
-        return ProductInBasket.objects.filter(user_authenticated=user_authenticated, is_active=True)
+        try:
+            return ProductInBasket.objects.filter(user_authenticated=user_authenticated,
+                                                  is_active=True)
+        except Exception as error:
+            logger.error(f"Error retrieving basket products for user {user_authenticated}: {error}")
+            return ProductInBasket.objects.none()
