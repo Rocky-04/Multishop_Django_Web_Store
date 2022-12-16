@@ -12,7 +12,7 @@ from .ultis import BasketMixin
 
 class ViewCart(BasketMixin, View):
     """
-    Views products in a user's basket
+    View to display a list of the user's basket.
     """
     template_name = 'basket/basket.html'
 
@@ -27,7 +27,7 @@ class ViewCart(BasketMixin, View):
 
 class BasketAddView(BasketMixin, View):
     """
-    Adds a specified number of products to the user's basket. If the product
+    View to handle the addition a specified number of products to the user's basket. If the product
     is already in the basket, the quantity is updated.
     """
 
@@ -46,7 +46,7 @@ class BasketAddView(BasketMixin, View):
 
 class BasketRemoveView(BasketMixin, View):
     """
-    Removes a product from the basket of the given user.
+    View to handle the removal of a product from the user's basket list.
     """
 
     def post(self, request, *args, **kwargs):
@@ -63,7 +63,7 @@ class BasketRemoveView(BasketMixin, View):
 
 class EditCartView(BasketMixin, View):
     """
-    Updates the quantity of a product in the basket.
+    View to handle the renewal the quantity of a product in the basket.
     """
 
     def post(self, request, *args, **kwargs):

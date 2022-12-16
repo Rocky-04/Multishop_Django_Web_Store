@@ -9,7 +9,7 @@ from .services import remove_products_from_favorites
 
 class FavoriteView(View):
     """
-    Views products in the favorite
+    View to display a list of the user's favorite products.
     """
     template_name = 'favorite/favorite.html'
 
@@ -23,7 +23,7 @@ class FavoriteView(View):
 
 class FavoriteAddView(View):
     """
-    Adds products from the favorite
+    View to handle the addition of a product from the user's favorite list.
     """
 
     def post(self, request, *args, **kwargs):
@@ -42,7 +42,7 @@ class FavoriteAddView(View):
 
 class FavoriteRemoveView(View):
     """
-    Removes products from the favorite
+    View to handle the removal of a product from the user's favorite list.
     """
 
     def post(self, request, *args, **kwargs):

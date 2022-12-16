@@ -1,9 +1,12 @@
+import logging
 from django.db import models
 from django.db.models import QuerySet
 
 from shop.models import AttributeColor
 from shop.models import AttributeSize
 from shop.models import Product
+
+logger = logging.getLogger(__name__)
 
 
 class Favorite(models.Model):
@@ -29,6 +32,13 @@ class Favorite(models.Model):
     @staticmethod
     def get_products_user_from_favorite(user_authenticated) -> QuerySet:
         """
-        Returns goods from the user's favorite
+        Returns the active favorite products for the given user.
+
+        :param user_authenticated: The unique identifier of the session or user's email.
+        :return: A queryset of favorite products for the given user.
         """
-        return Favorite.objects.filter(user_authenticated=user_authenticated, is_active=True)
+        try:
+            return Favorite.objects.filter(user_authenticated=user_authenticated, is_active=True)
+        except Exception as error:
+            logger.error(f"Error getting favorite products for user {user_authenticated}: {error}")
+            return None

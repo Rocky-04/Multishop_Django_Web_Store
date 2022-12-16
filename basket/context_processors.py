@@ -1,7 +1,12 @@
+from typing import Dict
+from typing import Union
+
+from django.db.models import QuerySet
+
 from .services import get_basket_list
 
 
-def basket(request):
+def basket_products_context(request) -> Dict[str, Union[int, QuerySet]]:
     """
     Creates a context variable containing a queryset of the user's products in the basket,
     as well as a variable for the number of items in the basket.
