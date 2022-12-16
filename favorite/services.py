@@ -1,5 +1,6 @@
-from favorite.models import Favorite
 import logging
+
+from favorite.models import Favorite
 
 logger = logging.getLogger(__name__)
 

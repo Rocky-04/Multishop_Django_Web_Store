@@ -1,5 +1,6 @@
-from basket.models import ProductInBasket
 import logging
+
+from basket.models import ProductInBasket
 
 logger = logging.getLogger(__name__)
 
