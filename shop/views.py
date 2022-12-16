@@ -142,12 +142,12 @@ class HomeView(ListView):
 
 
 class SendUserMailView(TemplateView):
+    """
+    Sends a message from the user to the email
+    """
     template_name = 'shop/info/contact.html'
 
     def post(self, request):
-        """
-        Sends a message from the user to the email
-        """
         send_contact_form_message(request)
         return render(request, self.template_name)
 
@@ -173,12 +173,15 @@ class ProductDetailView(DetailView):
         context['form'] = ReviewsForm
         context['active_color'] = get_product_active_color(product=product, color=active_color)
         context['active_size'] = get_product_active_size(active_color=context['active_color'],
-                                                 size=active_size,
-                                                 )
+                                                         size=active_size,
+                                                         )
         return context
 
 
 class AboutView(TemplateView):
+    """
+    Shows the about page
+    """
     template_name = 'shop/info/about-us.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -187,6 +190,9 @@ class AboutView(TemplateView):
 
 
 class HelpView(TemplateView):
+    """
+    Shows the help page
+    """
     template_name = 'shop/info/help.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -195,6 +201,9 @@ class HelpView(TemplateView):
 
 
 class TermsView(TemplateView):
+    """
+    Shows the terms page
+    """
     template_name = 'shop/info/terms.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -203,6 +212,9 @@ class TermsView(TemplateView):
 
 
 class ContactView(TemplateView):
+    """
+    Shows the contact page
+    """
     template_name = 'shop/info/contact.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
