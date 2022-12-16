@@ -27,7 +27,7 @@ def show_category(parent: int = None):
             the top-level categories will be retrieved.
     :return: A dictionary containing the QuerySet of subcategories to be rendered in the template.
     """
-    return {'category': Category.get_parent_categories(parent=parent)}
+    return {'category': Category.get_categories_by_parent_id(parent)}
 
 
 @register.inclusion_tag('shop/inc/banner.html')
@@ -59,7 +59,7 @@ def show_carousel_brand():
 
     :return: A dictionary containing the list of active brands to be rendered in the template.
     """
-    return {'brand': Manufacturer.get_active_brand()}
+    return {'brand': Manufacturer.get_active_brand_with_photo()}
 
 
 @register.inclusion_tag('shop/inc/card_product.html', takes_context=True)

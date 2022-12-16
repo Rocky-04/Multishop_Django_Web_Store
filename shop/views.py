@@ -70,7 +70,7 @@ class CategoryView(ShopMixin):
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        self.cat = Category.get_category(slug=self.kwargs['slug'])
+        self.cat = Category.get_category_by_slug(slug=self.kwargs['slug'])
         list_categories_pk = get_nested_category_ids(category_slug=self.kwargs['slug'])
         product = get_filter_products(category_id__in=list_categories_pk)
         self.product_list_pk = get_product_ids(product)
@@ -92,7 +92,7 @@ class TagView(ShopMixin):
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        self.tag = Tag.get_tag(self.kwargs['slug'])
+        self.tag = Tag.get_tag_by_slug(self.kwargs['slug'])
         product = get_filter_products(tags=self.tag)
         self.product_list_pk = get_product_ids(product)
         return product
@@ -112,7 +112,7 @@ class BrandView(ShopMixin):
     slug_url_kwarg = 'slug'
 
     def get_queryset(self):
-        self.brand = Manufacturer.get_brand(self.kwargs['slug'])
+        self.brand = Manufacturer.get_brand_by_slug(self.kwargs['slug'])
         product = get_filter_products(manufacturer=self.brand)
         self.product_list_pk = get_product_ids(product)
         return product
@@ -162,7 +162,7 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        product = Product.get_product(slug=self.kwargs['slug'])
+        product = Product.get_product_by_slug(self.kwargs['slug'])
         active_size = self.request.GET.get('size')
         active_color = self.request.GET.get('color')
 

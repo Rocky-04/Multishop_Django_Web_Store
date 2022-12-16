@@ -8,11 +8,18 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
-
+import logging
 from users.models import User
+
+logger = logging.getLogger(__name__)
 
 
 class Category(MPTTModel, models.Model):
+    """
+     A model representing a category of products.
+     A category can have nested subcategories, and it can have products associated with it.
+     """
+
     title = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, blank=True, unique=True, db_index=True)
     picture = models.ImageField(upload_to='photo/%Y/%m/%d/', null=True, blank=True)
@@ -32,33 +39,60 @@ class Category(MPTTModel, models.Model):
     def get_absolute_url(self):
         return reverse_lazy('category', kwargs={'slug': self.slug})
 
-    def get_count_product_in_category(self) -> int:
+    def get_product_count(self) -> int:
         """
-        Returns count product of nested categories
+        Gets the number of products in this category and its nested subcategories.
+
+        :return: The number of products in this category and its nested subcategories.
         """
-        list_categories = self.get_descendants(include_self=True)
-        return Product.objects.filter(category__in=list_categories).count()
+        try:
+            list_categories = self.get_descendants(include_self=True)
+            return Product.objects.filter(category__in=list_categories).count()
+        except Product.DoesNotExist as error:
+            logger.error(f"No products found in category : {error}")
+            return 0
 
     @staticmethod
-    def get_category(slug: str) -> 'Category':
+    def get_category_by_slug(slug: str) -> 'Category':
         """
-        Gets a category by slug
+        Gets a category by slug.
+
+        :param slug: The slug of the category to retrieve.
+        :return: The category with the specified slug, or None if no such category exists.
         """
-        return Category.objects.get(slug=slug)
+        try:
+            return Category.objects.get(slug=slug)
+        except Category.DoesNotExist as error:
+            logger.error(f"{slug}: {error}")
+            return None
 
     @staticmethod
-    def get_parent_categories(parent: int = None) -> QuerySet:
+    def get_categories_by_parent_id(parent_id: int = None) -> QuerySet:
         """
-        Gets the categories with the parent filter
+        Gets the categories with the specified parent.
+
+        :param parent_id: The ID of the parent category to filter by.
+        :return: The set of categories with the specified parent ID, or an empty QuerySet if no such
+            categories exist.
         """
-        return Category.objects.filter(parent__exact=parent)
+        try:
+            return Category.objects.filter(parent__id=parent_id)
+        except Category.DoesNotExist as error:
+            logger.error(f"{parent_id}: {error}")
+            return Category.objects.none()
 
     @staticmethod
     def get_all_categories() -> QuerySet:
         """
-        Gets all categories
+        Gets all categories in the database.
+
+        :return: A QuerySet containing all categories in the database.
         """
-        return Category.objects.all()
+        try:
+            return Category.objects.all()
+        except Category.DoesNotExist as error:
+            logger.error(f"No found categories: {error}")
+            return Category.objects.none()
 
 
 class Tag(models.Model):
@@ -82,11 +116,18 @@ class Tag(models.Model):
         return reverse_lazy('tag', kwargs={'slug': self.slug})
 
     @staticmethod
-    def get_tag(slug: str) -> 'Tag':
+    def get_tag_by_slug(slug: str) -> 'Tag':
         """
         Gets a tag by slug
+
+        :param slug: The slug of the tag to retrieve.
+        :return: The tag with the specified slug, or None if no such tag exists.
         """
-        return Tag.objects.get(slug=slug)
+        try:
+            return Tag.objects.get(slug=slug)
+        except Tag.DoesNotExist as error:
+            logger.error(f"No found tags {slug}: {error}")
+            return None
 
 
 class Country(models.Model):
@@ -120,18 +161,30 @@ class Manufacturer(models.Model):
         return reverse_lazy('brand', kwargs={'slug': self.slug})
 
     @staticmethod
-    def get_active_brand() -> QuerySet:
+    def get_active_brand_with_photo() -> QuerySet:
         """
         Gets manufacturers with photo
+
+        :return: A QuerySet of manufacturers with photo
         """
-        return Manufacturer.objects.annotate(cnt=Count('picture')).filter(cnt__gt=0)
+        try:
+            return Manufacturer.objects.annotate(cnt=Count('picture')).filter(cnt__gt=0)
+        except Category.DoesNotExist as error:
+            logger.error(f"No found manufacturers with photo: {error}")
+            return Manufacturer.objects.none()
 
     @staticmethod
-    def get_brand(slug: str) -> 'Manufacturer':
+    def get_brand_by_slug(slug: str) -> 'Manufacturer':
         """
         Gets a brand by slug
+
+        :param slug: The slug of the manufacturer to retrieve.
+        :return: The brand with the specified slug, or None if no such brand exists.
         """
-        return Manufacturer.objects.get(slug=slug)
+        try:
+            return Manufacturer.objects.get(slug=slug)
+        except Manufacturer.DoesNotExist:
+            return None
 
 
 class Product(models.Model):
@@ -168,9 +221,11 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('detail', kwargs={'slug': self.slug})
 
-    def get_title_photo(self):
+    def get_title_photo(self) -> str:
         """
         Chooses a photo of the main color of the product or uses the default photo
+
+        :return: The URL of the chosen photo
         """
         images = AttributeColorImage.objects.filter(product__product=self, product__available=True)
         if images:
@@ -184,52 +239,107 @@ class Product(models.Model):
     def get_default_color_id(self) -> int:
         """
         Returns the default color id of the selected product
+
+        :return: The default color id of the selected product
+        :raises AttributeError: If no default color is found for the selected product
         """
-        return AttributeColor.objects.filter(product=self)[0].id
+        try:
+            return AttributeColor.objects.filter(product=self)[0].id
+        except AttributeError as error:
+            logger.error(f"Error getting default color id for product {self.id}: {error}")
+            raise error
 
     def get_default_size_id(self) -> int:
         """
         Returns the default size id of the selected product
+
+        :return: The default size id of the selected product
+        :raises AttributeError: If no default size is found for the selected product
         """
-        return AttributeSize.objects.filter(product__product=self)[0].id
+        try:
+            return AttributeSize.objects.filter(product__product=self)[0].id
+        except AttributeError as error:
+            logger.error(f"Error getting default size id for product {self.id}: {error}")
+            raise error
 
     def save(self, *args, **kwargs):
         """
         Sets the price of the product, taking into account the discount
+
+        :param args: Additional arguments to be passed to the parent class's `save` method
+        :param kwargs: Additional keyword arguments to be passed to the parent class's `save` method
+        :raises ValueError: If the discount is negative or greater than 100
         """
-        if self.discount == 0:
-            self.price_now = self.price
-        else:
-            self.price_now = self.price - (self.price / 100 * self.discount)
-        super(Product, self).save(*args, **kwargs)
+        try:
+            if self.discount == 0:
+                self.price_now = self.price
+            else:
+                if self.discount < 0 or self.discount > 100:
+                    raise ValueError("Discount must be a positive number less than or equal to 100")
+                self.price_now = self.price - (self.price / 100 * self.discount)
+            super(Product, self).save(*args, **kwargs)
+        except ValueError as error:
+            logger.error(f"Error setting price for product {self.id}: {error}")
+            raise error
 
     def get_color(self, available: bool = True) -> QuerySet:
         """
         Returns the colors of the selected product
+
+        :param available: Whether to only return colors that are available (defaults to True)
+        :return: A QuerySet of colors for the selected product
+        :raises AttributeError: If no colors are found for the selected product
         """
-        if available:
-            return AttributeColor.objects.filter(product=self, available=True)
-        return AttributeColor.objects.filter(product=self)
+        try:
+            if available:
+                return AttributeColor.objects.filter(product=self, available=True)
+            return AttributeColor.objects.filter(product=self)
+        except AttributeError as error:
+            logger.error(f"Error getting colors for product {self.id}: {error}")
+            raise error
 
     def get_reviews(self) -> QuerySet:
         """
         Collects all product reviews
+
+        :return: A QuerySet of reviews for the selected product
+        :raises AttributeError: If no reviews are found for the selected product
         """
-        return Reviews.objects.filter(product=self)
+        try:
+            return Reviews.objects.filter(product=self)
+        except AttributeError as error:
+            logger.error(f"Error getting reviews for product {self.id}: {error}")
+            raise error
 
     @staticmethod
-    def get_product(slug: str) -> 'Product':
+    def get_product_by_slug(slug: str) -> 'Product':
         """
         Gets a product by slug
+
+        :param slug: The slug of the product to retrieve
+        :return: The Product instance with the specified slug
+        :raises Product.DoesNotExist: If no product is found with the specified slug
         """
-        return Product.objects.select_related('category', 'country', 'manufacturer').get(slug=slug)
+        try:
+            return Product.objects.select_related('category', 'country', 'manufacturer').get(
+                slug=slug)
+        except Product.DoesNotExist as error:
+            logger.error(f"Error getting product with slug {slug}: {error}")
+            raise error
 
     @staticmethod
     def get_all_products() -> QuerySet:
         """
         Gets all products
+
+        :return: A QuerySet of all products
+        :raises AttributeError: If no products are found
         """
-        return Product.objects.all()
+        try:
+            return Product.objects.all()
+        except AttributeError as error:
+            logger.error(f"Error getting all products: {error}")
+            raise error
 
 
 class Color(models.Model):
@@ -260,42 +370,74 @@ class AttributeColor(models.Model):
     def save(self, *args, **kwargs):
         """
         Changes the product availability of the main product when
-        the availability of its colors is changed
+        the availability of its colors is changed.
+
+        The product's availability is changed to False if there are no available colors remaining,
+        and changed to True if any of the colors are available.
         """
-        if self.available is False and self.product.available is True:
+        # Check if the current color is being set to unavailable,
+        # and the main product is still available
+        if not self.available and self.product.available:
             product = self.product.get_color()
             if len(product) <= 1:
                 self.product.available = False
                 self.product.save()
-        if self.available is True and self.product.available is False:
+
+        # Check if the current color is being set to available,
+        # and the main product is currently unavailable
+        if self.available and not self.product.available:
             self.product.available = True
             self.product.save()
 
         super().save(*args, **kwargs)
 
-    def get_photo(self):
+    def get_photo(self) -> QuerySet:
         """
-        Returns all photos of the selected color
-        """
-        return AttributeColorImage.objects.filter(product=self)
+        Retrieves all photos associated with the given color.
 
-    def get_title_photo(self):
+        :return: A queryset of photos for the given color.
         """
-        Returns the main photo of the selected color
+        try:
+            return AttributeColorImage.objects.filter(product=self)
+        except AttributeColorImage.DoesNotExist as error:
+            logger.error(f"Error getting photos for color {self.id}: {error}")
+            return QuerySet()
+
+    def get_title_photo(self) -> str:
+        """
+        Returns the main photo for the selected color.
+
+        :return: The URL of the main photo for the selected color, or the URL of a default
+            placeholder image if no photos are available.
         """
         images = AttributeColorImage.objects.filter(product=self)
-        if len(images) > 0:
+        if images.exists():
+            # Return the URL of the first photo in the queryset
             return images[0].images.url
         else:
+            # Return the URL of a default placeholder image
+            logger.warning(f"Empty photo for color {self}")
             return '/media/images/empty/empty.png'
 
     def get_size(self, available: bool = True) -> QuerySet:
         """
-        Returns the sizes of the selected color
+        Gets the sizes of the selected color.
+
+        :param available: Whether to return only available sizes. Defaults to True.
+        :return: A queryset of sizes for the selected color.
         """
-        if available:
-            return AttributeSize.objects.filter(product=self, available=True)
-        return AttributeSize.objects.filter(product=self)
+        try:
+            sizes = AttributeSize.objects.filter(product=self)
+
+            if available:
+                # If available is True, filter the queryset to return only available sizes
+                return sizes.filter(available=True)
+            else:
+                # If available is False, return the entire queryset
+                return sizes
+        except AttributeError as error:
+            logger.error(f"Error getting sizes for color {self.id}: {error}")
+            raise error
 
 
 class Size(models.Model):
@@ -323,17 +465,22 @@ class AttributeSize(models.Model):
     def __str__(self):
         return str(self.product) + ' ' + str(self.size)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         """
         Changes the color availability when
-        the availability of its sizes is changed
+        the availability of its sizes is changed.
         """
-        if self.available is False and self.product.available is True:
+        # Check if the current color is set to unavailable and the main
+        # product is still available
+        if not self.available and self.product.available:
             product = self.product.get_size()
             if len(product) <= 1:
                 self.product.available = False
                 self.product.save()
-        if self.available is True and self.product.available is False:
+
+        # Check if the current color is set to available and the main
+        # product is currently unavailable
+        if self.available and not self.product.available:
             self.product.available = True
             self.product.save()
 
@@ -367,15 +514,30 @@ class Delivery(models.Model):
         return str(self.price)
 
     @staticmethod
-    def get_delivery(amount) -> "Delivery":
+    def get_delivery(amount: float) -> "Delivery":
         """
-        Calculates the delivery cost from the order amount
+        Calculates the delivery cost for a given order amount.
+        
+        :param amount: The total amount of the order.
+        :return: The delivery cost for the given order amount,
+            or None if no matching delivery cost is found.
         """
-        delivery = Delivery.objects.filter(is_active=True).order_by("-order_price")
-        for item in delivery:
-            if amount >= item.order_price:
-                return item
-        return delivery[-1]
+        try:
+            # Get all active delivery costs, sorted by descending order price
+            delivery_costs = Delivery.objects.filter(is_active=True).order_by("-order_price")
+
+            # Find the first delivery cost with an order price
+            # that is less than or equal to the given amount
+            for delivery in delivery_costs:
+                if amount >= delivery.order_price:
+                    return delivery
+
+            # If no matching delivery cost is found, return the last delivery cost in the queryset
+            return delivery_costs[-1]
+        except IndexError as error:
+            # If no delivery costs are found, return None
+            logger.error(f"No found delivery: {error}")
+            return None
 
 
 class Banner(models.Model):
@@ -425,18 +587,23 @@ class Reviews(models.Model):
         return str(self.rating)
 
 
-def rating_in_product_post_save(sender, instance, created=None, **kwargs):
+def rating_in_product_post_save(sender, instance, created=None, **kwargs) -> None:
     """
     Reacts to the change or addition of product reviews.
-    Changes the average product review
+    Updates the average product rating and the number of reviews.
     """
+    # Get the product associated with the review that was just added or changed
     product = instance.product
+
+    # Get the average rating and the number of ratings for the product
     reviews = Reviews.objects.filter(product=product).aggregate(Avg('rating'), Count('rating'))
     rating = reviews['rating__avg']
     count_reviews = reviews['rating__count']
-    instance.product.rating = rating
-    instance.product.count_reviews = count_reviews
-    instance.product.save(force_update=True)
+
+    # Update the product's rating and review count, and save the changes
+    product.rating = rating
+    product.count_reviews = count_reviews
+    product.save(force_update=True)
 
 
 post_save.connect(rating_in_product_post_save, sender=Reviews)
