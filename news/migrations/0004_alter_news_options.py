@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('news', '0003_alter_news_options'),
     ]
@@ -12,6 +11,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='news',
-            options={'ordering': ['-created_at', 'title'], 'verbose_name': 'News', 'verbose_name_plural': 'News'},
+            options={'ordering': ['-created_at', 'title'], 'verbose_name': 'News',
+                     'verbose_name_plural': 'News'},
         ),
     ]

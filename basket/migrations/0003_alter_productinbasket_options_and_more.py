@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('basket', '0002_alter_productinbasket_options'),
     ]
@@ -12,7 +11,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='productinbasket',
-            options={'verbose_name': 'Products in the basket', 'verbose_name_plural': 'Products in the basket'},
+            options={'verbose_name': 'Products in the basket',
+                     'verbose_name_plural': 'Products in the basket'},
         ),
         migrations.RenameField(
             model_name='productinbasket',

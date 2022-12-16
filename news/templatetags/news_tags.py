@@ -1,4 +1,6 @@
 import logging
+from typing import Dict
+from typing import Union
 
 from django import template
 from django.db.models import QuerySet
@@ -10,7 +12,6 @@ register = template.Library()
 logger = logging.getLogger(__name__)
 
 
-@register.simple_tag()
 @register.simple_tag()
 def get_categories() -> QuerySet:
     """
@@ -25,11 +26,19 @@ def get_categories() -> QuerySet:
         return None
 
 
+
+
 @register.inclusion_tag('news/list_categories.html')
-def show_categories():
+def show_categories() -> Dict[str, Union[QuerySet, int]]:
     """
-    Shows categories with articles and counts the news in the category
+    Renders a list of categories with articles and counts the number of news in each category.
+
+    :return: A dictionary containing the categories queryset and a dictionary of category counts.
     """
-    categories, cnt_news = count_news_from_categories()
-    return {'categories': categories,
-            'cnt_news': cnt_news}
+    try:
+        categories, cnt_news = count_news_from_categories()
+        return {'categories': categories,
+                'cnt_news': cnt_news}
+    except Exception as error:
+        logger.error(f"Error showing categories: {error}")
+        return {'categories': None, 'cnt_news': None}
