@@ -4,34 +4,45 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
+    """
+    A model for representing a user in the system.
+    """
     username = None
-    email = models.EmailField(
-        _('email address'),
-        unique=True,
-    )
-    city = models.CharField(max_length=200, blank=True, default=None,
-                            null=True)
-    phone_number = models.CharField(max_length=200, blank=True, default=None,
-                                    null=True)
-    address = models.CharField(max_length=200, blank=True, default=None,
-                               null=True)
-    postcode = models.CharField(max_length=200, blank=True, default=None,
+    email = models.EmailField(_('email address'), unique=True,)
+    city = models.CharField(max_length=200, blank=True, default=None, null=True)
+    phone_number = models.CharField(max_length=200, blank=True, default=None, null=True)
+    address = models.CharField(max_length=200, blank=True, default=None, null=True)
+    postcode = models.CharField(max_length=200, blank=True, default=None, null=True)
+    additional_information = models.CharField(max_length=300, blank=True, default=None, null=True)
+    birthday = models.DateField(auto_now=False, auto_now_add=False, blank=True, default=None,
                                 null=True)
-    additional_information = models.CharField(max_length=300, blank=True,
-                                              default=None, null=True)
-    birthday = models.DateField(auto_now=False, auto_now_add=False, blank=True,
-                                default=None, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     def __str__(self):
+        """
+        Returns a string representation of the user.
+        If the user has a first and last name, return a combination of the two.
+        If the user only has a first name or last name, return only that.
+        If the user has neither, return their email address.
+
+        :return: A string representation of the user.
+        """
         name = str(self.first_name) + ' ' + str(self.last_name)
         if len(name) == 1:
             name = self.email
         return name
 
     def get_review_name(self):
+        """
+        Get the name of the review.
+
+        This method returns the `first_name` field of the `Reviews` object if it is not empty.
+        Otherwise, it returns the string "anonymous".
+
+        :return: The name of the review.
+        """
         if self.first_name:
             return self.first_name
         else:

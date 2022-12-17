@@ -127,6 +127,15 @@ class SubscriberEmailForm(forms.ModelForm):
         fields = ('email',)
 
     def clean_email(self):
+        """
+        Validate the email field.
+
+        This method checks that the email entered in the `email` field is not already present in
+        the `EmailForNews` table. If the email already exists, it raises a validation error.
+
+        :return: The email value if it is valid.
+        :raises forms.ValidationError: If the email is already present in the `EmailForNews` table.
+        """
         email = self.cleaned_data['email']
 
         if EmailForNews.objects.filter(email=email).count() > 0:
