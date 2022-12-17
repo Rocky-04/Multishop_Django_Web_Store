@@ -1,3 +1,5 @@
+import logging
+
 from django.db import models
 from django.db.models.signals import post_delete
 from django.db.models.signals import post_save
@@ -8,6 +10,8 @@ from shop.models import AttributeSize
 from shop.models import Delivery
 from shop.models import Product
 from users.models import User
+
+logger = logging.getLogger(__name__)
 
 
 class Order(models.Model):
@@ -61,11 +65,22 @@ class GoodsInTheOrder(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Saves the product price and the price based on the quantity product
+        Save the product and update the price fields.
+
+        This method updates the `price_per_item` field with the current price of the product and
+        the `total_price` field with the total price based on the quantity of the product. It then
+        saves the object to the database.
+
+        :param args: Additional positional arguments passed to the parent class's save method.
+        :param kwargs: Additional keyword arguments passed to the parent class's save method.
+        :return: None
         """
-        self.price_per_item = self.product.price_now
-        self.total_price = self.nmb * self.price_per_item
-        super(GoodsInTheOrder, self).save(*args, **kwargs)
+        try:
+            self.price_per_item = self.product.price_now
+            self.total_price = self.nmb * self.price_per_item
+            super(GoodsInTheOrder, self).save(*args, **kwargs)
+        except Exception as error:
+            logger.error(f"Error saving GoodsInTheOrder object: {error}")
 
 
 class Status(models.Model):
@@ -97,33 +112,57 @@ class PromoCode(models.Model):
     @staticmethod
     def get_promo_code(title: str) -> 'PromoCode':
         """
-        Returns a PromoCode by the title of the promo code
+        Get a promo code by its title, handling exceptions if necessary.
+
+        :param title: The title of the promo code to retrieve.
+        :return: The promo code object.
+        :raises PromoCode.DoesNotExist: If the promo code with the given title does not exist.
         """
-        return PromoCode.objects.get(title=title)
+        try:
+            return PromoCode.objects.get(title=title)
+        except PromoCode.DoesNotExist as error:
+            logger.error(f"Promo code with title {title} does not exist: {error}")
+            raise error
+        except Exception as error:
+            logger.error(f"Error getting promo code with title {title}: {error}")
+            raise error
 
 
 def product_in_order_post_save(sender, instance, created=None, **kwargs):
     """
-    Edits the order when changing products in the order
+    Update the order when changing products in the order, handling exceptions if necessary.
+
+    This function retrieves all products in the order, then calculates the order total price and
+    delivery cost based on the products and promo code (if applicable). It updates the order's
+    delivery, total price, and promo code fields and saves the changes to the database.
+
+    :param sender: The model class that sent the signal.
+    :param instance: The instance of the model that triggered the signal.
+    :param created: A boolean indicating whether the instance was just created.
+    :param kwargs: Additional keyword arguments passed from the signal.
+    :return: None
     """
-    order = instance.order
-    all_products_in_order = GoodsInTheOrder.objects.filter(order=order)
-    promo_code = 0
-    order_total_price = 0
-    for item in all_products_in_order:
-        order_total_price += item.total_price
-    if order_total_price:
-        delivery = Delivery.get_delivery(order_total_price)
-        instance.order.delivery = delivery
-        delivery = delivery.price
-        if instance.order.promo_code:
-            promo_code = instance.order.promo_code.price
-    else:
-        instance.order.delivery = None
-        delivery = 0
-    total_price = order_total_price + delivery - promo_code
-    instance.order.total_price = 0 if total_price < 0 else total_price
-    instance.order.save(force_update=True)
+    try:
+        order = instance.order
+        all_products_in_order = GoodsInTheOrder.objects.filter(order=order)
+        promo_code = 0
+        order_total_price = 0
+        for item in all_products_in_order:
+            order_total_price += item.total_price
+        if order_total_price:
+            delivery = Delivery.get_delivery(order_total_price)
+            instance.order.delivery = delivery
+            delivery = delivery.price
+            if instance.order.promo_code:
+                promo_code = instance.order.promo_code.price
+        else:
+            instance.order.delivery = None
+            delivery = 0
+        total_price = order_total_price + delivery - promo_code
+        instance.order.total_price = 0 if total_price < 0 else total_price
+        instance.order.save(force_update=True)
+    except Exception as error:
+        logger.error(f"Error updating order: {error}")
 
 
 post_save.connect(product_in_order_post_save, sender=GoodsInTheOrder)

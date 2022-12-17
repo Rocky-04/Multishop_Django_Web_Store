@@ -12,15 +12,20 @@ from orders.services import add_products_to_the_order_list
 
 
 class CheckoutView(CreateView):
+    """
+     A view for creating orders and adding products from a shopping cart to the order list.
+
+    This view uses a form to collect order details from the user. If the form is valid and the
+    shopping cart is not empty, it creates a new order and adds the products from the shopping
+    cart to the order list.
+    """
     form_class = CreateOrderForm
     template_name = 'orders/checkout.html'
     success_url = 'create_order/'
 
     def form_valid(self, form):
         """
-        Checks the correctness of the order.
-        Makes an order.
-        Removes products from the shopping cart when the order is successfully created.
+        Check the correctness of the order and create it if possible.
         """
         user_authenticated = self.request.session['user_authenticated']
         products_in_basket = ProductInBasket.get_products_from_user_basket(user_authenticated)
@@ -41,7 +46,18 @@ class CheckoutView(CreateView):
 
 
 class CreateOrderView(View):
+    """
+    A view for displaying a confirmation page after an order is created.
+
+    This view displays a template to confirm that the order has been successfully created.
+    """
     template_name = 'orders/order_done.html'
 
     def get(self, request, *args, **kwargs):
+        """
+        Render the confirmation page template.
+
+        :param request: The incoming request object.
+        :return: A rendered template with a confirmation message.
+        """
         return render(request, self.template_name)

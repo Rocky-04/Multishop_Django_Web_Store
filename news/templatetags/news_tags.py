@@ -26,8 +26,6 @@ def get_categories() -> QuerySet:
         return None
 
 
-
-
 @register.inclusion_tag('news/list_categories.html')
 def show_categories() -> Dict[str, Union[QuerySet, int]]:
     """
