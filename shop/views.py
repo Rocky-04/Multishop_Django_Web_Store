@@ -1,5 +1,3 @@
-import logging
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
@@ -10,10 +8,10 @@ from django.views.generic import TemplateView
 from .forms import ReviewsForm
 from .services import add_or_update_review
 from .services import apply_product_filters
-from .services import get_product_active_color
-from .services import get_product_active_size
 from .services import get_filter_products
 from .services import get_nested_category_ids
+from .services import get_product_active_color
+from .services import get_product_active_size
 from .services import get_product_ids
 from .services import send_contact_form_message
 from .utils import *
@@ -22,10 +20,23 @@ logger = logging.getLogger(__name__)
 
 
 class FilterView(ShopMixin):
+    """
+    A view for filtering products by selected attributes.
+    """
+
     def get_queryset(self):
         """
-        Filters the product by the selected attributes
-        Available filters: min_price, max_price, color, size, manufacturer
+        Filters the product by the selected attributes.
+
+        Available filters:
+            - min_price: The minimum price of the product.
+            - max_price: The maximum price of the product.
+            - color: The color of the product.
+            - size: The size of the product.
+            - manufacturer: The manufacturer of the product.
+
+        Returns:
+            A queryset of filtered products.
         """
         self.product_list_pk = get_product_ids(self.request.GET.get('product_list_pk'))
         return apply_product_filters(request=self.request, pk_list=self.product_list_pk)
@@ -38,7 +49,7 @@ class FilterView(ShopMixin):
 
 class SkipFilterView(ShopMixin):
     """
-    Resets enabled filters
+    A view for resetting enabled filters.
     """
 
     def get_queryset(self):
@@ -54,7 +65,7 @@ class SkipFilterView(ShopMixin):
 
 class ShopView(ShopMixin):
     """
-    Shows all available products
+    A view for displaying all available products.
     """
 
     def get_queryset(self):
@@ -65,7 +76,7 @@ class ShopView(ShopMixin):
 
 class CategoryView(ShopMixin):
     """
-    Shows products by category
+    A view for displaying products by category.
     """
     slug_url_kwarg = 'slug'
 
@@ -87,7 +98,7 @@ class CategoryView(ShopMixin):
 
 class TagView(ShopMixin):
     """
-    Shows products by tag
+    A view for displaying products by tag.
     """
     slug_url_kwarg = 'slug'
 
@@ -107,7 +118,7 @@ class TagView(ShopMixin):
 
 class BrandView(ShopMixin):
     """
-    Shows products by brand
+    A view for displaying products by brand.
     """
     slug_url_kwarg = 'slug'
 
@@ -127,7 +138,7 @@ class BrandView(ShopMixin):
 
 class HomeView(ListView):
     """
-    Shows the main page of the site
+    A view for displaying the main page of the site.
     """
     template_name = 'shop/index.html'
     context_object_name = 'category'
@@ -143,7 +154,7 @@ class HomeView(ListView):
 
 class SendUserMailView(TemplateView):
     """
-    Sends a message from the user to the email
+    A view for sending a message from the user to an email address.
     """
     template_name = 'shop/info/contact.html'
 
@@ -154,7 +165,7 @@ class SendUserMailView(TemplateView):
 
 class ProductDetailView(DetailView):
     """
-    Shows the detailed page of the product card
+    A view for displaying the detailed page of a product card.
     """
     model = Product
     template_name = 'shop/detail.html'
@@ -180,7 +191,7 @@ class ProductDetailView(DetailView):
 
 class AboutView(TemplateView):
     """
-    Shows the about page
+    A view for displaying the about page.
     """
     template_name = 'shop/info/about-us.html'
 
@@ -191,7 +202,7 @@ class AboutView(TemplateView):
 
 class HelpView(TemplateView):
     """
-    Shows the help page
+    A view for displaying the help page.
     """
     template_name = 'shop/info/help.html'
 
@@ -202,7 +213,7 @@ class HelpView(TemplateView):
 
 class TermsView(TemplateView):
     """
-    Shows the terms page
+    A view for displaying the terms page.
     """
     template_name = 'shop/info/terms.html'
 
@@ -213,7 +224,7 @@ class TermsView(TemplateView):
 
 class ContactView(TemplateView):
     """
-    Shows the contact page
+    A view for displaying the contact page.
     """
     template_name = 'shop/info/contact.html'
 
@@ -224,7 +235,7 @@ class ContactView(TemplateView):
 
 class SearchView(ListView):
     """
-    Shows the product search page
+    A view for displaying the product search page.
     """
     template_name = 'shop/search.html'
     paginate_by = 9
@@ -251,7 +262,7 @@ class SearchView(ListView):
 
 class AddReviewView(View):
     """
-    If form valid and user is authenticated, adds a product review.
+    A view for adding a product review if the form is valid and the user is authenticated.
     """
 
     def post(self, request):
