@@ -19,10 +19,8 @@ from shop.models import Reviews
 from tests.test_settings import Settings
 from users.forms import CommunicationForm
 from users.forms import PasswordResetForm
-from users.forms import SetPasswordForm
 from users.forms import SubscriberEmailForm
 from users.forms import UpdateUserDataForm
-from users.forms import UserLoginForm
 from users.forms import UserLoginForm
 from users.forms import UserRegisterForm
 
@@ -171,7 +169,6 @@ class UserViewsTest(Settings):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(response.context.get('form')), UserLoginForm)
 
-
     def test_views_register(self):
         response = self.client.post(reverse('register'))
         self.assertEqual(response.request['PATH_INFO'], reverse('register'))
@@ -188,7 +185,7 @@ class UserViewsTest(Settings):
                                      status=status,
                                      payment_method=payment_method,
                                      promo_code=promo_code)
-        goods_in_the_order = GoodsInTheOrder.objects.create(
+        GoodsInTheOrder.objects.create(
             order=order,
             product=self.product,
             size_id=self.product.get_default_size_id(),
@@ -206,7 +203,6 @@ class UserViewsTest(Settings):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(response.context.get('form')), UpdateUserDataForm)
 
-
     def test_views_logout(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('contact'))
@@ -216,13 +212,11 @@ class UserViewsTest(Settings):
         self.assertEqual(response.request['PATH_INFO'], reverse('home'))
         self.assertTrue(response.context['user'].is_anonymous)
 
-
     def test_views_password_reset(self):
         response = self.client.get(reverse('password_reset'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request['PATH_INFO'], reverse('password_reset'))
         self.assertEqual(type(response.context.get('form')), PasswordResetForm)
-
 
     def test_views_subscriber_email(self):
         response = self.client.get(reverse('subscriber_email'))
