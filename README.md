@@ -17,7 +17,7 @@ Ordering: Users can complete the checkout process to purchase the items in their
 News blog: The project includes a news blog where users can view updates and news related to the
 project.
 
-Personal user account: Users can create a personal account and log in to the project.
+Personal user account: Users can create a personal account and log in to the site.
 
 Multiple languages: The project includes support for multiple languages, allowing users to choose
 their preferred language.
