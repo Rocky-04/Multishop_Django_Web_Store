@@ -87,7 +87,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'basket.context_processors.basket_products_context',
                 'favorite.context_processors.favorite_products_context',
-                'users.context_processors.getting_subscribe_email_form',
+                'users.context_processors.get_newsletter_subscription_form_context',
             ],
         },
     },
