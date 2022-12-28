@@ -1,6 +1,6 @@
 # What is it?
 
-This is a Django project called "store" that allows users to browse and purchase items online. The
+This is a Django project called "Multishop Django Web Store" that allows users to browse and purchase items online. The
 project is educational in nature and was implemented using Python and Django. It includes the
 following features:
 
