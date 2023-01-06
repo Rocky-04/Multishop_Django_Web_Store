@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'nested_admin',
     'captcha',
     'debug_toolbar',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
