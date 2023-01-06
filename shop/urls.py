@@ -1,6 +1,7 @@
 from django.urls import include
 from django.urls import path
 from rest_framework import routers
+
 from .views import *
 
 router = routers.SimpleRouter()
@@ -24,5 +25,3 @@ urlpatterns = [
     path('send_user_mail', SendUserMailView.as_view(), name='send_user_mail'),
     path('api/', include(router.urls)),
 ]
-
-print(router.urls)
