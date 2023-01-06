@@ -1,6 +1,10 @@
+from django.urls import include
 from django.urls import path
-
+from rest_framework import routers
 from .views import *
+
+router = routers.SimpleRouter()
+router.register(r'product', ProductViewSet)
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -18,4 +22,7 @@ urlpatterns = [
     path('skip_filter/', view=SkipFilterView.as_view(), name='skip_filter'),
     path('add_review/', AddReviewView.as_view(), name='add_review'),
     path('send_user_mail', SendUserMailView.as_view(), name='send_user_mail'),
+    path('api/', include(router.urls)),
 ]
+
+print(router.urls)

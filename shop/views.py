@@ -4,8 +4,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from .forms import ReviewsForm
+from .serializers import ProductSerializer
 from .services import add_or_update_review
 from .services import apply_product_filters
 from .services import get_filter_products
@@ -288,3 +291,10 @@ def custom_page_server_error(request):
     """
     context = {'text': _('Server error. Our specialists are already repairing')}
     return render(request, 'shop/page_error.html', context=context, status=500)
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+
