@@ -294,6 +294,10 @@ def custom_page_server_error(request):
 
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset provides read-only functionality for the Product model. It allows users to list
+    all products and retrieve a specific product instance.
+    """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
