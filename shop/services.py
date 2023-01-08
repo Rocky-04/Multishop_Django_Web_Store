@@ -25,6 +25,8 @@ from shop.models import Reviews
 from shop.models import Size
 from shop.models import Tag
 
+from django_filters import rest_framework as filters
+
 logger = logging.getLogger(__name__)
 
 
@@ -388,3 +390,41 @@ def add_or_update_review(form: ReviewsForm, request: WSGIRequest) -> None:
         # Show an error message
         messages.error(request, _('Failed to leave feedback. Try again later'))
         logger.warning('Failed to leave feedback')
+
+
+class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
+    """
+    A custom filter that combines the functionality of the `BaseInFilter` and `CharFilter
+    """
+    pass
+
+
+class ProductFilter(filters.FilterSet):
+    """
+    Filters the product by the selected attributes.
+
+    Available filters:
+        - price_now: The price of the product, specified as a range.
+        - rating: The rating of the product, specified as a range.
+        - count_reviews: The number of reviews for the product, specified as a range.
+        - available: A boolean filter indicating whether the product is available.
+        - discount: The discount applied to the product, specified as a range.
+        - category: The category of the product, specified as a list of category slugs.
+        - manufacturer: The manufacturer of the product, specified as a list of manufacturer slugs.
+        - country: The country of origin for the product, specified as a list of country slugs.
+        - tags: The tags associated with the product, specified as a list of tag slugs.
+    """
+    price_now = filters.RangeFilter()
+    rating = filters.RangeFilter()
+    count_reviews = filters.RangeFilter()
+    available = filters.BooleanFilter()
+    discount = filters.RangeFilter()
+    category = CharFilterInFilter(field_name='category__slug', lookup_expr='in')
+    manufacturer = CharFilterInFilter(field_name='manufacturer__slug', lookup_expr='in')
+    country = CharFilterInFilter(field_name='country__slug', lookup_expr='in')
+    tags = CharFilterInFilter(field_name='tags__slug', lookup_expr='in')
+
+    class Meta:
+        model = Product
+        fields = ['price_now', 'available', 'discount', 'category', 'manufacturer', 'country',
+                  'tags', 'rating', 'count_reviews']

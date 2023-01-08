@@ -4,12 +4,13 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .forms import ReviewsForm
 from .serializers import ProductSerializer
-from .services import add_or_update_review
+from .services import add_or_update_review, ProductFilter
 from .services import apply_product_filters
 from .services import get_filter_products
 from .services import get_nested_category_ids
@@ -300,4 +301,6 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ProductFilter
     permission_classes = [IsAuthenticated]
