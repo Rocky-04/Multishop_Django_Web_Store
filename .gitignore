@@ -1,5 +1,6 @@
 *.pyc
 *.egg-info
+.idaa
 
 setup.cfg
 django_cache
