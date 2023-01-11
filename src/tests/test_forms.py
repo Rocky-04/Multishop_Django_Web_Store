@@ -94,7 +94,7 @@ class CreateOrderFormTest(Settings):
                      "payment_method": 1,
                      "email": 'frank@gmail.com',
                      'first_name': 'Michel',
-                     'promo_code': 'test'}
+                     'promo_code': 'w_my_code'}
         response = self.client.post(reverse('checkout'),
                                     data=form_data,
                                     follow=True)

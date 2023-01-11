@@ -356,5 +356,5 @@ class ShopViewsTest(Settings):
         self.assertEqual(response.status_code, 200)
 
     def test_views_custom_page_not_found_view(self):
-        response = self.client.get('/test')
+        response = self.client.get('/w_my_code')
         self.assertEqual(response.status_code, 404)
