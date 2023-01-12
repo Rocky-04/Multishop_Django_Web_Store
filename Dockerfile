@@ -1,13 +1,10 @@
-FROM python:3.11-slim
-
+FROM python:3.11
+WORKDIR /app
+RUN apt-get update -y
+RUN apt-get upgrade -y
 COPY requirements.txt /temp/requirements.txt
+RUN pip install --upgrade pip
 RUN pip install -r /temp/requirements.txt
-
-WORKDIR /src
-EXPOSE 8000
-
-
-RUN adduser --disabled-password service-user
-
-USER root
 COPY src /src
+CMD gunicorn -w 3 --chdir ./src proj.wsgi --bind 0.0.0.0:8000
+EXPOSE 8000

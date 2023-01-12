@@ -1,11 +1,20 @@
-services:
-  web-app:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./src:/src
+#services:
+#  django-backend:
+#    restart: always
+#    build:
+#      context: .
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - ./src:/src
+#
+#    command: >
+#      sh -c "python manage.py runserver 0.0.0.0:8000"
+version: "3.11"
 
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+services:
+  django-backend:
+    restart: always
+    build:
+      context: ./django-backend # django service folder
+    image: djangobackend
