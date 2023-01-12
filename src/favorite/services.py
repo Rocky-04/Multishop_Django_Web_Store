@@ -64,10 +64,10 @@ def get_favorite_list(user_authenticated: str) -> tuple:
         in the favorite.
     """
     try:
-        products = Favorite.get_products_user_from_favorite(user_authenticated)
-        favorite_list = products.values_list('size', flat=True)
-        favorite_nmb = products.count()
-        return favorite_list, favorite_nmb
+        products = Favorite.objects.filter(user_authenticated=user_authenticated,
+                                           is_active=True).values_list('size', flat=True)
+        favorite_nmb = len(products)
+        return products, favorite_nmb
     except Exception as error:
         logger.error(f"Error retrieving favorite products for user {user_authenticated}: {error}")
         return (), 0

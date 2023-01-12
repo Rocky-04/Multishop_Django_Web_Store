@@ -94,10 +94,11 @@ def get_basket_list(user_authenticated: str) -> tuple:
             - The number of products in the user's basket.
     """
     try:
-        products = ProductInBasket.get_products_from_user_basket(user_authenticated)
-        basket_list = products.values_list('size', flat=True)
-        basket_nmb = products.count()
-        return basket_list, basket_nmb
+        products = ProductInBasket.objects.filter(
+            user_authenticated=user_authenticated,
+            is_active=True).values_list('size', flat=True)
+        basket_nmb = len(products)
+        return products, basket_nmb
     except Exception as error:
         logger.error(f"Error retrieving products in the basket {user_authenticated}: {error}")
         raise error
