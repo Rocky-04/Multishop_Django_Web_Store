@@ -39,7 +39,12 @@ class Favorite(models.Model):
         :return: A queryset of favorite products for the given user.
         """
         try:
-            return Favorite.objects.filter(user_authenticated=user_authenticated, is_active=True)
+            return Favorite.objects.filter(
+                user_authenticated=user_authenticated,
+                is_active=True).select_related('size',
+                                               'color',
+                                               'product',
+                                               'product__default_varieties')
         except Exception as error:
             logger.error(f"Error getting favorite products for user {user_authenticated}: {error}")
             return None

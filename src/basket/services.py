@@ -96,7 +96,8 @@ def get_basket_list(user_authenticated: str) -> tuple:
     try:
         products = ProductInBasket.objects.filter(
             user_authenticated=user_authenticated,
-            is_active=True).values_list('size', flat=True)
+            is_active=True).select_related(
+            'size', 'color', 'product', 'product__default_varieties').values_list('size', flat=True)
         basket_nmb = len(products)
         return products, basket_nmb
     except Exception as error:

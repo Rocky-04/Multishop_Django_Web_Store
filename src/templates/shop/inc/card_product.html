@@ -4,7 +4,7 @@
 
     <div class="product-img position-relative overflow-hidden">
         <a href="{{ item.get_absolute_url }}">
-            <img class="img-fluid w-100" src="{{ item.get_title_photo }}">
+            <img class="img-fluid w-100" src="{{ item.default_varieties.title_photo }}">
         </a>
 
     </div>
@@ -30,11 +30,11 @@
                        value="{{ request.get_full_path }}">
                 <input name="count" type="hidden" value="1">
                 <input name="color" type="hidden"
-                       value="{{ item.get_default_color_id }}">
+                       value="{{ item.default_varieties.color_pk}}">
                 <input name="size" type="hidden"
-                       value="{{ item.get_default_size_id }}">
+                       value="{{ item.default_varieties.size_pk }}">
                 {% if item.available %}
-                    {% if item.get_default_size_id in PRODUCTS_BASKET_LIST %}
+                    {% if item.default_varieties.size_pk  in PRODUCTS_BASKET_LIST %}
                         <a class="btn btn-dark btn-square"
                            href="{% url 'basket' %}"
                            title="{% trans 'Go to basket' %}"><i
@@ -55,7 +55,7 @@
                 {% endif %}
 
 
-                {% if item.get_default_size_id in PRODUCTS_FAVORITE_LIST %}
+                {% if item.default_varieties.size_pk  in PRODUCTS_FAVORITE_LIST %}
                     <button class="btn btn-dark btn-square"
                             formaction="{% url 'remove_favorite' item.pk %}"
                             title="{% trans 'Remove from favorites' %}"><i

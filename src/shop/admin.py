@@ -153,3 +153,8 @@ class SizeAdmin(admin.ModelAdmin):
 @admin.register(Reviews)
 class ReviewsAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Reviews._meta.fields]
+
+
+@admin.register(DefaultVarieties)
+class DefaultVarietiesAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in DefaultVarieties._meta.fields]

@@ -10,6 +10,7 @@ from django.db.models import Count
 from django.db.models import Q
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
+from django_filters import rest_framework as filters
 from modeltranslation.manager import MultilingualQuerySet
 
 from online_store.settings import EMAIL_HOST_USER
@@ -25,8 +26,6 @@ from shop.models import Reviews
 from shop.models import Size
 from shop.models import Tag
 
-from django_filters import rest_framework as filters
-
 logger = logging.getLogger(__name__)
 
 
@@ -38,7 +37,8 @@ def get_filter_products(limit: int = 99999, **kwargs) -> QuerySet:
     :param kwargs: Filters to apply to the products queryset (e.g. category="Clothing")
     :return: A QuerySet of matching products
     """
-    return Product.objects.filter(**kwargs).order_by('-available', '-count_sale')[0:int(limit)]
+    return Product.objects.filter(**kwargs).prefetch_related('default_varieties').order_by(
+        '-available', '-count_sale')[0:int(limit)]
 
 
 def get_review_for_user_and_product(user_id: int, product_id: int) -> Optional[Reviews]:

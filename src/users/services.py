@@ -143,7 +143,8 @@ def get_user_reviews(request: WSGIRequest) -> QuerySet:
     :raises ValueError: If the request does not have a `user` attribute.
     """
     try:
-        return Reviews.objects.filter(user=request.user)
+        return Reviews.objects.prefetch_related('product', 'product__default_varieties').filter(
+            user=request.user)
     except ValueError as error:
         logger.error(f"Error getting user reviews: {error}")
         raise error

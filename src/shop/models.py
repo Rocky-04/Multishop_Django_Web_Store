@@ -1,14 +1,14 @@
+import logging
+
 from django.db import models
-from django.db.models import Avg
-from django.db.models import CharField
 from django.db.models import Count
 from django.db.models import QuerySet
-from django.db.models.signals import post_save
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
-import logging
+
+from online_store.settings import EMPTY_IMAGE
 from users.models import User
 
 logger = logging.getLogger(__name__)
@@ -196,7 +196,7 @@ class Product(models.Model):
     price_now = models.DecimalField(max_digits=10, decimal_places=0, default=0)
     description = models.TextField(blank=True, default=None)
     param = models.TextField(blank=True, default=None)
-    vendor_code: CharField = models.CharField(max_length=50, blank=True)
+    vendor_code = models.CharField(max_length=50, blank=True)
     global_id = models.CharField(max_length=50, blank=True)
     count_sale = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -234,7 +234,7 @@ class Product(models.Model):
         if images:
             return images[0].images.url
         else:
-            return '/media/images/empty/empty.png'
+            return EMPTY_IMAGE
 
     def get_default_color_id(self) -> int:
         """
@@ -244,10 +244,10 @@ class Product(models.Model):
         :raises AttributeError: If no default color is found for the selected product
         """
         try:
-            return AttributeColor.objects.filter(product=self)[0].id
+            return AttributeColor.objects.filter(product=self, available=True)[0].id
         except AttributeError as error:
             logger.error(f"Error getting default color id for product {self.id}: {error}")
-            raise error
+            return None
 
     def get_default_size_id(self) -> int:
         """
@@ -257,10 +257,10 @@ class Product(models.Model):
         :raises AttributeError: If no default size is found for the selected product
         """
         try:
-            return AttributeSize.objects.filter(product__product=self)[0].id
+            return AttributeSize.objects.filter(product__product=self, available=True)[0].id
         except AttributeError as error:
             logger.error(f"Error getting default size id for product {self.id}: {error}")
-            raise error
+            return None
 
     def save(self, *args, **kwargs):
         """
@@ -310,6 +310,24 @@ class Product(models.Model):
         except AttributeError as error:
             logger.error(f"Error getting reviews for product {self.id}: {error}")
             raise error
+
+    def set_default_variates(self) -> None:
+        """
+        Set the default size and color for a product. If the product does not have
+        a default_varieties, it creates one.
+        If the size or color is not available, it will be set to None.
+        """
+        DefaultVarieties.objects.get_or_create(product=self)
+        if not self.default_varieties.size or not self.default_varieties.size.available:
+            colors = AttributeColor.objects.filter(product=self, available=True)
+            color = colors[0] if len(colors) > 0 else None
+            self.default_varieties.color = color
+
+            sizes = AttributeSize.objects.filter(product=color, available=True) if color else None
+            size = sizes[0] if sizes else None
+            self.default_varieties.size = size
+
+            self.default_varieties.save()
 
     @staticmethod
     def get_product_by_slug(slug: str) -> 'Product':
@@ -417,7 +435,7 @@ class AttributeColor(models.Model):
         else:
             # Return the URL of a default placeholder image
             logger.warning(f"Empty photo for color {self}")
-            return '/media/images/empty/empty.png'
+            return EMPTY_IMAGE
 
     def get_size(self, available: bool = True) -> QuerySet:
         """
@@ -485,6 +503,7 @@ class AttributeSize(models.Model):
             self.product.save()
 
         super().save(*args, **kwargs)
+        self.product.product.set_default_variates()
 
 
 class AttributeColorImage(models.Model):
@@ -587,23 +606,28 @@ class Reviews(models.Model):
         return str(self.rating)
 
 
-def rating_in_product_post_save(sender, instance, created=None, **kwargs) -> None:
-    """
-    Reacts to the change or addition of product reviews.
-    Updates the average product rating and the number of reviews.
-    """
-    # Get the product associated with the review that was just added or changed
-    product = instance.product
+class DefaultVarieties(models.Model):
+    product = models.OneToOneField(Product, on_delete=models.CASCADE,
+                                   related_name='default_varieties')
+    color = models.ForeignKey(AttributeColor, on_delete=models.SET_NULL,
+                              related_name='default_varieties', null=True, default=None, blank=True)
+    size = models.ForeignKey(AttributeSize, on_delete=models.SET_NULL,
+                             related_name='default_varieties', null=True, default=None, blank=True)
+    color_pk = models.PositiveIntegerField(null=True, default=None, blank=True)
+    size_pk = models.PositiveIntegerField(null=True, default=None, blank=True)
+    title_photo = models.CharField(max_length=200, null=True, blank=True, default=EMPTY_IMAGE)
 
-    # Get the average rating and the number of ratings for the product
-    reviews = Reviews.objects.filter(product=product).aggregate(Avg('rating'), Count('rating'))
-    rating = reviews['rating__avg']
-    count_reviews = reviews['rating__count']
+    def save(self, *args, **kwargs):
+        """
+        Save the DefaultVarieties model.
+        Update the `color_pk`, `size_pk` and `title_photo` attributes if they have been changed.
+        """
+        color_pk = self.color.pk if self.color else None
+        size_pk = self.size.pk if self.size else None
+        self.title_photo = self.product.get_title_photo()
+        if self.color_pk != color_pk or self.size_pk != size_pk:
+            self.color_pk = color_pk
+            self.size_pk = size_pk
+            self.save()
 
-    # Update the product's rating and review count, and save the changes
-    product.rating = rating
-    product.count_reviews = count_reviews
-    product.save(force_update=True)
-
-
-post_save.connect(rating_in_product_post_save, sender=Reviews)
+        super(DefaultVarieties, self).save(*args, **kwargs)

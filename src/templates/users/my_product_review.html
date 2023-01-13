@@ -8,7 +8,7 @@
         <article class="card">
             <div class="card-body row">
                 <div class="col"><strong>{% trans 'Photo' %}:</strong> <br><br><img
-                        alt="" src="{{ review.product.get_title_photo }}"
+                        alt="" src="{{ review.product.default_varieties.title_photo }}"
                         style="width: 75px; "></div>
                 <div class="col"><strong>{% trans 'Product' %}:</strong> <br><br> <a
                         href="{{ review.product.get_absolute_url }}"

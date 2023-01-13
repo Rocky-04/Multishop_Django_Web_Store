@@ -76,8 +76,12 @@ class ProductInBasket(models.Model):
             basket, or an empty queryset if an error occurs.
         """
         try:
-            return ProductInBasket.objects.filter(user_authenticated=user_authenticated,
-                                                  is_active=True)
+            return ProductInBasket.objects.filter(
+                user_authenticated=user_authenticated,
+                is_active=True).select_related('size',
+                                               'color',
+                                               'product',
+                                               'product__default_varieties')
         except Exception as error:
             logger.error(f"Error retrieving basket products for user {user_authenticated}: {error}")
             return ProductInBasket.objects.none()
