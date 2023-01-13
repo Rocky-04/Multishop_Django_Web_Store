@@ -4,7 +4,7 @@ from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
 
-from config import DATABASE_PASSWORD
+from config import DATABASE_PASSWORD, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT
 from config import EMAIL_HOST_PASSWORD
 from config import EMAIL_HOST_USER
 from config import SECRET_KEY
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'online_store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rocky0u0_django3',
-        'USER': 'rocky0u0_django3',
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_NAME,
         'PASSWORD': DATABASE_PASSWORD,
-        'HOST': "rocky0u0.beget.tech",
-        'PORT': '3306',
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
         'ATOMIC_REQUEST': False,
     },
 }
