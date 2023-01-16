@@ -1,8 +1,6 @@
 import logging
 
 from django.db import models
-from django.db.models.signals import post_delete
-from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 
 from shop.models import AttributeColor
@@ -126,44 +124,3 @@ class PromoCode(models.Model):
         except Exception as error:
             logger.error(f"Error getting promo code with title {title}: {error}")
             raise error
-
-
-def product_in_order_post_save(sender, instance, created=None, **kwargs):
-    """
-    Update the order when changing products in the order, handling exceptions if necessary.
-
-    This function retrieves all products in the order, then calculates the order total price and
-    delivery cost based on the products and promo code (if applicable). It updates the order's
-    delivery, total price, and promo code fields and saves the changes to the database.
-
-    :param sender: The model class that sent the signal.
-    :param instance: The instance of the model that triggered the signal.
-    :param created: A boolean indicating whether the instance was just created.
-    :param kwargs: Additional keyword arguments passed from the signal.
-    :return: None
-    """
-    try:
-        order = instance.order
-        all_products_in_order = GoodsInTheOrder.objects.filter(order=order)
-        promo_code = 0
-        order_total_price = 0
-        for item in all_products_in_order:
-            order_total_price += item.total_price
-        if order_total_price:
-            delivery = Delivery.get_delivery(order_total_price)
-            instance.order.delivery = delivery
-            delivery = delivery.price
-            if instance.order.promo_code:
-                promo_code = instance.order.promo_code.price
-        else:
-            instance.order.delivery = None
-            delivery = 0
-        total_price = order_total_price + delivery - promo_code
-        instance.order.total_price = 0 if total_price < 0 else total_price
-        instance.order.save(force_update=True)
-    except Exception as error:
-        logger.error(f"Error updating order: {error}")
-
-
-post_save.connect(product_in_order_post_save, sender=GoodsInTheOrder)
-post_delete.connect(product_in_order_post_save, sender=GoodsInTheOrder)
