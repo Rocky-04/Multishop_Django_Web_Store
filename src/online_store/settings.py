@@ -16,7 +16,7 @@ SECRET_KEY = SECRET_KEY
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1', 'testserver']
+ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1', 'testserver', 'rocky.pp.ua']
 
 INSTALLED_APPS = [
     'modeltranslation',
