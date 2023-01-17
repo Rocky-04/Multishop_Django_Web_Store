@@ -24,3 +24,4 @@ tzdata==2022.6
 celery[redis]==5.2.7
 flower==1.2.0
 celery_singleton==0.3.1
+django-cachalot==2.5.2

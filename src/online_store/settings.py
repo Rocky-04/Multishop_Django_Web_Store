@@ -26,19 +26,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'django_filters',
+    'debug_toolbar',
+    'cachalot',
+    'ckeditor',
+    'mptt',
+    'nested_admin',
+    'captcha',
+
     'shop.apps.ShopConfig',
     'favorite',
     'basket',
     'users',
     'orders',
     'news',
-    'ckeditor',
-    'mptt',
-    'nested_admin',
-    'captcha',
-    'debug_toolbar',
-    'rest_framework',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -209,6 +212,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],
+            'level': 'INFO',
             'propagate': True,
         },
         'root': {
