@@ -21,10 +21,9 @@ def update_order_price(order_pk: int) -> None:
 
     :param order_pk: The primary key of the order.
     """
-    print('GOOOOOOOOOOOOOOOOO')
     try:
         with transaction.atomic():
-            order = Order.objects.get(order_pk)
+            order = Order.objects.get(pk=order_pk)
             all_products_in_order = GoodsInTheOrder.objects.filter(order=order)
             promo_code = 0
             order_total_price = 0
