@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
@@ -73,7 +74,15 @@ class ShopView(ShopMixin):
     """
 
     def get_queryset(self):
-        product = get_filter_products()
+        price_cashe_name = 'shop_view'
+        product_cache = cache.get(price_cashe_name)
+
+        if product_cache:
+            product = product_cache
+        else:
+            product = get_filter_products()
+            cache.set(price_cashe_name, product, 60 * 60)
+
         self.product_list_pk = get_product_ids()
         return product
 

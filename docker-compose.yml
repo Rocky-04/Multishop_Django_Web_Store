@@ -14,9 +14,11 @@ services:
       sh -c "python manage.py runserver 0.0.0.0:8000"
     restart: always
 
+
   redis:
     image: redis:7.0.5-alpine
     hostname: redis
+    restart: always
 
   worker:
     build:
@@ -32,6 +34,7 @@ services:
       - redis
     depends_on:
       - redis
+    restart: always
 
   flower:
     build:
@@ -47,3 +50,4 @@ services:
       - redis
     ports:
       - "5555:5555"
+    restart: always
