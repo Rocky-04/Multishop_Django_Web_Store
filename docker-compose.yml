@@ -23,8 +23,6 @@ services:
     restart: always
     build:
       context: .
-    volumes:
-      - ./src:/online_store
     env_file:
       - .env
 
