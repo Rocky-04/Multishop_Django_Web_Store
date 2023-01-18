@@ -22,7 +22,7 @@ services:
   django-backend:
     restart: always
     build:
-      context: ./Multishop_Django_Web_Store
+      context: .
     image: djangobackend
 
 
