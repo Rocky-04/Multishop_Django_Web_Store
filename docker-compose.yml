@@ -33,7 +33,7 @@ services:
 
   worker:
     build:
-      context: .
+      context: ./src
     hostname: worker
     entrypoint: celery
     command: -A celery_app.app worker --loglevel=info
@@ -49,7 +49,7 @@ services:
 
   flower:
     build:
-      context: .
+      context: ./src
     hostname: flower
     entrypoint: celery
     command: -A celery_app.app flower
