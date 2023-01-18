@@ -19,12 +19,11 @@ services:
       - ./persistentdata/certbot/www:/var/www/certbot
 
 
-  web-app:
+  django-backend:
     restart: always
     build:
-      context: .
-    env_file:
-      - .env
+      context: ./django-backend
+    image: djangobackend
 
 
   redis:
