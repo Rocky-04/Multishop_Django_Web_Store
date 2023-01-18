@@ -22,7 +22,7 @@ services:
   django-backend:
     restart: always
     build:
-      context: ./django-backend
+      context: ./src
     image: djangobackend
 
 
