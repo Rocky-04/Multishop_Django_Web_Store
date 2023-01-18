@@ -25,40 +25,40 @@ services:
       context: .
     image: djangobackend
 
-
-  redis:
-    image: redis:7.0.5-alpine
-    hostname: redis
-    restart: always
-
-  worker:
-    build:
-      context: .
-    hostname: worker
-    entrypoint: celery
-    command: -A celery_app.app worker --loglevel=info
-    volumes:
-      - ./src:/online_store
-    env_file:
-      - .env
-    links:
-      - redis
-    depends_on:
-      - redis
-    restart: always
-
-  flower:
-    build:
-      context: .
-    hostname: flower
-    entrypoint: celery
-    command: -A celery_app.app flower
-    volumes:
-      - ./src:/online_store
-    links:
-      - redis
-    depends_on:
-      - redis
-    ports:
-      - "5555:5555"
-    restart: always
+#
+#  redis:
+#    image: redis:7.0.5-alpine
+#    hostname: redis
+#    restart: always
+#
+#  worker:
+#    build:
+#      context: .
+#    hostname: worker
+#    entrypoint: celery
+#    command: -A celery_app.app worker --loglevel=info
+#    volumes:
+#      - ./src:/online_store
+#    env_file:
+#      - .env
+#    links:
+#      - redis
+#    depends_on:
+#      - redis
+#    restart: always
+#
+#  flower:
+#    build:
+#      context: .
+#    hostname: flower
+#    entrypoint: celery
+#    command: -A celery_app.app flower
+#    volumes:
+#      - ./src:/online_store
+#    links:
+#      - redis
+#    depends_on:
+#      - redis
+#    ports:
+#      - "5555:5555"
+#    restart: always
