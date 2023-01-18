@@ -20,17 +20,13 @@ services:
 
 
   web-app:
+    restart: always
     build:
       context: .
-    ports:
-      - "8000:8000"
     volumes:
       - ./src:/online_store
     env_file:
       - .env
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
-    restart: always
 
 
   redis:
