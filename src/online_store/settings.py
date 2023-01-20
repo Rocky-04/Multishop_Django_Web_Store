@@ -137,13 +137,13 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-if DEBUG:
-    STATIC_ROOT = ''
-    STATICFILES_DIRS = (os.path.join('static'),)
-else:
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATIC_ROOT = '/var/www/static'
+# if DEBUG:
+#     STATIC_ROOT = ''
+#     STATICFILES_DIRS = (os.path.join('static'),)
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATIC_ROOT = '/var/www/static'
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = '/var/www/media'
