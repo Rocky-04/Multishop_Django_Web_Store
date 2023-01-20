@@ -12,6 +12,8 @@ services:
     volumes:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
+      - ./persistentdata/static:/var/www/static
+      - ./persistentdata/media:/var/www/media
 
   certbot:
     image: certbot/certbot
@@ -28,6 +30,9 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    volumes:
+      - ./persistentdata/static:/var/www/static
+      - ./persistentdata/media:/var/www/media
     restart: always
 
 

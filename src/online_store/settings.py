@@ -12,6 +12,11 @@ from config import SERVER_EMAIL
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 SECRET_KEY = SECRET_KEY
 
 DEBUG = True
@@ -136,10 +141,12 @@ if DEBUG:
     STATIC_ROOT = ''
     STATICFILES_DIRS = (os.path.join('static'),)
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = '/var/www/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/var/www/media'
 
 EMPTY_IMAGE = '/media/images/empty/empty.png'
 
