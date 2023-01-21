@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 .pg-env
+env_mysql
 
 # C extensions
 *.so
