@@ -34,7 +34,33 @@ services:
       - ./persistentdata/static:/var/www/static
       - ./persistentdata/media:/var/www/media
     restart: always
+    depends_on:
+    - db
 
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '12345'
+    volumes:
+       - ./persistentdata/db/mysql:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - '3305:3305'
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - '8081:81'
+    environment:
+      - PMA_ARBITRARY=1
 
   redis:
     image: redis:7.0.5-alpine
