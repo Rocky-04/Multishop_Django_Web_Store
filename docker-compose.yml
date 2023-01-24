@@ -40,7 +40,7 @@ services:
     image: mysql
     restart: always
     env_file:
-      - env_mysql
+      - db.env
     volumes:
        - ./persistentdata/db/mysql:/var/lib/mysql
     ports:

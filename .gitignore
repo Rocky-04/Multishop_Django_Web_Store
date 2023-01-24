@@ -3,8 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+db.env
+mysql.env
 .pg-env
-env_mysql
+mysql.env
 
 # C extensions
 *.so
