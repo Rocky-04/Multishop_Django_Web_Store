@@ -4,7 +4,7 @@ from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
 
-from config import DATABASE_PASSWORD, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT
+from config import DATABASE_PASSWORD, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT, DATABASE_USER
 from config import EMAIL_HOST_PASSWORD
 from config import EMAIL_HOST_USER
 from config import SECRET_KEY
@@ -92,7 +92,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': DATABASE_NAME,
-        'USER': DATABASE_NAME,
+        'USER': DATABASE_USER,
         'PASSWORD': DATABASE_PASSWORD,
         'HOST': DATABASE_HOST,
         'PORT': DATABASE_PORT,
