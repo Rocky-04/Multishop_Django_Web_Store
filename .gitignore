@@ -7,7 +7,6 @@ db.env
 mysql.env
 .pg-env
 
-
 # C extensions
 *.so
 

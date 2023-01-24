@@ -22,7 +22,6 @@ services:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
 
-
   web-app:
     build:
       context: .
@@ -37,19 +36,17 @@ services:
     depends_on:
       - db
 
-
   db:
     image: mysql
     restart: always
     env_file:
       - db.env
     volumes:
-       - ./persistentdata/db/mysql:/var/lib/mysql
-       - ./my.cnf:/etc/mysql/my.cnf
+      - ./persistentdata/db/mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
     ports:
       - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
-
 
   phpmyadmin:
     image: phpmyadmin

@@ -8,4 +8,3 @@ RUN pip install -r /temp/requirements.txt
 COPY src /deploy
 WORKDIR /deploy
 CMD gunicorn -w 3 --chdir ./online_store wsgi --bind 0.0.0.0:8000
-
