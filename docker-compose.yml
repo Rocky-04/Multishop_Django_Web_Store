@@ -39,8 +39,8 @@ services:
   db:
     image: mysql
     restart: always
-#    env_file:
-#      - db.env
+    env_file:
+      - db.env
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
       - MYSQL_ROOT_HOST=%
