@@ -6,7 +6,7 @@ __pycache__/
 db.env
 mysql.env
 .pg-env
-mysql.env
+
 
 # C extensions
 *.so
