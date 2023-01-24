@@ -34,6 +34,8 @@ services:
       - ./persistentdata/static:/var/www/static
       - ./persistentdata/media:/var/www/media
     restart: always
+    depends_on:
+      - db
 
 
   db:
