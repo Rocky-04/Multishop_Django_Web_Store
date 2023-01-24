@@ -43,6 +43,7 @@ services:
       - db.env
     volumes:
        - ./persistentdata/db/mysql:/var/lib/mysql
+       - ./my.cnf:/etc/mysql/my.cnf
     ports:
       - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
