@@ -3,12 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+persistentdata
 db.env
 mysql.env
 .pg-env
 
 # C extensions
 *.so
+*.conf
 
 # Distribution / packaging
 .Python
