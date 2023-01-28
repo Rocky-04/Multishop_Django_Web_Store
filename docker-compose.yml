@@ -32,6 +32,7 @@ services:
     volumes:
       - ./persistentdata/static:/var/www/static
       - ./persistentdata/media:/var/www/media
+      - ./persistentdata/media:/var/www/logs
     restart: always
     depends_on:
       - db

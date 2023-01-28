@@ -19,7 +19,7 @@ CSRF_COOKIE_SECURE = True
 
 SECRET_KEY = SECRET_KEY
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1', 'testserver', 'rocky.pp.ua']
 
@@ -148,7 +148,7 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = '/var/www/media'
 
-EMPTY_IMAGE = '/media/images/empty/empty.png'
+EMPTY_IMAGE = MEDIA_ROOT + '/images/empty/empty.png'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
