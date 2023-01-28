@@ -180,7 +180,7 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 
 # LOG_ROOT = os.path.join(BASE_DIR, 'logs')
 
-LOG_ROOT = os.path.join(os.path.dirname(__file__), '../persistentdata/logs')
+LOG_ROOT = os.path.join(BASE_DIR, 'persistentdata','logs')
 
 LOGGING = {
     'version': 1,
