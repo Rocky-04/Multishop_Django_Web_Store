@@ -177,7 +177,8 @@ CAPTCHA_FONT_SIZE = 40
 CAPTCHA_IMAGE_SIZE = (120, 50)
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 
-LOG_ROOT = os.path.join(BASE_DIR, 'logs')
+# LOG_ROOT = os.path.join(BASE_DIR, 'logs')
+LOG_ROOT = '/var/www/logs'
 
 LOGGING = {
     'version': 1,
