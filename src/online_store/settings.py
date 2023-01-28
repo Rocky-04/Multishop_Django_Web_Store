@@ -19,7 +19,7 @@ CSRF_COOKIE_SECURE = True
 
 SECRET_KEY = SECRET_KEY
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['multishop.pp.ua', 'www.multishop.pp.ua', '127.0.0.1', 'testserver', 'rocky.pp.ua']
 
