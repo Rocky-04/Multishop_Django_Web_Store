@@ -137,16 +137,17 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/static'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/media'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # if DEBUG:
 #     STATIC_ROOT = ''
 #     STATICFILES_DIRS = (os.path.join('static'),)
 # else:
 #     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_ROOT = '/var/www/static'
-MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = '/var/www/media'
 
 EMPTY_IMAGE = '/media/images/empty/empty.png'
 
@@ -178,7 +179,8 @@ CAPTCHA_IMAGE_SIZE = (120, 50)
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 
 # LOG_ROOT = os.path.join(BASE_DIR, 'logs')
-LOG_ROOT = '/var/www/logs'
+
+LOG_ROOT = os.path.join(os.path.dirname(__file__), '../persistentdata/logs')
 
 LOGGING = {
     'version': 1,
@@ -213,7 +215,8 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': LOG_ROOT + '/logs.log',
+            'filename': os.path.join(LOG_ROOT, 'logs.log'),
+            # 'filename': LOG_ROOT + '/logs.log',
             'formatter': 'verbose'
         },
     },
