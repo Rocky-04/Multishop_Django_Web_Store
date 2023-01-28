@@ -212,8 +212,10 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': LOG_ROOT + '/logs.log',
-            'formatter': 'verbose'
+            'filename': LOG_ROOT + 'multishop.log',
+            'formatter': 'verbose',
+            'maxBytes': 1024 * 1024 * 15,  # 15MB
+            'backupCount': 10
         },
     },
     'loggers': {
