@@ -55,15 +55,4 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-5. Run the migrations to set up the database:
-
-```
-python manage.py migrate
-```
-
-6. Run the development server:
-
-```
-python manage.py runserver
-```
 
