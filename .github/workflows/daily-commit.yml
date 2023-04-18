@@ -1,0 +1,18 @@
+name: Daily commit
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Make commit
+      run: |
+        git config --global user.name "Rocky-04"
+        git config --global user.email "olegtsynkovskiy@gmail.com"
+        git commit --allow-empty -m "Daily commit $(date +'%Y-%m-%d')"
+        git push origin HEAD:master
