@@ -22,11 +22,6 @@ Personal user account: Users can create a personal account and log in to the sit
 Multiple languages: The project includes support for multiple languages, allowing users to choose
 their preferred language.
 
-# Demo shop
-
- A demo shop can be tried here:
-
-## https://multishop.pp.ua
 
 # Installation
 
